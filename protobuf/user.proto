@@ -1,13 +1,17 @@
-syntax = "proto3";
+syntax = "proto2";
+
+service UserData {
+  rpc CreateUser (CreateUserRequest) returns (CreateUserResponse) {}
+}
 
 message User {
-    string name = 1;
+    required string name = 1;
 }
 
 message CreateUserRequest {
-    User user = 1;
+    required User user = 1;
 }
 
 message CreateUserResponse {
-    bool success = 1;
+    required bool success = 1;
 }
