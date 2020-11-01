@@ -22,6 +22,7 @@
         </dependency>
     </dependencies>
     <build>
+        <defaultGoal>clean javafx:run</defaultGoal>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
