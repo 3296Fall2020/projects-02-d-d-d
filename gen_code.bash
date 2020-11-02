@@ -1,0 +1,1 @@
+protoc --java_out=client/src/com/dnd/generated --python_out=server/generated protobuf/user.proto
