@@ -1,1 +1,1 @@
-protoc --java_out=client/src/com/dnd/generated --python_out=server/generated protobuf/user.proto
+protoc -I ./ --plugin=protoc-gen-grpc-java=protoc-gen-grpc-java-1.33.0-osx-x86_64.exe --grpc-java_out=src/main/java/dnd/generated protobuf/user.proto
