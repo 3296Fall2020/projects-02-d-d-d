@@ -32,7 +32,8 @@ Johnny has a computer at home, and he knows the basics of computers and how to u
 Our backend repository is found [here](https://github.com/3296Fall2020/projects-02-d-d-d-backend/tree/master).
 
 ## Link to Project Board with Feature List
-https://github.com/3296Fall2020/projects-02-d-d-d/projects/1#column-11515277
+https://github.com/3296Fall2020/projects-02-d-d-d/projects/1
+
 
 ### Feature List 
 -Develop various skill-based math games testing basic arithmetic, multiplication, division, word problems, etc.    
