@@ -33,3 +33,15 @@ Our backend repository is found [here](https://github.com/3296Fall2020/projects-
 
 ## Link to Project Board with Feature List
 https://github.com/3296Fall2020/projects-02-d-d-d/projects/1
+
+
+### Feature List 
+-Develop various skill-based math games testing basic arithmetic, multiplication, division, word problems, etc.    
+-Create simple, turn-based combat system expressed in text format.   
+-Keep track of player statistics for various games and export progress report for review.   
+-Store saved player statistic data on server.   
+-Allow for random encounters (quests, skill checks, random combat).   
+-Develop storylines and quests for player.   
+-Develop character customization.   
+-Add multiplayer functionality.      
+
