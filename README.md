@@ -1,11 +1,14 @@
-# Parallel Computing
+# Dungeons & Dragons & Digits
+### Aszliah Delicana, Ryan McGregor, Priya Nigam, Quentin Novinger -  3296 Section 02
+An educational twist on a text-based RPG.
+ 
+# Vision Statement
+Dungeons & Dragons & Digits is a text-based, story-driven video game that incorporates math quizzes and lessons into the popular fantasy game Dungeons and Dragons, geared towards elementary school students, grades 1-5, who like video games and are in need of extra math education and practice. Unlike other video games and learning platforms, our product provides a fully immersive Dungeons and Dragons fantasy experience with math quizzes and lessons that teach students in a fun and interactive way.
 
-### Priya Nigam, Quentin Novinger, Ryan McGregor, & Aszliah Delicana 3296 Section 02
+# Project Overview
+This standalone project aims to create a Java-developed, text-based RPG, based on the popular fantasy game, Dungeons and Dragons. The game will contain small math quizzes embedded within the gameplay in order to provide extra math practice to children in grades 1-5 in a way that is fun and captures the user’s attention. The game will also log player statistics, which the player will be able to view and export to a file. In addition, the game will feature a multiplayer component that will allow the user to store save data on a server, maintain their progress across multiple devices, and compare scores with friends and other users.
 
-Our backend repository is found [here](https://github.com/3296Fall2020/projects-02-d-d-d-backend/tree/master).
-
-## Link to Project Board with Feature List
-https://github.com/3296Fall2020/projects-02-d-d-d/projects/1
+# Personas
 
 ## Persona 1 (Aszliah)
 Mrs. Jones is a 30-year-old elementary school math teacher in Pittsburgh, Pennsylvania who primarily teaches children in grades 3-5. She graduated from the University of Pittsburgh with a bachelor’s degree in primary education and went on to earn her teacher state certification. With the rise of technology, her school has been making efforts to incorporate technology as a supplement in the classroom and allows teachers to rent out laptop carts for their students to use during class. Students are walked through the basics of how to use the laptop at the start of the school year, although Mrs. Jones’s students tend to already have experience working with laptops at home.
@@ -25,3 +28,8 @@ Johnny, age 9, is a fourth grade student living in Miami, Florida with his mothe
 
 Johnny has a computer at home, and he knows the basics of computers and how to use simple GUIs, but he struggles with more complicated programs that aren’t clearly explained. He loses interest in programs that aren’t aesthetically pleasing, and his primary goal is to have fun. Johnny loves Dungeons and Dragons, and he is very excited to play Dungeons & Dragons & Digits, which combines his love for fantasy and video games. He’s not very excited about the learning aspect of the game, but he’s willing to try it out if the game is fun.
 
+## Link to Backend
+Our backend repository is found [here](https://github.com/3296Fall2020/projects-02-d-d-d-backend/tree/master).
+
+## Link to Project Board with Feature List
+https://github.com/3296Fall2020/projects-02-d-d-d/projects/1
