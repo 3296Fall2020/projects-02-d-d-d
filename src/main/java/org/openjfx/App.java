@@ -49,6 +49,9 @@ public class App extends Application {
 
     public static void main(String[] args) throws InterruptedException, IOException {
 
+        Dice die = new Dice();
+        System.out.println("Result is " + die.roll(2));
+
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         User usr = new User("Steve");
 
