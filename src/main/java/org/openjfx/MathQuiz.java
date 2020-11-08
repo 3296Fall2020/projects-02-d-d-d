@@ -1,7 +1,5 @@
 package org.openjfx;
 
-import java.util.Random;
-
 public abstract class MathQuiz {
     public abstract int[] generateQuiz(int numDigitsOne, int numDigitsTwo);
     private RandomNumberGenerator randomNumberGenerator;
@@ -18,7 +16,7 @@ public abstract class MathQuiz {
         int maxTwo = (int) Math.pow(10, (numDigitsTwo)) - 1; // maximum value for the second summand
 
         int intOne = randomNumberGenerator.randomIntInRange(minOne, maxOne); // first summand (randomly generated)
-        int intTwo = randomNumberGenerator.randomIntInRange(maxOne, maxTwo); // first summand (randomly generated)
+        int intTwo = randomNumberGenerator.randomIntInRange(minTwo, maxTwo); // first summand (randomly generated)
 
         int[] quizNumbers= {intOne, intTwo};
         return quizNumbers;
