@@ -49,34 +49,6 @@ public class App extends Application {
 
     public static void main(String[] args) throws InterruptedException, IOException {
 
-        //Testing that making a character works
-        Character Alex = new Character("Alex", "Human");
-        System.out.println("The character's name is " + Alex.getName());
-        System.out.println("The character's race is " + Alex.getRace());
-        System.out.println("The character's language is " + Alex.getLanguage());
-        System.out.println("The character's speed is " + Alex.getSpeed());
-        System.out.println("The character's strength is " + Alex.getStrength());
-        System.out.println("The character's dexterity is " + Alex.getDexterity());
-        System.out.println("The character's constitution is " + Alex.getConstitution());
-        System.out.println("The character's intelligence is " + Alex.getIntelligence());
-        System.out.println("The character's wisdom is " + Alex.getWisdom());
-        System.out.println("The character's charisma is " + Alex.getCharisma());
-        System.out.println("The character's XP is " + Alex.getXP());
-        System.out.println("The character's level is " + Alex.getLevel());
-
-        //Testing that increasing XP works
-        Alex.addXP(300);
-        System.out.println("+300 XP!");
-        System.out.println("The character's XP is now " + Alex.getXP());
-        System.out.println("The character's level is now " + Alex.getLevel());
-
-        //Testing that other race characters can be made.
-        Character Al = new Character("Al", "Halfling");
-        System.out.println("The character's name is " + Al.getName());
-        System.out.println("The character's race is " + Al.getRace());
-        System.out.println("The character's language is " + Al.getLanguage());
-        System.out.println("The character's speed is " + Al.getSpeed());
-
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         User usr = new User("Steve");
