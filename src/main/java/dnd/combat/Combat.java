@@ -41,7 +41,7 @@ public class Combat {
         this.player = c;
 
         //set placeholders
-        this.playerHP = 100;
+        this.playerHP = 15;
         this.playerDexMod = 3;
         this.playerStrMod = 2;
         Sword sword = new Sword();
@@ -51,7 +51,6 @@ public class Combat {
         this.dice = new Dice();
 
         initializeCombat();
-        runCombat();
     }
 
     /** COMBAT PREP METHODS **/
@@ -107,51 +106,6 @@ public class Combat {
         System.out.println("\n\nRound " + this.round + " start!\n");
     }
 
-    /** Perform opponent turn.**/
-    public void opponentTurn(){
-        if (allowNextTurn()){
-            opponent.taunt();
-
-            //Try to dodge the opponent's attack.
-            if(!playerDodge())
-                playerHP -= opponent.basicAttack();
-
-        }
-        else if(!allowNextTurn() && playerVictory){
-            winCombat();
-        }
-        else{}
-    }
-
-    /** Perform player turn. **/
-    public void playerTurn(){
-        if (allowNextTurn()){
-            System.out.println("Player health: " + playerHP);
-            System.out.println("Enemy health: " + opponent.getHP());
-            System.out.println("Current weapon: " + playerWeapon.getName());
-            System.out.println("Pick an action: \n1. Attack \n2. Use item \n3. Flee");
-
-            int choice;
-            /*
-            Scanner kb = new Scanner(System.in);
-            choice = Integer.parseInt(kb.nextLine());
-
-            if (choice == 1)
-                attack();
-            else if (choice == 2)
-                openInventory();
-            else
-                flee();*/
-
-            //ATTACKS BY DEFAULT. Implement choice with GUI here!!!
-            attack();
-        }
-        else if (!allowNextTurn() && !playerVictory){
-            loseCombat();
-        }
-        else{}
-    }
-
     /** RUN COMBAT UNTIL IT ENDS. **/
     public void runCombat(){
         Monster opponent = this.opponent;
@@ -161,31 +115,85 @@ public class Combat {
         {
             newRound(opponent);
             if (playerFirst){
-                playerTurn();
-                opponentTurn();
+                if(allowTurn())
+                    playerTurn();
+                if(allowTurn())
+                    opponentTurn();
             }
             else{
-                opponentTurn();
-                playerTurn();
+                if(allowTurn())
+                    opponentTurn();
+                if(allowTurn())
+                    playerTurn();
             }
         }
     }
 
     /** COMBAT METHODS **/
-    /** Checks if combat should continue running.
-     * If player or opponent health reaches 0 or lower, return false and switch combat active status to false.
-     * Else, return true.**/
-    public boolean allowNextTurn(){
+    /** Perform opponent turn.**/
+    public void opponentTurn(){
+        opponent.taunt();
+
+        //The opponent attacks, which the player attempts to dodge.
+        if(!playerDodge())
+            playerHP -= opponent.basicAttack();
+
+        checkForWin();
+    }
+
+    /** Perform player turn. **/
+    public void playerTurn(){
+        System.out.println("Player health: " + playerHP);
+        System.out.println("Enemy health: " + opponent.getHP());
+        System.out.println("Current weapon: " + playerWeapon.getName());
+        System.out.println("Pick an action: \n1. Attack \n2. Use item \n3. Flee");
+
+        int choice;
+        /*
+        Scanner kb = new Scanner(System.in);
+        choice = Integer.parseInt(kb.nextLine());
+
+        if (choice == 1)
+            attack();
+        else if (choice == 2)
+            openInventory();
+        else
+            flee();*/
+
+        //ATTACKS BY DEFAULT. Implement choice with GUI here!!!
+        attack();
+        checkForWin();
+    }
+
+    /** Check if game should go on. **/
+    public boolean allowTurn(){
+        if (!active)
+            return false;
+        return true;
+    }
+
+    /** Checks if player or opponent has won.
+        If player or opponent health reaches 0 or lower, return false and switch combat active status to false.
+        If the opponent drops to 0 or lower, set playerVictory to true.
+        Else, return true. **/
+    public boolean checkForWin(){
         if (playerHP <= 0 || opponent.hp <= 0) {
-            playerHP = 0;
             active = false;
             if (opponent.hp <= 0)
                 playerVictory = true;
-            return false;
+            System.out.println(getOutcome());
+            return true;
         }
-        playerVictory = false;
-        active = true;
-        return true;
+        return false;
+    }
+
+    public String getOutcome(){
+        String outcome;
+        if (playerVictory)
+            outcome = "You won!";
+        else
+            outcome = "You lost!";
+        return outcome;
     }
 
     /** The player attacks the Monster, who is damaged according to the weapon's damage die. **/

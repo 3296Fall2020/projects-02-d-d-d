@@ -13,9 +13,7 @@ public class TestCombat {
         Character c = new Character("Jim");
 
         Combat combat = new Combat(c);
-        combat.initializeCombat();
         combat.runCombat();
-
     }
 
 }
