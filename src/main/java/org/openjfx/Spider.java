@@ -4,10 +4,10 @@ public class Spider extends Monster {
 
     /** Creates a spider monster of the name "name" with a max HP of "hp" and its skill modifiers **/
     public void spawn(String name, int hp){
-        name = name;
+        this.name = name;
         this.hp = hp;
         this.desc = "A large, probably poisonous spider.";
-        this.type = "spider";
+        this.type = "Spider";
 
         dex = 2;
         str = 0;
@@ -21,7 +21,7 @@ public class Spider extends Monster {
 
     /** The spider taunts. **/
     public void taunt(){
-        System.out.println("The spider rears back on four of its legs and gnashes its fangs at you!");
+        System.out.println("The spider rears back on four of its legs and taunts you with a hiss.");
     }
 
     /**

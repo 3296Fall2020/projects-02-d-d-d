@@ -22,6 +22,9 @@ public class Combat {
     //boolean representing the ongoing status of combat. true if ongoing, false if ended
     public boolean active;
 
+    //boolean representing if the player won or not
+    public boolean playerVictory;
+
     //boolean to signify if the player goes first in combat. true if player goes first, false if opponent goes first.
     public boolean playerFirst;
 
@@ -37,6 +40,7 @@ public class Combat {
         //start combat at round 0
         this.round = 0;
         this.active = true;
+        this.playerVictory = false;
 
         //initialize character; placeholder for Character class
         initializeCharacter();
@@ -52,12 +56,12 @@ public class Combat {
     /** Initializes placeholder character stats. **/
     public void initializeCharacter(){
         this.playerHP = 100;
-        this.playerStr = 13;
-        this.playerDex = 15;
-        this.playerCon = 11;
-        this.playerIntl = 10;
-        this.playerWis = 13;
-        this.playerCha = 14;
+        this.playerStr = 1;
+        this.playerDex = -2;
+        this.playerCon = 1;
+        this.playerIntl = 1;
+        this.playerWis = 1;
+        this.playerCha = 1;
 
         Sword sword = new Sword();
         this.playerWeapon = sword;
@@ -66,7 +70,6 @@ public class Combat {
     /** Compares player and monster dexterity. Higher dexterity goes first (playerFirst = false). **/
     public boolean decideOrder(){
         if (playerDex <= opponent.dex){
-            System.out.println("You go first!");
             return false;}
         return true;
     }
@@ -74,7 +77,7 @@ public class Combat {
     /** MONSTER SPAWNING METHODS **/
     public Monster getRandomMonster(){
         Monster myMonster;
-        int random_num = (int)(Math.random() * (5 - 1 + 1) + 1);
+        int random_num = (int)(Math.random() * (10 - 1 + 1) + 1);
 
         if (random_num <= 5)
             myMonster = spawnSpider();
@@ -92,7 +95,7 @@ public class Combat {
 
     public Monster spawnGoblin(){
         Goblin goblin = new Goblin();
-        goblin.spawn("Dwight", 50);
+        goblin.spawn("Dwight", 15);
         return goblin;
     }
 
@@ -100,33 +103,38 @@ public class Combat {
     /** Signifies new round. **/
     public void newRound(Monster opponent){
         this.round++;
-        System.out.println("Round " + this.round + " start!\n");
+        System.out.println("\n\nRound " + this.round + " start!\n");
     }
 
     /** Perform opponent turn.**/
     public void opponentTurn(){
         if (allowNextTurn()){
             opponent.taunt();
-            playerHP -= opponent.attack();
+
+            //Try to dodge the opponent's attack.
+            if(!dodge())
+                playerHP -= opponent.attack();
+
         }
-        else{
+        else if(!allowNextTurn() && playerVictory){
             System.out.println("The " + opponent.type + " looks weak...");
             winCombat();
         }
+        else{}
     }
 
     /** Perform player turn. **/
     public void playerTurn(){
-        System.out.println("Player health: " + playerHP);
-        System.out.println("Enemy health: " + opponent.hp);
-        //Scanner kb = new Scanner(System.in);
-
         if (allowNextTurn()){
+            System.out.println("Player health: " + playerHP);
+            System.out.println("Enemy health: " + opponent.hp);
             System.out.println("Current weapon: " + playerWeapon.getName());
             System.out.println("Pick an action: \n1. Attack \n2. Use item \n3. Flee");
 
             int choice;
-            /*choice = Integer.parseInt(kb.nextLine());
+            /*
+            Scanner kb = new Scanner(System.in);
+            choice = Integer.parseInt(kb.nextLine());
 
             if (choice == 1)
                 attack();
@@ -135,12 +143,14 @@ public class Combat {
             else
                 flee();*/
 
+            //ATTACKS BY DEFAULT. Implement choice with GUI here!!!
             attack();
         }
-        else{
+        else if (!allowNextTurn() && !playerVictory){
             System.out.println("Oh no, everything's starting to feel fuzzy...");
             loseCombat();
         }
+        else{}
     }
 
     /** RUN COMBAT UNTIL IT ENDS. **/
@@ -176,19 +186,30 @@ public class Combat {
         if (playerHP <= 0 || opponent.hp <= 0) {
             playerHP = 0;
             active = false;
+            if (opponent.hp <= 0)
+                playerVictory = true;
             return false;
         }
+        playerVictory = false;
         active = true;
         return true;
     }
 
-    /** The player attacks the Monster target, who is damaged according to the weapon's damage die. **/
+    /** The player attacks the Monster, who is damaged according to the weapon's damage die. **/
     public void attack(){
-        System.out.println("You swing the sword towards the " + opponent.hp + "!");
-        if(opponent.dodge(rolld20())){
+        System.out.println("You swing the sword towards the " + opponent.type + "!");
+        if(!opponent.dodge(rolld20())){
             opponent.takeDamage(playerWeapon);
         }
-        System.out.println("Monster HP: " + opponent.hp);
+    }
+
+    /** The player tries to dodge the attack. If their d20 roll + DEX modifier exceeds the monster's dice roll, they succeed. **/
+    public boolean dodge(){
+        if((rolld20() + playerDex) >= rolld20()){
+            System.out.println("You manage to dodge the hit!");
+            return true;
+        }
+        return false;
     }
 
     /** Open inventory. **/
