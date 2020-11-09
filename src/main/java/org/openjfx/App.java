@@ -49,6 +49,7 @@ public class App extends Application {
 
     public static void main(String[] args) throws InterruptedException, IOException {
 
+
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         User usr = new User("Steve");
 
@@ -57,9 +58,9 @@ public class App extends Application {
         post.setEntity(new StringEntity(gson.toJson(usr)));
         post.setHeader("Content-type", "application/json");
 
-        HttpClient httpClient = HttpClientBuilder.create().build();
-        HttpResponse response = httpClient.execute(post);
-        System.out.println(response.getStatusLine());
+//        HttpClient httpClient = HttpClientBuilder.create().build();
+//        HttpResponse response = httpClient.execute(post);
+//        System.out.println(response.getStatusLine());
 
         // Demonstrating test quizzes and dice rolls ------------------
         TestQuizzesAndDice test = new TestQuizzesAndDice(); // creating test object
