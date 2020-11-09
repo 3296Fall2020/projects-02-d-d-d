@@ -4,7 +4,7 @@ import dnd.weapons.*;
 
 public class Goblin extends Monster {
 
-    /** Creates a goblin monster of the name "name" with a max HP of "hp" and its skill modifiers **/
+    /** Creates a goblin monster of the name "name" with a max HP of "hp" and set its attributes**/
     public Goblin(String name, int hp){
         //goblin basic info
         this.name = name;
@@ -30,7 +30,8 @@ public class Goblin extends Monster {
         //the maximum damage a goblin can do
         this.damageDie = club.getDie();
 
-        //set the spider's strings
+        //set the goblin's strings
+        this.introString = this.name + " the " + this.type + " lopes towards you... It looks like they want a fight!";
         this.tauntString = this.name + " sticks out their tongue and cackles at you.";
         this.victoryString = this.name + " has defeated you.";
         this.defeatString = this.name + " has been defeated.";

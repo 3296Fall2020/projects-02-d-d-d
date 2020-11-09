@@ -23,6 +23,7 @@ public abstract class Monster {
     public int chaMod;
 
     //strings
+    public String introString;
     public String tauntString;
     public String victoryString;
     public String defeatString;
@@ -56,6 +57,11 @@ public abstract class Monster {
 
     public Weapon getWeapon(){
         return this.weapon;
+    }
+
+    //Gets the monster's introduction as a String
+    public String getIntroString(){
+        return this.introString;
     }
 
     //Gets the monster's taunt as a String
@@ -176,12 +182,11 @@ public abstract class Monster {
 
     /** The monster takes dmg amount of damage. **/
     public void takeDamage(int dmg){
-        this.damageTakenString = this.name + " is hit! They take " + dmg + " damage.";
+        this.damageTakenString = this.name + " takes " + dmg + " damage.";
         this.hp -= dmg;
     }
 
     /** ABSTRACT METHODS **/
-
     /** The monster's basic attack, determined by the damageDie of their weapon.
         Returns the amount of damage the monster does. **/
     public abstract int basicAttack();

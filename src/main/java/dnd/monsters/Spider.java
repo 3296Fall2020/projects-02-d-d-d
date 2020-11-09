@@ -4,7 +4,7 @@ import dnd.weapons.*;
 
 public class Spider extends Monster {
 
-    /** Creates a spider monster of the name "name" with a max HP of "hp" and its skill modifiers **/
+    /** Creates a spider monster of the name "name" with a max HP of "hp" and set its attributes **/
     public Spider(String name, int hp){
         //spider basic info
         this.name = name;
@@ -31,6 +31,7 @@ public class Spider extends Monster {
         //this.damageDie = claws.getDie();
 
         //set the spider's strings
+        this.introString = this.name + " the " + this.type + " scuttles towards you menacingly... It looks like they want a fight!";
         this.tauntString = this.name + " rears back on four of its legs and taunts you with a hiss.";
         this.victoryString = this.name + " has defeated you.";
         this.defeatString = this.name + " has been defeated.";
