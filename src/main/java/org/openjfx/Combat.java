@@ -76,7 +76,7 @@ public class Combat {
         Monster myMonster;
         int random_num = (int)(Math.random() * (5 - 1 + 1) + 1);
 
-        if (random_num <= 3)
+        if (random_num <= 5)
             myMonster = spawnSpider();
         else
             myMonster = spawnGoblin();
@@ -107,7 +107,7 @@ public class Combat {
     public void opponentTurn(){
         if (allowNextTurn()){
             opponent.taunt();
-            opponent.attack();
+            playerHP -= opponent.attack();
         }
         else{
             System.out.println("The " + opponent.type + " looks weak...");
@@ -117,20 +117,25 @@ public class Combat {
 
     /** Perform player turn. **/
     public void playerTurn(){
+        System.out.println("Player health: " + playerHP);
+        System.out.println("Enemy health: " + opponent.hp);
+        //Scanner kb = new Scanner(System.in);
+
         if (allowNextTurn()){
             System.out.println("Current weapon: " + playerWeapon.getName());
-            System.out.println("Pick an action: \n1.Attack \n2. Use item \n3. Flee");
+            System.out.println("Pick an action: \n1. Attack \n2. Use item \n3. Flee");
 
             int choice;
-            Scanner kb = new Scanner(System.in);
-            choice = Integer.parseInt(kb.nextLine());
+            /*choice = Integer.parseInt(kb.nextLine());
 
             if (choice == 1)
                 attack();
             else if (choice == 2)
                 openInventory();
             else
-                flee();
+                flee();*/
+
+            attack();
         }
         else{
             System.out.println("Oh no, everything's starting to feel fuzzy...");

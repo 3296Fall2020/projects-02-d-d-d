@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 
 import org.apache.http.HttpResponse;
@@ -86,7 +87,7 @@ public class App extends Application {
             channel.shutdownNow().awaitTermination(5, TimeUnit.SECONDS);
         } */
 
-        launch();
+        //launch();
     }
 
 }

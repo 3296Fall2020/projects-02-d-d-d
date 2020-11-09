@@ -2,32 +2,19 @@ package org.openjfx;
 
 public class Spider extends Monster {
 
-    public String name;
-    public String type;
-    public String desc;
-    public int hp;
-    public int initiative;
-
-    public int dex;
-    public int str;
-    public int con;
-    public int wis;
-    public int intl;
-    public int cha;
-
     /** Creates a spider monster of the name "name" with a max HP of "hp" and its skill modifiers **/
     public void spawn(String name, int hp){
-        this.name = name;
+        name = name;
         this.hp = hp;
         this.desc = "A large, probably poisonous spider.";
         this.type = "spider";
 
-        this.dex = 2;
-        this.str = 0;
-        this.con = 1;
-        this.wis = 1;
-        this.intl = 1;
-        this.cha = -2;
+        dex = 2;
+        str = 0;
+        con = 1;
+        wis = 1;
+        intl = 1;
+        cha = -2;
 
         this.initiative = this.dex;
     }
@@ -72,6 +59,7 @@ public class Spider extends Monster {
     public void takeDamage(Weapon weapon){
         // weapon deals random damage, up to the maximum of its damage die
         int dmg = (int)(Math.random() * (weapon.getDie() - 1 + 1) + 1);
-        System.out.println("Ouch! The ");
+        System.out.println("Ouch! The spider takes " + dmg + " damage.");
+        hp -= dmg;
     }
 }
