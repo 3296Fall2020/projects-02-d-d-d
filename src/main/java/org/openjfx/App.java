@@ -9,7 +9,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
+import java.util.HashMap;
+import java.util.Map;
 
 
 import org.apache.http.HttpResponse;
@@ -49,17 +50,25 @@ public class App extends Application {
 
     public static void main(String[] args) throws InterruptedException, IOException {
 
+
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         User usr = new User("Steve");
 
-        HttpPost post = new HttpPost("http://localhost:5000/user");
+        //HttpPost post = new HttpPost("http://localhost:5000/user");
 
-        post.setEntity(new StringEntity(gson.toJson(usr)));
-        post.setHeader("Content-type", "application/json");
+        //post.setEntity(new StringEntity(gson.toJson(usr)));
+        //post.setHeader("Content-type", "application/json");
 
-        HttpClient httpClient = HttpClientBuilder.create().build();
-        HttpResponse response = httpClient.execute(post);
-        System.out.println(response.getStatusLine());
+        //HttpClient httpClient = HttpClientBuilder.create().build();
+        //HttpResponse response = httpClient.execute(post);
+        //System.out.println(response.getStatusLine());
+
+
+        //Inventory i = new Inventory();
+
+        Combat combat = new Combat();
+        combat.initializeCombat();
+        combat.runCombat();
 
         /*
         String server = "localhost:50051";
