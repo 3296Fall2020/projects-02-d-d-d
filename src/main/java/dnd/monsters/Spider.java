@@ -28,7 +28,7 @@ public class Spider extends Monster {
         this.initiative = this.dexMod;
 
         //the maximum damage a spider can do
-        //this.damageDie = claws.getDie();
+        this.damageDie = claws.getDie();
 
         //set the spider's strings
         this.introString = this.name + " the " + this.type + " scuttles towards you menacingly... It looks like they want a fight!";
