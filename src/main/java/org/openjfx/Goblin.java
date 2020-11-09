@@ -2,25 +2,12 @@ package org.openjfx;
 
 public class Goblin extends Monster {
 
-    public String name;
-    public String type;
-    public String desc;
-    public int hp;
-    public int initiative;
-
-    public int dex;
-    public int str;
-    public int con;
-    public int wis;
-    public int intl;
-    public int cha;
-
     /** Creates a goblin monster of the name "name" with a max HP of "hp" and its skill modifiers **/
     public void spawn(String name, int hp){
         this.name = name;
         this.hp = hp;
         this.desc = "A harried-looking goblin, with mottled green-gray skin and beady black eyes.";
-        this.type = "goblin";
+        this.type = "Goblin";
 
         this.dex = 1;
         this.str = 2;
@@ -71,6 +58,7 @@ public class Goblin extends Monster {
     public void takeDamage(Weapon weapon){
         // weapon deals random damage, up to the maximum of its damage die
         int dmg = (int)(Math.random() * (weapon.getDie() - 1 + 1) + 1);
-        this.hp -= dmg;
+        System.out.println("Ouch! The goblin takes " + dmg + " damage.");
+        hp -= dmg;
     }
 }
