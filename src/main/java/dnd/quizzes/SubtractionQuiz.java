@@ -1,6 +1,8 @@
-package org.openjfx;
+package dnd.quizzes;
 
-public class SubtractionQuiz extends MathQuiz{
+import dnd.dice.RandomNumberGenerator;
+
+public class SubtractionQuiz extends MathQuiz {
 
     private RandomNumberGenerator randomNumberGenerator;
 

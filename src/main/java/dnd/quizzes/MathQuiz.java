@@ -1,4 +1,6 @@
-package org.openjfx;
+package dnd.quizzes;
+
+import dnd.dice.RandomNumberGenerator;
 
 public abstract class MathQuiz {
     public abstract int[] generateQuiz(int numDigitsOne, int numDigitsTwo);

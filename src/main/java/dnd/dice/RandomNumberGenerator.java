@@ -1,4 +1,4 @@
-package org.openjfx;
+package dnd.dice;
 
 import java.util.concurrent.ThreadLocalRandom;
 

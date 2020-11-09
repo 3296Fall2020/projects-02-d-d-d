@@ -1,6 +1,6 @@
-package org.openjfx;
+package dnd.dice;
 
-import java.util.concurrent.ThreadLocalRandom;
+import dnd.dice.RandomNumberGenerator;
 
 public class Dice {
     private RandomNumberGenerator randomNumberGenerator;

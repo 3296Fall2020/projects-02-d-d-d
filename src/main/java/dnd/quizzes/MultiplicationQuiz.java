@@ -1,6 +1,8 @@
-package org.openjfx;
+package dnd.quizzes;
 
-public class MultiplicationQuiz extends MathQuiz{
+import dnd.dice.RandomNumberGenerator;
+
+public class MultiplicationQuiz extends MathQuiz {
     private RandomNumberGenerator randomNumberGenerator;
 
     public MultiplicationQuiz() {
