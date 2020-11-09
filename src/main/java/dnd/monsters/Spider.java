@@ -1,7 +1,5 @@
 package dnd.monsters;
 
-import dnd.dice.Dice;
-import dnd.weapons.Club;
 import dnd.weapons.*;
 
 public class Spider extends Monster {
@@ -16,7 +14,7 @@ public class Spider extends Monster {
 
         //spiders get claws
         Claws claws = new Claws();
-        getWeapon(claws);
+        this.giveWeapon(claws);
 
         //spider stats
         this.dexMod = 2;

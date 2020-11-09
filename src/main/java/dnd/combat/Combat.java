@@ -12,91 +12,60 @@ public class Combat {
     //Ints representing the player's stats. These are placeholders and will be replaced by references to the Character class.
     public Character player;
 
-    //placeholder variables
-    public int playerHP;
-    public int playerDexMod;
-    public int playerStrMod;
-    public Weapon playerWeapon;
-
-    //dice for combat
-    public Dice dice;
-
-    //boolean representing the ongoing status of combat. true if ongoing, false if ended
-    public boolean active;
-
-    //boolean representing if the player won or not
-    public boolean playerVictory;
-
-    //boolean to signify if the player goes first in combat. true if player goes first, false if opponent goes first.
-    public boolean playerFirst;
-
-    //int to signify the current combat round
-    private int round;
+    //A MonsterGenerator for generating a random monster
+    private MonsterGenerator myMonsterGenerator;
 
     //the current opponent
     public Monster opponent;
+
+    //placeholder for weapon usage
+    public Weapon playerWeapon;
+
+    //dice for combat
+    private Dice dice;
+
+    //boolean representing the ongoing status of combat. true if ongoing, false if ended
+    private boolean active;
+
+    //boolean representing if the player won or not
+    private boolean playerVictory;
+
+    //boolean to signify if the player goes first in combat. true if player goes first, false if opponent goes first.
+    private boolean playerFirst;
+
+    //int to signify the current combat round
+    private int round;
 
     public Combat(Character c){
         //set character
         this.player = c;
 
         //set placeholders
-        this.playerHP = 15;
-        this.playerDexMod = 3;
-        this.playerStrMod = 2;
         Sword sword = new Sword();
         this.playerWeapon = sword;
 
         //create dice
         this.dice = new Dice();
 
-        initializeCombat();
-    }
-
-    /** COMBAT PREP METHODS **/
-    /** Initializes combat settings. **/
-    public void initializeCombat(){
         //start combat at round 0
         this.round = 0;
         this.active = true;
         this.playerVictory = false;
 
         //create monster
-        this.opponent = getRandomMonster();
+        this.opponent = myMonsterGenerator.generateRandomMonster();
 
         //check who goes first, based on dexterity scores
         this.playerFirst = decideOrder();
 
     }
 
-    /** Compares player and monster dexterity. Higher dexterity goes first (playerFirst = false). **/
+    /** Decides turn order by comparing player and monster dexterity mods.
+        The higher dexterity mod goes first (playerFirst = false). **/
     public boolean decideOrder(){
-        if (playerDexMod <= opponent.getDexMod())
+        if (player.getDexterityMod() <= opponent.getDexMod())
             return false;
         return true;
-    }
-
-    /** MONSTER SPAWNING METHODS **/
-    public Monster getRandomMonster(){
-        Monster myMonster;
-        int random_num = dice.roll(10);
-
-        if (random_num <= 5)
-            myMonster = spawnSpider();
-        else
-            myMonster = spawnGoblin();
-
-        return myMonster;
-    }
-
-    public Monster spawnSpider(){
-        Spider spider = new Spider("Creed", 50);
-        return spider;
-    }
-
-    public Monster spawnGoblin(){
-        Goblin goblin = new Goblin("Dwight", 15);
-        return goblin;
     }
 
     /** ROUND HANDLING METHODS **/
@@ -135,16 +104,19 @@ public class Combat {
         opponent.taunt();
 
         //The opponent attacks, which the player attempts to dodge.
-        if(!playerDodge())
-            playerHP -= opponent.basicAttack();
+        if(!playerDodge()) {
+            int newHP;
+            newHP = player.getHitPoints() - opponent.basicAttack();
+            player.setHitPoints(newHP);
+        }
 
         checkForWin();
     }
 
     /** Perform player turn. **/
     public void playerTurn(){
-        System.out.println("Player health: " + playerHP);
-        System.out.println("Enemy health: " + opponent.getHP());
+        System.out.println("Player health: " + player.getHitPoints());
+        System.out.println("Enemy health: " + opponent.getHitPoints());
         System.out.println("Current weapon: " + playerWeapon.getName());
         System.out.println("Pick an action: \n1. Attack \n2. Use item \n3. Flee");
 
@@ -177,7 +149,7 @@ public class Combat {
         If the opponent drops to 0 or lower, set playerVictory to true.
         Else, return true. **/
     public boolean checkForWin(){
-        if (playerHP <= 0 || opponent.hp <= 0) {
+        if (player.getHitPoints() <= 0 || opponent.hp <= 0) {
             active = false;
             if (opponent.hp <= 0)
                 playerVictory = true;
@@ -189,14 +161,16 @@ public class Combat {
 
     public String getOutcome(){
         String outcome;
-        if (playerVictory)
-            outcome = "You won!";
-        else
-            outcome = "You lost!";
+        if (playerVictory) {
+            outcome = winCombat();
+        }
+        else {
+            outcome = loseCombat();
+        }
         return outcome;
     }
 
-    /** The player attacks the Monster, who is damaged according to the weapon's damage die. **/
+    /** The player attacks the Monster, who is damaged according to the playerWeapon's damage die. **/
     public void attack(){
         System.out.println("You swing the sword towards the " + opponent.type + "!");
         int tryAttack = dice.roll(20);
@@ -208,7 +182,7 @@ public class Combat {
 
     /** The player tries to dodge the attack. If their d20 roll + DEX modifier exceeds the monster's dice roll, they succeed. **/
     public boolean playerDodge(){
-        int tryDodge = dice.roll(20) + playerDexMod;
+        int tryDodge = dice.roll(20) + player.getDexterityMod();
         int opponentAttack = dice.roll(20);
         if(tryDodge >= opponentAttack){
             System.out.println("You manage to dodge the hit!");
@@ -223,15 +197,22 @@ public class Combat {
     }
 
     /** Win combat, then end it. **/
-    public void winCombat(){
-        System.out.println("Your opponent falls to the ground, defeated.\nCongratulations, you won this fight!");
+    public String winCombat(){
+        //give rewards
+
+        String ret = "Your opponent falls to the ground, defeated.\nCongratulations, you won this fight!";
         active = false;
+        return ret;
     }
 
     /** Lose combat, then end it. **/
-    public void loseCombat(){
-        System.out.println("You fall to the ground, defeated.\nYou lost this fight!");
+    public String loseCombat(){
+        //perform loss consequences
+
+        String ret = "You fall to the ground, defeated.\nYou lost this fight!";
         active = false;
+
+        return ret;
     }
 
     /** Flee combat, then end it. **/

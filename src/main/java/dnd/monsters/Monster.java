@@ -35,7 +35,7 @@ public abstract class Monster {
     public int getInitiative(){
         return this.initiative;
     }
-    public int getHP(){
+    public int getHitPoints(){
         return this.hp;
     }
     public Weapon getWeapon(){
@@ -64,7 +64,7 @@ public abstract class Monster {
     }
 
     /** Gives the monster a weapon and assigns its damage die to the weapon's damage die. **/
-    public void getWeapon(Weapon w){
+    public void giveWeapon(Weapon w){
         this.weapon = w;
         this.damageDie = w.getDie();
     }

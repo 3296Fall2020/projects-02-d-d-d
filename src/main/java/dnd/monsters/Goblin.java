@@ -1,6 +1,5 @@
 package dnd.monsters;
 
-import dnd.dice.Dice;
 import dnd.weapons.*;
 
 public class Goblin extends Monster {
@@ -15,7 +14,7 @@ public class Goblin extends Monster {
 
         //goblins get clubs
         Club club = new Club();
-        getWeapon(club);
+        this.giveWeapon(club);
 
         //goblin stats
         this.dexMod = 1;
