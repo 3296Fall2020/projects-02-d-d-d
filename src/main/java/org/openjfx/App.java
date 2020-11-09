@@ -1,8 +1,7 @@
 package org.openjfx;
 
 import dnd.data.User;
-import dnd.dice.Dice;
-import dnd.quizzes.*;
+import dnd.test.TestQuizzesAndDice;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 
 import org.apache.http.HttpResponse;
@@ -64,8 +62,8 @@ public class App extends Application {
         System.out.println(response.getStatusLine());
 
         // Demonstrating test quizzes and dice rolls ------------------
-        TestQuizzes test = new TestQuizzes(); // creating test object
-        test.testQuizzes(); // calling test function
+        TestQuizzesAndDice test = new TestQuizzesAndDice(); // creating test object
+        test.testQuizzesAndDice(); // calling test function
         // -------------------------------------------------------------
 
         /*

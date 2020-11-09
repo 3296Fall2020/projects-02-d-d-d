@@ -1,13 +1,14 @@
-package dnd.quizzes;
+package dnd.test;
 
 import dnd.dice.Dice;
+import dnd.quizzes.*;
 
 import java.util.Arrays;
 
-public class TestQuizzes {
+public class TestQuizzesAndDice {
 
     // tests and demonstrates the generation of math quizzes and dice rolling
-    public void testQuizzes() {
+    public void testQuizzesAndDice() {
         // Demonstration of dices rolls ------------------------------------------------------
         Dice die = new Dice();
         System.out.println("Rolling a 6-sided die: " + die.roll(6));
