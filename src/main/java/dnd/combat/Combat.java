@@ -57,7 +57,7 @@ public class Combat {
         this.opponent = myMonsterGenerator.generateRandomMonster();
 
         //check who goes first
-        //this.playerFirst = decideOrder();
+        this.playerFirst = decideOrder();
 
     }
 
