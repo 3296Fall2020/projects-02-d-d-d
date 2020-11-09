@@ -2,10 +2,21 @@ package dnd.weapons;
 
 public abstract class Weapon {
 
-    public abstract String getName();
+    /** Each weapon consists of a name, description, and damageDie.
+        The damageDie is the maximum amount of damage a weapon can do.
+     **/
+    public String name;
+    public String desc;
+    public int damageDie;
 
-    public abstract int getDie();
+    /** Return the name of the weapon. **/
+    public String getName(){
+        return this.name;
+    }
 
-    public abstract void getDesc();
+    /** Return the weapon's damage die. **/
+    public int getDie(){
+        return this.damageDie;
+    }
 
 }

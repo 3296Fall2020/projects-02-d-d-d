@@ -2,20 +2,24 @@ package dnd.combat;
 
 import dnd.monsters.*;
 import dnd.weapons.*;
+import dnd.characters.Character;
+import dnd.dice.Dice;
 
 public class Combat {
 
     /* CHARACTER VARIABLES */
 
     //Ints representing the player's stats. These are placeholders and will be replaced by references to the Character class.
-    public int playerHP; //hp
-    public int playerStr; //strength
-    public int playerDex; //dexterity
-    public int playerCon; //constitution
-    public int playerIntl; //intelligence
-    public int playerWis; //wisdom
-    public int playerCha; //charisma
+    public Character player;
+
+    //placeholder variables
+    public int playerHP;
+    public int playerDexMod;
+    public int playerStrMod;
     public Weapon playerWeapon;
+
+    //dice for combat
+    public Dice dice;
 
     //boolean representing the ongoing status of combat. true if ongoing, false if ended
     public boolean active;
@@ -32,6 +36,24 @@ public class Combat {
     //the current opponent
     public Monster opponent;
 
+    public Combat(Character c){
+        //set character
+        this.player = c;
+
+        //set placeholders
+        this.playerHP = 100;
+        this.playerDexMod = 3;
+        this.playerStrMod = 2;
+        Sword sword = new Sword();
+        this.playerWeapon = sword;
+
+        //create dice
+        this.dice = new Dice();
+
+        initializeCombat();
+        runCombat();
+    }
+
     /** COMBAT PREP METHODS **/
     /** Initializes combat settings. **/
     public void initializeCombat(){
@@ -39,9 +61,6 @@ public class Combat {
         this.round = 0;
         this.active = true;
         this.playerVictory = false;
-
-        //initialize character; placeholder for Character class
-        initializeCharacter();
 
         //create monster
         this.opponent = getRandomMonster();
@@ -51,31 +70,17 @@ public class Combat {
 
     }
 
-    /** Initializes placeholder character stats. **/
-    public void initializeCharacter(){
-        this.playerHP = 100;
-        this.playerStr = 1;
-        this.playerDex = -2;
-        this.playerCon = 1;
-        this.playerIntl = 1;
-        this.playerWis = 1;
-        this.playerCha = 1;
-
-        Sword sword = new Sword();
-        this.playerWeapon = sword;
-    }
-
     /** Compares player and monster dexterity. Higher dexterity goes first (playerFirst = false). **/
     public boolean decideOrder(){
-        if (playerDex <= opponent.dex){
-            return false;}
+        if (playerDexMod <= opponent.getDexMod())
+            return false;
         return true;
     }
 
     /** MONSTER SPAWNING METHODS **/
     public Monster getRandomMonster(){
         Monster myMonster;
-        int random_num = (int)(Math.random() * (10 - 1 + 1) + 1);
+        int random_num = dice.roll(10);
 
         if (random_num <= 5)
             myMonster = spawnSpider();
@@ -86,14 +91,12 @@ public class Combat {
     }
 
     public Monster spawnSpider(){
-        Spider spider = new Spider();
-        spider.spawn("Creed", 50);
+        Spider spider = new Spider("Creed", 50);
         return spider;
     }
 
     public Monster spawnGoblin(){
-        Goblin goblin = new Goblin();
-        goblin.spawn("Dwight", 15);
+        Goblin goblin = new Goblin("Dwight", 15);
         return goblin;
     }
 
@@ -110,12 +113,11 @@ public class Combat {
             opponent.taunt();
 
             //Try to dodge the opponent's attack.
-            if(!dodge())
-                playerHP -= opponent.attack();
+            if(!playerDodge())
+                playerHP -= opponent.basicAttack();
 
         }
         else if(!allowNextTurn() && playerVictory){
-            System.out.println("The " + opponent.type + " looks weak...");
             winCombat();
         }
         else{}
@@ -125,7 +127,7 @@ public class Combat {
     public void playerTurn(){
         if (allowNextTurn()){
             System.out.println("Player health: " + playerHP);
-            System.out.println("Enemy health: " + opponent.hp);
+            System.out.println("Enemy health: " + opponent.getHP());
             System.out.println("Current weapon: " + playerWeapon.getName());
             System.out.println("Pick an action: \n1. Attack \n2. Use item \n3. Flee");
 
@@ -145,7 +147,6 @@ public class Combat {
             attack();
         }
         else if (!allowNextTurn() && !playerVictory){
-            System.out.println("Oh no, everything's starting to feel fuzzy...");
             loseCombat();
         }
         else{}
@@ -171,12 +172,6 @@ public class Combat {
     }
 
     /** COMBAT METHODS **/
-    /** Placeholder method for Dice class **/
-    public int rolld20(){
-        int dmg = (int)(Math.random() * (20 - 1 + 1) + 1);
-        return dmg;
-    }
-
     /** Checks if combat should continue running.
      * If player or opponent health reaches 0 or lower, return false and switch combat active status to false.
      * Else, return true.**/
@@ -196,14 +191,18 @@ public class Combat {
     /** The player attacks the Monster, who is damaged according to the weapon's damage die. **/
     public void attack(){
         System.out.println("You swing the sword towards the " + opponent.type + "!");
-        if(!opponent.dodge(rolld20())){
-            opponent.takeDamage(playerWeapon);
+        int tryAttack = dice.roll(20);
+        if(!opponent.dodge(tryAttack)){
+            int dmg = dice.roll(playerWeapon.getDie());
+            opponent.takeDamage(dmg);
         }
     }
 
     /** The player tries to dodge the attack. If their d20 roll + DEX modifier exceeds the monster's dice roll, they succeed. **/
-    public boolean dodge(){
-        if((rolld20() + playerDex) >= rolld20()){
+    public boolean playerDodge(){
+        int tryDodge = dice.roll(20) + playerDexMod;
+        int opponentAttack = dice.roll(20);
+        if(tryDodge >= opponentAttack){
             System.out.println("You manage to dodge the hit!");
             return true;
         }

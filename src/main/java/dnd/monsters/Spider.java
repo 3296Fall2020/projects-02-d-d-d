@@ -1,24 +1,31 @@
 package dnd.monsters;
 
-import dnd.weapons.Weapon;
+import dnd.dice.Dice;
+import dnd.weapons.Club;
+import dnd.weapons.*;
 
 public class Spider extends Monster {
 
     /** Creates a spider monster of the name "name" with a max HP of "hp" and its skill modifiers **/
-    public void spawn(String name, int hp){
+    public Spider(String name, int hp){
+        //spider basic info
         this.name = name;
         this.hp = hp;
         this.desc = "A large, probably poisonous spider.";
-        this.type = "Spider";
+        this.type = "spider";
 
-        dex = 2;
-        str = 0;
-        con = 1;
-        wis = 1;
-        intl = 1;
-        cha = -2;
+        //spiders get claws
+        Claws claws = new Claws();
+        getWeapon(claws);
 
-        this.initiative = this.dex;
+        //spider stats
+        this.dexMod = 2;
+        this.strMod = 0;
+        this.conMod = 1;
+        this.wisMod = 1;
+        this.intlMod = 1;
+        this.chaMod = -2;
+        this.initiative = this.dexMod;
     }
 
     /** The spider taunts. **/
@@ -31,12 +38,10 @@ public class Spider extends Monster {
      Note: Value will be randomized via one of the game dice.
      The spider deals a base damage of 5, plus a 1d8
      **/
-    public int attack(){
-        int dmg = 5;
-        dmg += (int)(Math.random() * (8 - 1 + 1) + 1);
+    public int basicAttack(){
+        int dmg = dice.roll(weapon.getDie());
 
-        System.out.println("The spider lashes out with one of its claws!");
-        System.out.println("Player takes " + dmg + " damage.");
+        System.out.println("The spider lashes out with its claws, dealing " + dmg + " damage!");
 
         return dmg;
     }
@@ -45,9 +50,9 @@ public class Spider extends Monster {
         Successful if (1d20 + spider's DEX) >= player's roll
      **/
     public boolean dodge(int playerRoll){
-        int spiderRoll = (int)(Math.random() * (20 - 1 + 1) + 1);
+        int spiderRoll = dice.roll(20) + this.dexMod;
 
-        if ((spiderRoll + this.dex) > playerRoll){
+        if (spiderRoll > playerRoll){
             System.out.println("The spider successfully dodges the hit!");
             return true;
         }
@@ -57,11 +62,9 @@ public class Spider extends Monster {
         }
     }
 
-    /** The spider takes damage from weapon. **/
-    public void takeDamage(Weapon weapon){
-        // weapon deals random damage, up to the maximum of its damage die
-        int dmg = (int)(Math.random() * (weapon.getDie() - 1 + 1) + 1);
+    /** The spider takes dmg amount of damage. **/
+    public void takeDamage(int dmg){
         System.out.println("Ouch! The spider takes " + dmg + " damage.");
-        hp -= dmg;
+        this.hp -= dmg;
     }
 }

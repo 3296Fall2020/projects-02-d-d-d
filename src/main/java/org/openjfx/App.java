@@ -1,6 +1,7 @@
 package org.openjfx;
 
 import dnd.data.User;
+import dnd.test.TestCombat;
 import dnd.test.TestQuizzesAndDice;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -66,6 +67,12 @@ public class App extends Application {
         TestQuizzesAndDice test = new TestQuizzesAndDice(); // creating test object
         test.testQuizzesAndDice(); // calling test function
         // -------------------------------------------------------------
+
+        // Creating a test combat and outputting results to terminal.
+        TestCombat combatTest = new TestCombat();
+        combatTest.test();
+
+
 
         /*
         String server = "localhost:50051";

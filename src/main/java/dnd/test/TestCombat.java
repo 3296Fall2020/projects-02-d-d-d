@@ -3,13 +3,16 @@ package dnd.test;
 import dnd.combat.Combat;
 import dnd.monsters.*;
 import dnd.weapons.*;
+import dnd.characters.Character;
 
 public class TestCombat {
 
     /** A method for testing combat and outputting results to the terminal. **/
-    public void test_combat() {
+    public void test() {
 
-        Combat combat = new Combat();
+        Character c = new Character("Jim");
+
+        Combat combat = new Combat(c);
         combat.initializeCombat();
         combat.runCombat();
 

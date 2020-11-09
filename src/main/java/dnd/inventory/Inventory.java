@@ -7,15 +7,19 @@ import java.util.Iterator;
 
 public class Inventory {
 
-    HashMap inventory;
+    HashMap<Item, Integer> inventory;
     int size;
 
     public Inventory(){
-        inventory = new HashMap();
+        inventory = new HashMap<Item, Integer>();
         size = 0;
     }
 
-    public boolean hasItem(Item item){
+    public HashMap<Item, Integer> getInventory(){
+        return this.inventory;
+    }
+
+    public boolean contains(Item item){
         if (inventory.containsKey(item))
             return true;
         return false;
@@ -26,7 +30,7 @@ public class Inventory {
     }
 
     public void examine(Item item){
-        if (hasItem(item))
+        if (contains(item))
             item.getDesc();
     }
 

@@ -1,41 +1,49 @@
 package dnd.monsters;
 
-import dnd.weapons.Weapon;
+import dnd.dice.Dice;
+import dnd.weapons.*;
 
 public class Goblin extends Monster {
 
     /** Creates a goblin monster of the name "name" with a max HP of "hp" and its skill modifiers **/
-    public void spawn(String name, int hp){
+    public Goblin(String name, int hp){
+        //goblin basic info
         this.name = name;
         this.hp = hp;
         this.desc = "A harried-looking goblin, with mottled green-gray skin and beady black eyes.";
         this.type = "Goblin";
 
-        this.dex = 1;
-        this.str = 2;
-        this.con = 1;
-        this.wis = 0;
-        this.intl = -2;
-        this.cha = -1;
+        //goblins get clubs
+        Club club = new Club();
+        getWeapon(club);
 
-        this.initiative = this.dex;
+        //goblin stats
+        this.dexMod = 1;
+        this.strMod = 2;
+        this.conMod = 1;
+        this.wisMod = 0;
+        this.intlMod = -2;
+        this.chaMod = -1;
+
+        //initiative is equal to the DEX modifier
+        this.initiative = this.dexMod;
+
+        //the maximum damage a goblin can do
+        this.damageDie = 8;
     }
 
+    /** Monster taunts. **/
     public void taunt(){
         System.out.println("The goblin cackles and sticks its tongue out at you!");
     }
 
     /**
-     The spider attacks.
-     Note: Value will be randomized via one of the game dice.
-     The spider deals a base damage of 5, plus a 1d8
+     The goblin performs its basic attack.
      **/
-    public int attack(){
-        int dmg = 5;
-        dmg += (int)(Math.random() * (8 - 1 + 1) + 1);
+    public int basicAttack(){
+        int dmg = dice.roll(weapon.getDie());
 
-        System.out.println("The goblin lashes out with one of its claws!");
-        System.out.println("Player takes " + dmg + " damage.");
+        System.out.println("The goblin lands a blow with its club, dealing " + dmg + " damage!");
 
         return dmg;
     }
@@ -44,9 +52,9 @@ public class Goblin extends Monster {
      Successful if (1d20 + goblin's DEX) >= player's roll
      **/
     public boolean dodge(int playerRoll){
-        int gobRoll = (int)(Math.random() * (20 - 1 + 1) + 1);
+        int gobRoll = dice.roll(20) + this.dexMod;
 
-        if ((gobRoll + this.dex) > playerRoll){
+        if (gobRoll > playerRoll){
             System.out.println("The goblin successfully dodges the hit!");
             return true;
         }
@@ -56,11 +64,9 @@ public class Goblin extends Monster {
         }
     }
 
-    /** The goblin takes damage from weapon. **/
-    public void takeDamage(Weapon weapon){
-        // weapon deals random damage, up to the maximum of its damage die
-        int dmg = (int)(Math.random() * (weapon.getDie() - 1 + 1) + 1);
+    /** The goblin takes dmg amount of damage. **/
+    public void takeDamage(int dmg){
         System.out.println("Ouch! The goblin takes " + dmg + " damage.");
-        hp -= dmg;
+        this.hp -= dmg;
     }
 }
