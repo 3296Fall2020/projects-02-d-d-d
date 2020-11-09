@@ -1,7 +1,7 @@
 package org.openjfx;
 
 
-import dnd.data.User;
+import dnd.combat_test.CombatTest;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,17 +9,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClientBuilder;
-import com.google.gson.*;
 
 //import io.grpc.ManagedChannel;
 //import io.grpc.ManagedChannelBuilder;
@@ -51,32 +40,25 @@ public class App extends Application {
 
     public static void main(String[] args) throws InterruptedException, IOException {
 
-
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        /*Gson gson = new GsonBuilder().setPrettyPrinting().create();
         User usr = new User("Steve");
 
-        //HttpPost post = new HttpPost("http://localhost:5000/user");
+        HttpPost post = new HttpPost("http://localhost:5000/user");
 
-        //post.setEntity(new StringEntity(gson.toJson(usr)));
-        //post.setHeader("Content-type", "application/json");
+        post.setEntity(new StringEntity(gson.toJson(usr)));
+        post.setHeader("Content-type", "application/json");
 
-        //HttpClient httpClient = HttpClientBuilder.create().build();
-        //HttpResponse response = httpClient.execute(post);
-        //System.out.println(response.getStatusLine());
+        HttpClient httpClient = HttpClientBuilder.create().build();
+        HttpResponse response = httpClient.execute(post);
+        System.out.println(response.getStatusLine());*/
 
-
-        //Inventory i = new Inventory();
-
-        Combat combat = new Combat();
-        combat.initializeCombat();
-        combat.runCombat();
+        CombatTest combatTest = new CombatTest();
+        combatTest.test_combat();
 
         /*
         String server = "localhost:50051";
         String user = "Mike";
-
         ManagedChannel channel = ManagedChannelBuilder.forTarget(server).usePlaintext().build();
-
         try {
             GrpcClient client = new GrpcClient(channel);
             client.CreateUser(user);
@@ -87,7 +69,7 @@ public class App extends Application {
             channel.shutdownNow().awaitTermination(5, TimeUnit.SECONDS);
         } */
 
-        //launch();
+        launch();
     }
 
 }

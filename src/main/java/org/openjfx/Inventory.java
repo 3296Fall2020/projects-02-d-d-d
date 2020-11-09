@@ -1,5 +1,7 @@
 package org.openjfx;
 
+import dnd.items.Item;
+
 import java.util.HashMap;
 import java.util.Iterator;
 

@@ -1,9 +1,7 @@
-package org.openjfx;
+package dnd.combat;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import dnd.monsters.*;
+import dnd.weapons.*;
 
 public class Combat {
 

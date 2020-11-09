@@ -1,4 +1,4 @@
-package org.openjfx;
+package dnd.items;
 
 public abstract class Item {
 

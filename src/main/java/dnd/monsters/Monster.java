@@ -1,4 +1,6 @@
-package org.openjfx;
+package dnd.monsters;
+
+import dnd.weapons.Weapon;
 
 public abstract class Monster {
 
