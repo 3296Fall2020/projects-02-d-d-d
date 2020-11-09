@@ -136,7 +136,7 @@ public class Character {
         // For example, if player is on level 1 and wants to be on level 2, they need 300 total XP
         // So the XP needed for the next level is 1*300
         int XPofNextLevel = level*300;
-        if (this.XP > XPofNextLevel) {
+        if (this.XP >= XPofNextLevel) {
             this.level += 1;
             System.out.println("\nCongrats! You advanced to level " + getLevel());
             XPofNextLevel = getLevel() *300;
