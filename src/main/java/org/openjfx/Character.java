@@ -95,6 +95,24 @@ public class Character {
         this.level = 1;
         this.XP = 0;
 
+    }
+
+    /*
+     * When a character is first generated, they are able to choose their name and are given
+     * a randomly determined ability score and ability modifiers for strength, dexterity, constitution, intelligence,
+     * wisdom, and charisma.
+     * By default, they start at level 1 with 0 XP.
+     */
+    public Character(String name, String race) {
+        this.name = name;
+        this.abilities = new int[6];
+        generateAbilityScores();
+        this.abilityModifier = new int[6];
+        determineAbilityModifier();
+        this.level = 1;
+        this.XP = 0;
+        this.race = race;
+        setRaceVar();
 
     }
 
@@ -177,6 +195,53 @@ public class Character {
         return this.abilities[5];
     }
 
+    //getter method for race
+    public String getRace() {
+        return race;
+    }
 
+    //getter method for language
+    public String getLanguage() {
+        return language;
+    }
 
+    //getter method for speed
+    public int getSpeed() {
+        return speed;
+    }
+
+    /*
+     * This method sets speed, language, and race variables of character based on race given when creating Character object.
+     */
+    public void setRaceVar() {
+        String lc = this.race.toLowerCase();
+        //Humans speak Common, have a base walking speed of 30 feet, and all ability scores increase by one.
+        if (lc.equals("human")) {
+            this.race = "Human";
+            this.language = "Common";
+            this.speed = 30;
+            for (int i = 0; i < abilities.length; i++) {
+                this.abilities[i] += 1;
+            }
+        } else if (lc.equals("elf")) {
+        //Elves speak Common and Elvish, have a base walking speed of 30 feet, and dexterity score increases by 2
+            this.race = "Elf";
+            this.language = "Elvish & Common";
+            this.speed = 30;
+            this.abilities[1] += 2;
+        } else if (lc.equals("dwarf")){
+        //Dwarf speak Dwarfish and Common, have a base walking speed of 25 feet, and constitution score increases by 2
+            this.race = "Dwarf";
+            this.language = "Dwarfish & Common";
+            this.speed = 25;
+            this.abilities[2] += 2;
+        } else {
+        //otherwise, race is halfling
+        //Halflings speak Hafling and Common, have a base walking speed of 25 feet, and dexterity score increases by 2
+            this.race = "Halfling";
+            this.language = "Halfling and Common";
+            this.speed = 25;
+            this.abilities[1] +=2;
+        }
+    }
 }
