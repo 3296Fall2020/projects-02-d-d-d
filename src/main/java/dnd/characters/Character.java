@@ -4,8 +4,10 @@ import dnd.dice.Dice;
 
 import java.util.Random;
 
+
 //The purpose of this character class is to allow user to customize their characters with options such as stats and naming
 public class Character {
+    Dice die = new Dice();
 
     String name; //name of character
 
@@ -25,10 +27,22 @@ public class Character {
     // For the purposes of this game, we will say that a new level is obtained when player gains 300 more points from previous level
     int level;
     int XP;
+    private static final int XPIncrement = 300;
+
+    //get class membership
+    public String getClassMembership() {
+        return classMembership;
+    }
+
+    //set class membership
+    public void setClassMembership(String classMembership) {
+        this.classMembership = classMembership;
+    }
 
     //In D&D, characters have hit points that define how tough they are in combat, and this is defined by hit die specific to their class.
     //Players start with hit points equal to highest roll of that dice, as indicated by class description.
     int hitPoints;
+    private static final int hitPointInitial = 15;
 
     //In D&D, every character belongs to a race, and many subraces exist.
     //Most common races include: dwarves, elves, halflings, and humans
@@ -41,6 +55,16 @@ public class Character {
     //Depending on the class, characters receive class features unique to their class and proficiencies like skills, weapons, tools, etc.
     String classMembership;
 
+    //return hit points of character
+    public int getHitPoints() {
+        return hitPoints;
+    }
+
+    //set hit points of character
+    public void setHitPoints(int hitPoints) {
+        this.hitPoints = hitPoints;
+    }
+
     /*
      * This function generates the six ability scores randomly.
      * It simulates rolling four 6-sided dice and recording the total of the
@@ -51,7 +75,6 @@ public class Character {
      */
     public void generateAbilityScores() {
         //For each ability
-        Dice die = new Dice();
         for (int i = 0; i < abilities.length; i++) {
             //results of 4 dice
             int[] dice = die.roll(6,4);
@@ -102,7 +125,7 @@ public class Character {
      * When a character is first generated, they are able to choose their name and are given
      * a randomly determined ability score and ability modifiers for strength, dexterity, constitution, intelligence,
      * wisdom, and charisma.
-     * By default, they start at level 1 with 0 XP.
+     * By default, they start at level 1 with 0 XP and 15 hit points.
      */
     public Character(String name, String race) {
         this.name = name;
@@ -114,7 +137,7 @@ public class Character {
         this.XP = 0;
         this.race = race;
         setRaceVar();
-
+        this.hitPoints = hitPointInitial;
     }
 
     /*
@@ -147,6 +170,31 @@ public class Character {
         return XP;
     }
 
+    //set abilities
+    public void setAbilities(int[] abilities) {
+        this.abilities = abilities;
+    }
+
+    //set ability mod
+    public void setAbilityModifier(int[] abilityModifier) {
+        this.abilityModifier = abilityModifier;
+    }
+
+    //set race
+    public void setRace(String race) {
+        this.race = race;
+    }
+
+    //set language
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    //set speed
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
     //add XP points to character's XP total
     //returns XP needed to get to next level
     public int addXP(int XP) {
@@ -154,11 +202,14 @@ public class Character {
         // XP that deems that player has advanced a level
         // For example, if player is on level 1 and wants to be on level 2, they need 300 total XP
         // So the XP needed for the next level is 1*300
-        int XPofNextLevel = level*300;
+        int XPofNextLevel = level*XPIncrement;
         if (this.XP >= XPofNextLevel) {
+            //level up if necessary, and also increase hit points by dice.roll(10,3) + constitutionModifier
             this.level += 1;
+            int HPIncrease = die.roll(10) + die.roll(10) + die.roll(10) + getConstitutionMod();
+            this.hitPoints += HPIncrease;
             System.out.println("\nCongrats! You advanced to level " + getLevel());
-            XPofNextLevel = getLevel() *300;
+            XPofNextLevel = getLevel() *XPIncrement;
         }
         return (XPofNextLevel - this.XP);
         //returns amount needed for next level
@@ -194,6 +245,37 @@ public class Character {
     //getter method for charisma
     public int getCharisma() {
         return this.abilities[5];
+    }
+
+    //getter method for strength
+    public int getStrengthMod() {
+        return this.abilityModifier[0];
+    }
+
+    //getter method for dexterity
+    public int getDexterityMod() {
+        return this.abilityModifier[1];
+    }
+
+    //getter method for constitution
+    public int getConstitutionMod() {
+        return this.abilityModifier[2];
+    }
+
+    //getter method for intelligence
+    public int getIntelligenceMod() {
+        return this.abilityModifier[3];
+
+    }
+
+    //getter method for wisdom
+    public int getWisdomMod() {
+        return this.abilityModifier[4];
+    }
+
+    //getter method for charisma
+    public int getCharismaMod() {
+        return this.abilityModifier[5];
     }
 
     //getter method for race

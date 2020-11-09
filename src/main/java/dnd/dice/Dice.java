@@ -24,6 +24,16 @@ public class Dice {
         return result;
     }
 
+    // rolls multiple dice (number of dice given by numRolls) and returns the sum of all rolls
+    // size of the dice is given by dieSize
+    public int rollSum(int dieSize, int numRolls) {
+        int result = 0;
+        for (int i = 0; i < numRolls; i++) {
+            result += randomNumberGenerator.randomIntInRange(1, dieSize);
+        }
+        return result;
+    }
+
     // rolls multiple dice of various sizes
     // the sizes of the dice are given as an array, which is an input
     // e.g. an input of [6, 10, 20] would roll 3 dice - one 6-sided die, one 10-sized die, and one 20-sided die
