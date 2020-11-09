@@ -49,6 +49,25 @@ public class App extends Application {
 
     public static void main(String[] args) throws InterruptedException, IOException {
 
+        //Testing that making a character works
+        Character Alex = new Character("Alex");
+        System.out.println("The character's name is " + Alex.getName());
+        System.out.println("The character's strength is " + Alex.getStrength());
+        System.out.println("The character's dexterity is " + Alex.getDexterity());
+        System.out.println("The character's constitution is " + Alex.getConstitution());
+        System.out.println("The character's intelligence is " + Alex.getIntelligence());
+        System.out.println("The character's wisdom is " + Alex.getWisdom());
+        System.out.println("The character's charisma is " + Alex.getCharisma());
+        System.out.println("The character's XP is " + Alex.getXP());
+        System.out.println("The character's level is " + Alex.getLevel());
+
+        //Testing that increasing XP works
+        Alex.addXP(300);
+        System.out.println("+300 XP!");
+        System.out.println("The character's XP is now " + Alex.getXP());
+        System.out.println("The character's level is now " + Alex.getLevel());
+
+
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         User usr = new User("Steve");
 
@@ -57,9 +76,9 @@ public class App extends Application {
         post.setEntity(new StringEntity(gson.toJson(usr)));
         post.setHeader("Content-type", "application/json");
 
-        HttpClient httpClient = HttpClientBuilder.create().build();
-        HttpResponse response = httpClient.execute(post);
-        System.out.println(response.getStatusLine());
+//        HttpClient httpClient = HttpClientBuilder.create().build();
+//        HttpResponse response = httpClient.execute(post);
+//        System.out.println(response.getStatusLine());
 
         /*
         String server = "localhost:50051";

@@ -7,17 +7,6 @@ public class Character {
 
     String name; //name of character
 
-    //In D&D, every character belongs to a race, and many subraces exist.
-    //Most common races include: dwarves, elves, halflings, and humans
-    //Each race has a starting language and base speed.
-    String race;
-    String language;
-    int speed;
-
-    //In D&D, each character belongs to a class that describes their vocation, special talents,and tactics they are most likely to employ.
-    //Depending on the class, characters receive class features unique to their class and proficiencies like skills, weapons, tools, etc.
-    String classMembership;
-
     //Array of six integers to represent Six ability scores that define each character, usually given between 3 and 18
     //basis for every d20 roll
     //Certain scores races increase certain abilities, and each class has abilities they consider very important.
@@ -39,6 +28,16 @@ public class Character {
     //Players start with hit points equal to highest roll of that dice, as indicated by class description.
     int hitPoints;
 
+    //In D&D, every character belongs to a race, and many subraces exist.
+    //Most common races include: dwarves, elves, halflings, and humans
+    //Each race has a starting language and base speed.
+    String race;
+    String language;
+    int speed;
+
+    //In D&D, each character belongs to a class that describes their vocation, special talents,and tactics they are most likely to employ.
+    //Depending on the class, characters receive class features unique to their class and proficiencies like skills, weapons, tools, etc.
+    String classMembership;
 
     /*
      * This function generates the six ability scores randomly.
@@ -51,7 +50,7 @@ public class Character {
     public void generateAbilityScores() {
         RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator();
         //For each ability
-        for (int i = 0; i <= abilities.length; i++) {
+        for (int i = 0; i < abilities.length; i++) {
             //results of 4 dice
             int[] dice = {randomNumberGenerator.randomIntInRange(1,6),randomNumberGenerator.randomIntInRange(1,6),
                     randomNumberGenerator.randomIntInRange(1,6),randomNumberGenerator.randomIntInRange(1,6)};
@@ -64,16 +63,18 @@ public class Character {
      * This function determines the ability modifier by subtracting ten from the ability score and dividing the result by 2.
      */
     public void determineAbilityModifier() {
-        for (int i = 0; i <= abilities.length; i++) {
+        for (int i = 0; i < abilities.length; i++) {
             this.abilityModifier[i] = ((this.abilities[i] - 10) / 2);
         }
     }
 
 
+    //get name of character
     public String getName() {
-        return name;
-    }
+            return name;
+        }
 
+    //set name of character
     public void setName(String name) {
         this.name = name;
     }
@@ -144,5 +145,38 @@ public class Character {
         //returns amount needed for next level
 
     }
+
+    //getter method for strength
+    public int getStrength() {
+        return this.abilities[0];
+    }
+
+    //getter method for dexterity
+    public int getDexterity() {
+        return this.abilities[1];
+    }
+
+    //getter method for constitution
+    public int getConstitution() {
+        return this.abilities[2];
+    }
+
+    //getter method for intelligence
+    public int getIntelligence() {
+        return this.abilities[3];
+
+    }
+
+    //getter method for wisdom
+    public int getWisdom() {
+        return this.abilities[4];
+    }
+
+    //getter method for charisma
+    public int getCharisma() {
+        return this.abilities[5];
+    }
+
+
 
 }
