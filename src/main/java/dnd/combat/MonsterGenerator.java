@@ -24,7 +24,5 @@ public class MonsterGenerator {
             Goblin goblin = new Goblin("Dwight", 50);
             return goblin;
         }
-
     }
-
 }

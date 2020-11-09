@@ -11,6 +11,7 @@ public class TestCombat {
     public void test() {
 
         Character c = new Character("Jim");
+        c.setHitPoints(1000);
 
         Combat combat = new Combat(c);
         combat.runCombat();

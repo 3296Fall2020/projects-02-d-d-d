@@ -14,7 +14,7 @@ public class Spider extends Monster {
 
         //spiders get claws
         Claws claws = new Claws();
-        this.giveWeapon(claws);
+        this.setWeapon(claws);
 
         //spider stats
         this.dexMod = 2;
@@ -23,46 +23,29 @@ public class Spider extends Monster {
         this.wisMod = 1;
         this.intlMod = 1;
         this.chaMod = -2;
+
+        //initiative is equal to the DEX modifier
         this.initiative = this.dexMod;
+
+        //the maximum damage a spider can do
+        //this.damageDie = claws.getDie();
+
+        //set the spider's strings
+        this.tauntString = this.name + " rears back on four of its legs and taunts you with a hiss.";
+        this.victoryString = this.name + " has defeated you.";
+        this.defeatString = this.name + " has been defeated.";
+        this.dodgedString = this.name + " dodges the hit.";
+        this.isHitString = this.name + " was hit!";
+        this.hitsPlayerString = this.name + " hit you!";
+
+        this.damageTakenString = "";
+        this.damageDealtString = "";
     }
 
-    /** The spider taunts. **/
-    public void taunt(){
-        System.out.println("The spider rears back on four of its legs and taunts you with a hiss.");
-    }
-
-    /**
-     The spider attacks.
-     Note: Value will be randomized via one of the game dice.
-     The spider deals a base damage of 5, plus a 1d8
-     **/
     public int basicAttack(){
         int dmg = dice.roll(weapon.getDie());
-
-        System.out.println("The spider lashes out with its claws, dealing " + dmg + " damage!");
-
+        this.damageDealtString = this.name + " dealt " + dmg + " damage!";
         return dmg;
     }
 
-    /** Spider tries to dodge.
-        Successful if (1d20 + spider's DEX) >= player's roll
-     **/
-    public boolean dodge(int playerRoll){
-        int spiderRoll = dice.roll(20) + this.dexMod;
-
-        if (spiderRoll > playerRoll){
-            System.out.println("The spider successfully dodges the hit!");
-            return true;
-        }
-        else{
-            System.out.println("The spider takes a hit!");
-            return false;
-        }
-    }
-
-    /** The spider takes dmg amount of damage. **/
-    public void takeDamage(int dmg){
-        System.out.println("Ouch! The spider takes " + dmg + " damage.");
-        this.hp -= dmg;
-    }
 }

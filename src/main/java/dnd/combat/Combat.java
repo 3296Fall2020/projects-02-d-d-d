@@ -9,11 +9,11 @@ public class Combat {
 
     /* CHARACTER VARIABLES */
 
-    //Ints representing the player's stats. These are placeholders and will be replaced by references to the Character class.
+    //The player
     public Character player;
 
     //A MonsterGenerator for generating a random monster
-    private MonsterGenerator myMonsterGenerator;
+    public MonsterGenerator myMonsterGenerator;
 
     //the current opponent
     public Monster opponent;
@@ -52,11 +52,12 @@ public class Combat {
         this.active = true;
         this.playerVictory = false;
 
-        //create monster
+        //create monster generator and generate a monster
+        MonsterGenerator myMonsterGenerator = new MonsterGenerator();
         this.opponent = myMonsterGenerator.generateRandomMonster();
 
-        //check who goes first, based on dexterity scores
-        this.playerFirst = decideOrder();
+        //check who goes first
+        //this.playerFirst = decideOrder();
 
     }
 
@@ -70,19 +71,32 @@ public class Combat {
 
     /** ROUND HANDLING METHODS **/
     /** Signifies new round. **/
-    public void newRound(Monster opponent){
+    public void newRound(){
         this.round++;
-        System.out.println("\n\nRound " + this.round + " start!\n");
+        System.out.println("\n\n***Round " + this.round + " start!***");
+        System.out.println("Player health: " + player.getHitPoints());
+        System.out.println("Enemy health: " + opponent.getHitPoints());
+        System.out.println("Current weapon: " + playerWeapon.getName());
     }
 
-    /** RUN COMBAT UNTIL IT ENDS. **/
-    public void runCombat(){
-        Monster opponent = this.opponent;
+    /** RUN COMBAT UNTIL IT ENDS.
 
-        //iterates through rounds while combat is active
+     Combat consists of two turns: the player's and opponent's.
+
+     While combat is active:
+         -Start new round
+         -Check turn order
+         -Check if next turn should be allowed (all HPs >= 0)
+            -If yes, allow player/opponent turn
+            -If no, check who won
+         -Check if next turn should be allowed (all HPs >= 0)
+            -If yes, allow player/opponent turn
+            -If no, check who won
+     **/
+    public void runCombat(){
         while(active)
         {
-            newRound(opponent);
+            newRound();
             if (playerFirst){
                 if(allowTurn())
                     playerTurn();
@@ -101,40 +115,49 @@ public class Combat {
     /** COMBAT METHODS **/
     /** Perform opponent turn.**/
     public void opponentTurn(){
-        opponent.taunt();
+        System.out.println("\n**Opponent turn!**");
+        //do taunt
+        System.out.println(opponent.getTauntString());
 
-        //The opponent attacks, which the player attempts to dodge.
+        //The opponent tries to attack. Succeeds if the player fails to dodge.
         if(!playerDodge()) {
             int newHP;
             newHP = player.getHitPoints() - opponent.basicAttack();
             player.setHitPoints(newHP);
+            System.out.println(opponent.getHitsPlayerString());
+            System.out.println(opponent.getDamageDealtString());
         }
 
+        //check at the end of the trun if the opponent has won
         checkForWin();
     }
 
     /** Perform player turn. **/
     public void playerTurn(){
-        System.out.println("Player health: " + player.getHitPoints());
-        System.out.println("Enemy health: " + opponent.getHitPoints());
-        System.out.println("Current weapon: " + playerWeapon.getName());
+        System.out.println("\n**Player turn!**");
+
+        //allow player to decide what to do
+        getPlayerChoice();
+
+        //check at the end of the turn if the player has won
+        checkForWin();
+    }
+
+    /** Get the player's choice **/
+    public int getPlayerChoice(){
         System.out.println("Pick an action: \n1. Attack \n2. Use item \n3. Flee");
 
-        int choice;
-        /*
-        Scanner kb = new Scanner(System.in);
-        choice = Integer.parseInt(kb.nextLine());
+        // Currently, the player ATTACKS by default.
+        // This should be implemented with GUI
+        int choice = 1;
 
         if (choice == 1)
             attack();
         else if (choice == 2)
             openInventory();
         else
-            flee();*/
-
-        //ATTACKS BY DEFAULT. Implement choice with GUI here!!!
-        attack();
-        checkForWin();
+            flee();
+        return choice;
     }
 
     /** Check if game should go on. **/
@@ -170,14 +193,20 @@ public class Combat {
         return outcome;
     }
 
-    /** The player attacks the Monster, who is damaged according to the playerWeapon's damage die. **/
+    /** The player attempts to attack the Monster.
+        If the Monster fails to dodge, the Monster damaged according to the playerWeapon's damage die. **/
     public void attack(){
-        System.out.println("You swing the sword towards the " + opponent.type + "!");
+        System.out.println("You swing the " + playerWeapon.getName() + " towards the " + opponent.getType() + "!");
         int tryAttack = dice.roll(20);
         if(!opponent.dodge(tryAttack)){
             int dmg = dice.roll(playerWeapon.getDie());
             opponent.takeDamage(dmg);
+            System.out.println(opponent.getDamageTakenString());
         }
+        else{
+            System.out.println(opponent.getDamageTakenString());
+        }
+
     }
 
     /** The player tries to dodge the attack. If their d20 roll + DEX modifier exceeds the monster's dice roll, they succeed. **/

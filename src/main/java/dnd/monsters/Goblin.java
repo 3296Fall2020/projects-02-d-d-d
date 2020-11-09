@@ -14,7 +14,7 @@ public class Goblin extends Monster {
 
         //goblins get clubs
         Club club = new Club();
-        this.giveWeapon(club);
+        this.setWeapon(club);
 
         //goblin stats
         this.dexMod = 1;
@@ -28,44 +28,24 @@ public class Goblin extends Monster {
         this.initiative = this.dexMod;
 
         //the maximum damage a goblin can do
-        this.damageDie = 8;
+        this.damageDie = club.getDie();
+
+        //set the spider's strings
+        this.tauntString = this.name + " sticks out their tongue and cackles at you.";
+        this.victoryString = this.name + " has defeated you.";
+        this.defeatString = this.name + " has been defeated.";
+        this.dodgedString = this.name + " dodges the hit.";
+        this.isHitString = this.name + " was hit!";
+        this.hitsPlayerString = this.name + " hit you!";
+
+        this.damageTakenString = "";
+        this.damageDealtString = "";
     }
 
-    /** Monster taunts. **/
-    public void taunt(){
-        System.out.println("The goblin cackles and sticks its tongue out at you!");
-    }
-
-    /**
-     The goblin performs its basic attack.
-     **/
     public int basicAttack(){
         int dmg = dice.roll(weapon.getDie());
-
-        System.out.println("The goblin lands a blow with its club, dealing " + dmg + " damage!");
-
+        this.damageDealtString = this.name + " dealt " + dmg + " damage!";
         return dmg;
     }
 
-    /** Goblin tries to dodge.
-     Successful if (1d20 + goblin's DEX) >= player's roll
-     **/
-    public boolean dodge(int playerRoll){
-        int gobRoll = dice.roll(20) + this.dexMod;
-
-        if (gobRoll > playerRoll){
-            System.out.println("The goblin successfully dodges the hit!");
-            return true;
-        }
-        else{
-            System.out.println("The goblin takes a hit!");
-            return false;
-        }
-    }
-
-    /** The goblin takes dmg amount of damage. **/
-    public void takeDamage(int dmg){
-        System.out.println("Ouch! The goblin takes " + dmg + " damage.");
-        this.hp -= dmg;
-    }
 }
