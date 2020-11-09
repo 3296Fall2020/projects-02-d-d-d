@@ -1,4 +1,6 @@
-package org.openjfx;
+package dnd.characters;
+
+import dnd.dice.Dice;
 
 import java.util.Random;
 
@@ -48,12 +50,11 @@ public class Character {
      * For purposes of this app, users will not be able to choose which ability score goes to which ability.
      */
     public void generateAbilityScores() {
-        RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator();
         //For each ability
+        Dice die = new Dice();
         for (int i = 0; i < abilities.length; i++) {
             //results of 4 dice
-            int[] dice = {randomNumberGenerator.randomIntInRange(1,6),randomNumberGenerator.randomIntInRange(1,6),
-                    randomNumberGenerator.randomIntInRange(1,6),randomNumberGenerator.randomIntInRange(1,6)};
+            int[] dice = die.roll(6,4);
             int discardedDice = pickLowest(dice); //returns index of discarded dice
             this.abilities[i] = (dice[0] + dice[1] + dice[2] + dice[3]) - dice[discardedDice];
         }

@@ -1,11 +1,11 @@
 package org.openjfx;
 
+import dnd.characters.Character;
 import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class AppTest {
 
