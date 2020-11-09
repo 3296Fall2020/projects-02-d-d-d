@@ -1,10 +1,10 @@
-package dnd.combat_test;
+package dnd.test;
 
 import dnd.combat.Combat;
 import dnd.monsters.*;
 import dnd.weapons.*;
 
-public class CombatTest {
+public class TestCombat {
 
     /** A method for testing combat and outputting results to the terminal. **/
     public void test_combat() {

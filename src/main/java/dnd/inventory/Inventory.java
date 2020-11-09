@@ -1,4 +1,4 @@
-package org.openjfx;
+package dnd.inventory;
 
 import dnd.items.Item;
 
