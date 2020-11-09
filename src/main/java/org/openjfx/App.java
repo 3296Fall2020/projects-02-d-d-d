@@ -1,7 +1,7 @@
 package org.openjfx;
 
-
-import dnd.combat_test.CombatTest;
+import dnd.data.User;
+import dnd.test.TestQuizzesAndDice;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,6 +9,15 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClientBuilder;
+import com.google.gson.*;
+
 
 //import io.grpc.ManagedChannel;
 //import io.grpc.ManagedChannelBuilder;
@@ -40,7 +49,8 @@ public class App extends Application {
 
     public static void main(String[] args) throws InterruptedException, IOException {
 
-        /*Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         User usr = new User("Steve");
 
         HttpPost post = new HttpPost("http://localhost:5000/user");
@@ -48,17 +58,21 @@ public class App extends Application {
         post.setEntity(new StringEntity(gson.toJson(usr)));
         post.setHeader("Content-type", "application/json");
 
-        HttpClient httpClient = HttpClientBuilder.create().build();
-        HttpResponse response = httpClient.execute(post);
-        System.out.println(response.getStatusLine());*/
+//        HttpClient httpClient = HttpClientBuilder.create().build();
+//        HttpResponse response = httpClient.execute(post);
+//        System.out.println(response.getStatusLine());
 
-        CombatTest combatTest = new CombatTest();
-        combatTest.test_combat();
+        // Demonstrating test quizzes and dice rolls ------------------
+        TestQuizzesAndDice test = new TestQuizzesAndDice(); // creating test object
+        test.testQuizzesAndDice(); // calling test function
+        // -------------------------------------------------------------
 
         /*
         String server = "localhost:50051";
         String user = "Mike";
+
         ManagedChannel channel = ManagedChannelBuilder.forTarget(server).usePlaintext().build();
+
         try {
             GrpcClient client = new GrpcClient(channel);
             client.CreateUser(user);
