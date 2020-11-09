@@ -1,7 +1,7 @@
 package org.openjfx;
 
-
 import dnd.data.User;
+import dnd.test.TestQuizzesAndDice;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,13 +11,13 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import com.google.gson.*;
+
 
 //import io.grpc.ManagedChannel;
 //import io.grpc.ManagedChannelBuilder;
@@ -60,6 +60,11 @@ public class App extends Application {
         HttpClient httpClient = HttpClientBuilder.create().build();
         HttpResponse response = httpClient.execute(post);
         System.out.println(response.getStatusLine());
+
+        // Demonstrating test quizzes and dice rolls ------------------
+        TestQuizzesAndDice test = new TestQuizzesAndDice(); // creating test object
+        test.testQuizzesAndDice(); // calling test function
+        // -------------------------------------------------------------
 
         /*
         String server = "localhost:50051";
