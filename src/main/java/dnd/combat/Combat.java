@@ -116,13 +116,16 @@ public class Combat {
     /** Perform opponent turn.**/
     public void opponentTurn(){
         System.out.println("\n**Opponent turn!**");
-        //do taunt
-        System.out.println(opponent.getTauntString());
 
-        //The opponent tries to attack. Succeeds if the player fails to dodge.
-        if(!playerDodge()) {
+        int opponentRolls[] = opponent.doRolls();
+
+        int attackRoll = opponentRolls[0];
+        int damageRoll = opponentRolls[1];
+
+        //The opponent first tries to attack. If the player fails to dodge, they receive the damage dealt by the opponent.
+        if(!playerDodge(attackRoll)) {
             int newHP;
-            newHP = player.getHitPoints() - opponent.basicAttack();
+            newHP = player.getHitPoints() - damageRoll;
             player.setHitPoints(newHP);
             System.out.println(opponent.getHitsPlayerString());
             System.out.println(opponent.getDamageDealtString());
@@ -203,17 +206,12 @@ public class Combat {
             opponent.takeDamage(dmg);
             System.out.println(opponent.getDamageTakenString());
         }
-        else{
-            System.out.println(opponent.getDodgedString());
-        }
-
     }
 
     /** The player tries to dodge the attack. If their d20 roll + DEX modifier exceeds the monster's dice roll, they succeed. **/
-    public boolean playerDodge(){
-        int tryDodge = dice.roll(20) + player.getDexterityMod();
-        int opponentAttack = dice.roll(20);
-        if(tryDodge >= opponentAttack){
+    public boolean playerDodge(int opponentRoll){
+        int dexRoll = dice.roll(20) + player.getDexterityMod();
+        if(dexRoll >= opponentRoll){
             System.out.println("You manage to dodge the hit!");
             return true;
         }

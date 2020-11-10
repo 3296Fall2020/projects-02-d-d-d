@@ -21,6 +21,10 @@ public abstract class Monster {
     public int wisMod;
     public int chaMod;
 
+    //cooldowns
+    public int tauntCD;
+    public int specialCD;
+
     //strings
     public String introString;
     public String tauntString;
@@ -34,7 +38,11 @@ public abstract class Monster {
     public String damageDealtString;
 
     public Monster(){
+        //give the monster a die
         this.dice = new Dice();
+
+        //initialize special cooldown to 0
+        this.specialCD = 0;
     }
 
     /** Getter methods for basic monster stats. **/
@@ -159,6 +167,34 @@ public abstract class Monster {
         this.chaMod = newMod;
     }
 
+    /** Combat methods. **/
+
+    /** Monster performs its rolls.
+        There is a 30% chance they will try to perform their special ability if it is off cooldown.
+        Returns two ints, for the rolls that the monster makes: the attempt to hit, and the damage potentially inflicted. **/
+    public int[] doRolls(){
+        int rolls[] = new int[2];
+
+        //The monster first tries to attack. The attack roll is 1d20.
+        int attackRoll = dice.roll(20);
+        rolls[0] = attackRoll;
+
+        //This will be the amount of damage the monster will do if it lands the hit.
+        int damageRoll = 0;
+
+        //Monster decides how to attack. 30% chance of using their special ability (if off cooldown)
+        int choice = dice.roll(10);
+
+        if (choice <= 3 && specialCD == 0)
+            damageRoll = specialAbility();
+        else
+            damageRoll = basicAttack();
+
+        rolls[1] = damageRoll;
+
+        return rolls;
+    }
+
     /** Monster tries to dodge.
      Successful if (1d20 + monster's DEX MOD) >= player's roll
      **/
@@ -181,9 +217,18 @@ public abstract class Monster {
         this.hp -= dmg;
     }
 
+    /** Updates special ability's cooldown.
+        The cooldown reduces by one, unless it is at 0. **/
+    public void reduceCD(){
+        this.specialCD--;
+    }
+
     /** ABSTRACT METHODS **/
     /** The monster's basic attack, determined by the damageDie of their weapon.
         Returns the amount of damage the monster does. **/
     public abstract int basicAttack();
+
+    /** An attack unique to the monster. Has a cooldown represented by the var specialCD. **/
+    public abstract int specialAbility();
 
 }

@@ -24,9 +24,6 @@ public class Orc extends Monster {
         this.intlMod = -2;
         this.chaMod = -1;
 
-        //the maximum damage an orc can do
-        this.damageDie = club.getDie();
-
         //set the orc's strings
         this.introString = "The ground trembles slightly as " + this.name + " the " + this.type + " lumbers towards you...";
         this.tauntString = this.name + " roars and beats their chest.";
@@ -44,6 +41,12 @@ public class Orc extends Monster {
         int dmg = dice.roll(weapon.getDie());
         this.damageDealtString = this.name + " dealt " + dmg + " damage!";
         return dmg;
+    }
+
+    public int specialAbility(){
+        int dmg = 0;
+        this.damageDealtString = this.name + " performs their special ability for " + dmg + " damage!";
+        return 0;
     }
 
 }

@@ -24,9 +24,6 @@ public class Spider extends Monster {
         this.intlMod = 1;
         this.chaMod = -2;
 
-        //the maximum damage a spider can do
-        this.damageDie = claws.getDie();
-
         //set the spider's strings
         this.introString = this.name + " the " + this.type + " scuttles towards you menacingly... It looks like they want a fight!";
         this.tauntString = this.name + " rears back on four of its legs and taunts you with a hiss.";
@@ -44,6 +41,12 @@ public class Spider extends Monster {
         int dmg = dice.roll(weapon.getDie());
         this.damageDealtString = this.name + " dealt " + dmg + " damage!";
         return dmg;
+    }
+
+    public int specialAbility(){
+        int dmg = 0;
+        this.damageDealtString = this.name + " performs their special ability for " + dmg + " damage!";
+        return 0;
     }
 
 }

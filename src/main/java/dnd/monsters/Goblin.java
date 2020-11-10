@@ -24,9 +24,6 @@ public class Goblin extends Monster {
         this.intlMod = -2;
         this.chaMod = -1;
 
-        //the maximum damage a goblin can do
-        this.damageDie = club.getDie();
-
         //set the goblin's strings
         this.introString = this.name + " the " + this.type + " lopes towards you... It looks like they want a fight!";
         this.tauntString = this.name + " sticks out their tongue and cackles at you.";
@@ -44,6 +41,12 @@ public class Goblin extends Monster {
         int dmg = dice.roll(weapon.getDie());
         this.damageDealtString = this.name + " dealt " + dmg + " damage!";
         return dmg;
+    }
+
+    public int specialAbility(){
+        int dmg = 0;
+        this.damageDealtString = this.name + " performs their special ability for " + dmg + " damage!";
+        return 0;
     }
 
 }
