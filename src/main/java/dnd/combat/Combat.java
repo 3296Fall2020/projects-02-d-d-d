@@ -53,7 +53,7 @@ public class Combat {
         this.playerVictory = false;
 
         //create monster generator and generate a monster
-        MonsterGenerator myMonsterGenerator = new MonsterGenerator();
+        myMonsterGenerator = new MonsterGenerator();
         this.opponent = myMonsterGenerator.generateRandomMonster();
 
         //check who goes first
@@ -128,7 +128,7 @@ public class Combat {
             System.out.println(opponent.getDamageDealtString());
         }
 
-        //check at the end of the trun if the opponent has won
+        //check at the end of the turn if the opponent has won
         checkForWin();
     }
 

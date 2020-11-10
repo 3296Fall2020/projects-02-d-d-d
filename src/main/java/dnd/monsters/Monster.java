@@ -11,7 +11,6 @@ public abstract class Monster {
     public String type;
     public String desc;
     public int hp;
-    public int initiative;
     public Weapon weapon;
     public int damageDie;
 
@@ -45,10 +44,6 @@ public abstract class Monster {
 
     public String getType(){
         return this.type;
-    }
-
-    public int getInitiative(){
-        return this.initiative;
     }
 
     public int getHitPoints(){

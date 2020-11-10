@@ -2,34 +2,34 @@ package dnd.monsters;
 
 import dnd.weapons.*;
 
-public class Goblin extends Monster {
+public class Orc extends Monster {
 
     /** Creates a goblin monster of the name "name" with a max HP of "hp" and set its attributes**/
-    public Goblin(String name, int hp){
-        //goblin basic info
+    public Orc(String name, int hp){
+        //orc basic info
         this.name = name;
         this.hp = hp;
-        this.desc = "A harried-looking goblin, with mottled green-gray skin and beady black eyes.";
-        this.type = "Goblin";
+        this.desc = "A hulking orc.";
+        this.type = "Orc";
 
-        //goblins get clubs
+        //orcs get clubs
         Club club = new Club();
         this.setWeapon(club);
 
         //goblin stats
-        this.dexMod = 1;
-        this.strMod = 2;
-        this.conMod = 1;
-        this.wisMod = 0;
+        this.dexMod = -1;
+        this.strMod = 3;
+        this.conMod = 2;
+        this.wisMod = -1;
         this.intlMod = -2;
         this.chaMod = -1;
 
-        //the maximum damage a goblin can do
+        //the maximum damage an orc can do
         this.damageDie = club.getDie();
 
-        //set the goblin's strings
-        this.introString = this.name + " the " + this.type + " lopes towards you... It looks like they want a fight!";
-        this.tauntString = this.name + " sticks out their tongue and cackles at you.";
+        //set the orc's strings
+        this.introString = "The ground trembles slightly as " + this.name + " the " + this.type + " lumbers towards you...";
+        this.tauntString = this.name + " roars and beats their chest.";
         this.victoryString = this.name + " has defeated you.";
         this.defeatedString = this.name + " has been defeated.";
         this.dodgedString = this.name + " dodges the hit.";

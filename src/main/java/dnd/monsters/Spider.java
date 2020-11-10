@@ -24,9 +24,6 @@ public class Spider extends Monster {
         this.intlMod = 1;
         this.chaMod = -2;
 
-        //initiative is equal to the DEX modifier
-        this.initiative = this.dexMod;
-
         //the maximum damage a spider can do
         this.damageDie = claws.getDie();
 
@@ -34,7 +31,7 @@ public class Spider extends Monster {
         this.introString = this.name + " the " + this.type + " scuttles towards you menacingly... It looks like they want a fight!";
         this.tauntString = this.name + " rears back on four of its legs and taunts you with a hiss.";
         this.victoryString = this.name + " has defeated you.";
-        this.defeatString = this.name + " has been defeated.";
+        this.defeatedString = this.name + " has been defeated.";
         this.dodgedString = this.name + " dodges the hit.";
         this.isHitString = this.name + " was hit!";
         this.hitsPlayerString = this.name + " hit you!";
