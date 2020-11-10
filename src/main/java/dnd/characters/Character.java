@@ -206,7 +206,7 @@ public class Character {
         if (this.XP >= XPofNextLevel) {
             //level up if necessary, and also increase hit points by dice.roll(10,3) + constitutionModifier
             this.level += 1;
-            int HPIncrease = die.roll(10) + die.roll(10) + die.roll(10) + getConstitutionMod();
+            int HPIncrease = die.rollSum(10,3) + getConstitutionMod();
             this.hitPoints += HPIncrease;
             System.out.println("\nCongrats! You advanced to level " + getLevel());
             XPofNextLevel = getLevel() *XPIncrement;
