@@ -204,7 +204,7 @@ public class Combat {
             System.out.println(opponent.getDamageTakenString());
         }
         else{
-            System.out.println(opponent.getDamageTakenString());
+            System.out.println(opponent.getDodgedString());
         }
 
     }
@@ -229,7 +229,7 @@ public class Combat {
     public String winCombat(){
         //give rewards
 
-        String ret = "Your opponent falls to the ground, defeated.\nCongratulations, you won this fight!";
+        String ret = opponent.getDefeatedString();
         active = false;
         return ret;
     }
@@ -238,7 +238,7 @@ public class Combat {
     public String loseCombat(){
         //perform loss consequences
 
-        String ret = "You fall to the ground, defeated.\nYou lost this fight!";
+        String ret = opponent.getVictoryString();
         active = false;
 
         return ret;

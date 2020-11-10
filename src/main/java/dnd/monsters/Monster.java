@@ -26,7 +26,7 @@ public abstract class Monster {
     public String introString;
     public String tauntString;
     public String victoryString;
-    public String defeatString;
+    public String defeatedString;
     public String dodgedString;
     public String isHitString;
     public String hitsPlayerString;
@@ -75,12 +75,12 @@ public abstract class Monster {
     }
 
     //Gets the String that will display when the monster loses combat
-    public String getDefeatString(){
-        return this.tauntString;
+    public String getDefeatedString(){
+        return this.defeatedString;
     }
 
     //Gets the String that will display when the monster dodges a hit successfully
-    public String getDodgeString(){
+    public String getDodgedString(){
         return this.dodgedString;
     }
 

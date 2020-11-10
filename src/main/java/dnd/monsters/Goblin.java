@@ -34,7 +34,7 @@ public class Goblin extends Monster {
         this.introString = this.name + " the " + this.type + " lopes towards you... It looks like they want a fight!";
         this.tauntString = this.name + " sticks out their tongue and cackles at you.";
         this.victoryString = this.name + " has defeated you.";
-        this.defeatString = this.name + " has been defeated.";
+        this.defeatedString = this.name + " has been defeated.";
         this.dodgedString = this.name + " dodges the hit.";
         this.isHitString = this.name + " was hit!";
         this.hitsPlayerString = this.name + " hit you!";
