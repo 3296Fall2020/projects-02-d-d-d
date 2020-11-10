@@ -118,7 +118,7 @@ public class Character {
         determineAbilityModifier();
         this.level = 1;
         this.XP = 0;
-
+        this.hitPoints = hitPointInitial;
     }
 
     /*
