@@ -17,7 +17,7 @@ public abstract class Monster {
     public int strMod;
     public int dexMod;
     public int conMod;
-    public int intlMod;
+    public int intMod;
     public int wisMod;
     public int chaMod;
 
@@ -138,7 +138,7 @@ public abstract class Monster {
         return this.conMod;
     }
     public int getIntlMod(){
-        return this.intlMod;
+        return this.intMod;
     }
     public int getWisMod(){
         return this.wisMod;
@@ -157,8 +157,8 @@ public abstract class Monster {
     public void setConMod(int newMod){
         this.conMod = newMod;
     }
-    public void setIntlMod(int newMod){
-        this.intlMod = newMod;
+    public void setIntMod(int newMod){
+        this.intMod = newMod;
     }
     public void setWisMod(int newMod){
         this.wisMod = newMod;

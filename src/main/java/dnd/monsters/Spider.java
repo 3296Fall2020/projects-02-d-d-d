@@ -10,7 +10,7 @@ public class Spider extends Monster {
         this.name = name;
         this.hp = hp;
         this.desc = "A large, probably poisonous spider.";
-        this.type = "spider";
+        this.type = "Spider";
 
         //spiders get claws
         Claws claws = new Claws();

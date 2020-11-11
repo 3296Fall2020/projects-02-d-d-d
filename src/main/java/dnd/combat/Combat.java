@@ -13,13 +13,19 @@ public class Combat {
     public Character player;
 
     //A MonsterGenerator for generating a random monster
-    public MonsterGenerator myMonsterGenerator;
+    private MonsterGenerator myMonsterGenerator;
 
     //the current opponent
     public Monster opponent;
 
     //placeholder for weapon usage
     public Weapon playerWeapon;
+
+    //int for the player's weapon's ability modifier (added to player attack rolls)
+    private int playerWeaponMod;
+
+    //int for the monster's weapon's ability modifier (added to monster attack rolls)
+    private int opponentWeaponMod;
 
     //dice for combat
     private Dice dice;
@@ -37,13 +43,6 @@ public class Combat {
     private int round;
 
     public Combat(Character c){
-        //set character
-        this.player = c;
-
-        //set placeholders
-        Sword sword = new Sword();
-        this.playerWeapon = sword;
-
         //create dice
         this.dice = new Dice();
 
@@ -52,21 +51,60 @@ public class Combat {
         this.active = true;
         this.playerVictory = false;
 
+        //set player
+        this.player = c;
+
+        //give player a weapon (placeholder until Weapon class integrated into Character class)
+        Sword sword = new Sword();
+        this.playerWeapon = sword;
+        this.playerWeaponMod = getPlayerWeaponAbility();
+
         //create monster generator and generate a monster
-        myMonsterGenerator = new MonsterGenerator();
+        this.myMonsterGenerator = new MonsterGenerator();
         this.opponent = myMonsterGenerator.generateRandomMonster();
+        this.opponentWeaponMod = getOpponentWeaponAbility();
 
         //check who goes first
         this.playerFirst = decideOrder();
 
     }
 
-    /** Decides turn order by comparing player and monster dexterity mods.
-        The higher dexterity mod goes first (playerFirst = false). **/
-    public boolean decideOrder(){
-        if (player.getDexterityMod() <= opponent.getDexMod())
-            return false;
-        return true;
+    /** Check which ability the player weapon relies on and return that ability's modifier as an int. **/
+    public int getPlayerWeaponAbility(){
+        Weapon weapon = playerWeapon;
+        String ability = weapon.getAbility();
+
+        if (ability == "str")
+            return player.getStrengthMod();
+        else if (ability == "dex")
+            return player.getDexterityMod();
+        else if (ability == "con")
+            return player.getConstitutionMod();
+        else if (ability == "int")
+            return player.getIntelligenceMod();
+        else if (ability == "wis")
+            return player.getWisdomMod();
+        else
+            return player.getCharismaMod();
+    }
+
+    /** Check which ability the monster weapon relies on and return that ability's modifier as an int. **/
+    public int getOpponentWeaponAbility(){
+        Weapon weapon = this.opponent.getWeapon();
+        String ability = weapon.getAbility();
+
+        if (ability == "str")
+            return player.getStrengthMod();
+        else if (ability == "dex")
+            return player.getDexterityMod();
+        else if (ability == "con")
+            return player.getConstitutionMod();
+        else if (ability == "int")
+            return player.getIntelligenceMod();
+        else if (ability == "wis")
+            return player.getWisdomMod();
+        else
+            return player.getCharismaMod();
     }
 
     /** ROUND HANDLING METHODS **/
@@ -112,6 +150,14 @@ public class Combat {
         }
     }
 
+    /** Decides turn order by comparing player and monster dexterity mods.
+     The higher dexterity mod goes first (playerFirst = false). **/
+    public boolean decideOrder(){
+        if (player.getDexterityMod() <= opponent.getDexMod())
+            return false;
+        return true;
+    }
+
     /** COMBAT METHODS **/
     /** Perform opponent turn.**/
     public void opponentTurn(){
@@ -119,10 +165,12 @@ public class Combat {
 
         int opponentRolls[] = opponent.doRolls();
 
-        int attackRoll = opponentRolls[0];
+        int attackRoll = opponentRolls[0] + opponentWeaponMod;
         int damageRoll = opponentRolls[1];
 
-        //The opponent first tries to attack. If the player fails to dodge, they receive the damage dealt by the opponent.
+        //The opponent first tries to attack by rolling their attack roll.
+        //The attack roll (1d20 + weapon modifier) must exceed the player's roll (1d20 + DEX mod)
+        // If the player fails to dodge, they receive damage equal to the opponent's damage roll.
         if(!playerDodge(attackRoll)) {
             int newHP;
             newHP = player.getHitPoints() - damageRoll;
@@ -163,7 +211,7 @@ public class Combat {
         return choice;
     }
 
-    /** Check if game should go on. **/
+    /** Check if the turn should be allowed. **/
     public boolean allowTurn(){
         if (!active)
             return false;
@@ -185,6 +233,7 @@ public class Combat {
         return false;
     }
 
+    /** Check who won the battle. **/
     public String getOutcome(){
         String outcome;
         if (playerVictory) {
@@ -199,8 +248,8 @@ public class Combat {
     /** The player attempts to attack the Monster.
         If the Monster fails to dodge, the Monster damaged according to the playerWeapon's damage die. **/
     public void attack(){
-        System.out.println("You swing the " + playerWeapon.getName() + " towards the " + opponent.getType() + "!");
-        int tryAttack = dice.roll(20);
+        System.out.println(playerWeapon.getPlayerUsageString());
+        int tryAttack = dice.roll(20) + playerWeaponMod;
         if(!opponent.dodge(tryAttack)){
             int dmg = dice.roll(playerWeapon.getDie());
             opponent.takeDamage(dmg);
@@ -208,7 +257,8 @@ public class Combat {
         }
     }
 
-    /** The player tries to dodge the attack. If their d20 roll + DEX modifier exceeds the monster's dice roll, they succeed. **/
+    /** The player tries to dodge the attack.
+        The player succeeds if their roll (1d20 + DEX mod) exceeds the opponent's roll (1d20 + weapon ability mod) **/
     public boolean playerDodge(int opponentRoll){
         int dexRoll = dice.roll(20) + player.getDexterityMod();
         if(dexRoll >= opponentRoll){
