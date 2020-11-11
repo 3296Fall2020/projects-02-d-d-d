@@ -4,11 +4,11 @@ import dnd.weapons.*;
 
 public class Spider extends Monster {
 
-    /** Creates a spider monster of the name "name" with a max HP of "hp" and set its attributes **/
-    public Spider(String name, int hp){
+    /** Creates a spider monster of the name "name" and set its attributes **/
+    public Spider(String name, int playerLvl){
         //spider basic info
         this.name = name;
-        this.hp = hp;
+        this.initHP(playerLvl);
         this.desc = "A large, probably poisonous spider.";
         this.type = "Spider";
 
@@ -21,7 +21,7 @@ public class Spider extends Monster {
         this.strMod = 0;
         this.conMod = 1;
         this.wisMod = 1;
-        this.intlMod = 1;
+        this.intMod = 1;
         this.chaMod = -2;
 
         //set the spider's strings

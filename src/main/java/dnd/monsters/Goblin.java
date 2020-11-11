@@ -5,10 +5,10 @@ import dnd.weapons.*;
 public class Goblin extends Monster {
 
     /** Creates a goblin monster of the name "name" with a max HP of "hp" and set its attributes**/
-    public Goblin(String name, int hp){
+    public Goblin(String name, int playerLvl){
         //goblin basic info
         this.name = name;
-        this.hp = hp;
+        this.initHP(playerLvl);
         this.desc = "A harried-looking goblin, with mottled green-gray skin and beady black eyes.";
         this.type = "Goblin";
 
@@ -21,7 +21,7 @@ public class Goblin extends Monster {
         this.strMod = 2;
         this.conMod = 1;
         this.wisMod = 0;
-        this.intlMod = -2;
+        this.intMod = -2;
         this.chaMod = -1;
 
         //set the goblin's strings

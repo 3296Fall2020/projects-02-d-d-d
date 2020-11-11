@@ -57,54 +57,54 @@ public class Combat {
         //give player a weapon (placeholder until Weapon class integrated into Character class)
         Sword sword = new Sword();
         this.playerWeapon = sword;
-        this.playerWeaponMod = getPlayerWeaponAbility();
+        this.setPlayerWeaponMod();
 
         //create monster generator and generate a monster
-        this.myMonsterGenerator = new MonsterGenerator();
+        this.myMonsterGenerator = new MonsterGenerator(this.player);
         this.opponent = myMonsterGenerator.generateRandomMonster();
-        this.opponentWeaponMod = getOpponentWeaponAbility();
+        this.opponentWeaponMod = getOpponentWeaponMod();
 
         //check who goes first
         this.playerFirst = decideOrder();
 
+        System.out.println("Player lvl: " + player.getLevel() + " || HP: " + player.getHitPoints() + " || Monster HP: " + opponent.getHitPoints());
     }
 
-    /** Check which ability the player weapon relies on and return that ability's modifier as an int. **/
-    public int getPlayerWeaponAbility(){
-        Weapon weapon = playerWeapon;
-        String ability = weapon.getAbility();
+    /** Check which ability the player weapon relies on and set that ability's modifier as the playerWeaponMod. **/
+    public void setPlayerWeaponMod(){
+        String ability = playerWeapon.getAbility();
 
         if (ability == "str")
-            return player.getStrengthMod();
+            this.playerWeaponMod = player.getStrengthMod();
         else if (ability == "dex")
-            return player.getDexterityMod();
+            this.playerWeaponMod = player.getDexterityMod();
         else if (ability == "con")
-            return player.getConstitutionMod();
+            this.playerWeaponMod = player.getConstitutionMod();
         else if (ability == "int")
-            return player.getIntelligenceMod();
+            this.playerWeaponMod = player.getIntelligenceMod();
         else if (ability == "wis")
-            return player.getWisdomMod();
+            this.playerWeaponMod = player.getWisdomMod();
         else
-            return player.getCharismaMod();
+            this.playerWeaponMod = player.getCharismaMod();
     }
 
     /** Check which ability the monster weapon relies on and return that ability's modifier as an int. **/
-    public int getOpponentWeaponAbility(){
+    public int getOpponentWeaponMod(){
         Weapon weapon = this.opponent.getWeapon();
         String ability = weapon.getAbility();
 
         if (ability == "str")
-            return player.getStrengthMod();
+            return opponent.getStrMod();
         else if (ability == "dex")
-            return player.getDexterityMod();
+            return opponent.getDexMod();
         else if (ability == "con")
-            return player.getConstitutionMod();
+            return opponent.getConMod();
         else if (ability == "int")
-            return player.getIntelligenceMod();
+            return opponent.getIntMod();
         else if (ability == "wis")
-            return player.getWisdomMod();
+            return opponent.getWisMod();
         else
-            return player.getCharismaMod();
+            return opponent.getChaMod();
     }
 
     /** ROUND HANDLING METHODS **/
@@ -132,6 +132,7 @@ public class Combat {
             -If no, check who won
      **/
     public void runCombat(){
+        System.out.println(opponent.getIntroString());
         while(active)
         {
             newRound();
@@ -162,6 +163,7 @@ public class Combat {
     /** Perform opponent turn.**/
     public void opponentTurn(){
         System.out.println("\n**Opponent turn!**");
+        System.out.println(opponent.getTauntString());
 
         int opponentRolls[] = opponent.doRolls();
 
@@ -246,15 +248,38 @@ public class Combat {
     }
 
     /** The player attempts to attack the Monster.
-        If the Monster fails to dodge, the Monster damaged according to the playerWeapon's damage die. **/
+        If the Monster fails to dodge, the Monster damaged according to the playerWeapon's damage die.
+        Player damage is calculated by rolling the weapon's damage die then adding the weapon's mod.
+
+        The damage die is rolled once for lvl <2, twice for lvl 2-5, three times for lvl 6-12,
+        four times for lvl 13-18, and five times for lvl 19+.
+
+        For example, a lvl 17 character with a Sword (weapon die = 6, weapon mod = STR) will deal:
+                                 dmg = 4d6 + player's STR modifier
+     **/
     public void attack(){
         System.out.println(playerWeapon.getPlayerUsageString());
         int tryAttack = dice.roll(20) + playerWeaponMod;
         if(!opponent.dodge(tryAttack)){
-            int dmg = dice.roll(playerWeapon.getDie());
+            int dmg = 0;
+
+            if (player.getLevel() < 2)
+                dmg = dice.roll(playerWeapon.getDie()) + playerWeaponMod;
+            else if (player.getLevel() <= 5)
+                dmg = dice.rollSum(playerWeapon.getDie(), 2) + playerWeaponMod;
+            else if (player.getLevel() <= 12)
+                dmg = dice.rollSum(playerWeapon.getDie(), 3) + playerWeaponMod;
+            else if (player.getLevel() <= 18)
+                dmg = dice.rollSum(playerWeapon.getDie(), 4) + playerWeaponMod;
+            else
+                dmg = dice.rollSum(playerWeapon.getDie(), 5) + playerWeaponMod;
+
             opponent.takeDamage(dmg);
+            System.out.println(opponent.getIsHitString());
             System.out.println(opponent.getDamageTakenString());
         }
+        else
+            System.out.println(opponent.getDodgedString());
     }
 
     /** The player tries to dodge the attack.

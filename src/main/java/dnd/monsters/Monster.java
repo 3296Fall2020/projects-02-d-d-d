@@ -1,5 +1,6 @@
 package dnd.monsters;
 
+import dnd.characters.Character;
 import dnd.weapons.Weapon;
 import dnd.dice.Dice;
 
@@ -43,6 +44,22 @@ public abstract class Monster {
 
         //initialize special cooldown to 0
         this.specialCD = 0;
+    }
+
+    /** Monster HP initializer.
+     Monster HP scales with the player's level and is calculated by:
+     Base HP + 2d10 * (PLAYER LEVEL) + (MONSTER CON MOD)**/
+    public void initHP(int lvl){
+        if (lvl < 2)
+            this.hp = dice.rollWithMin(12, 7) + this.conMod;
+        else if (lvl <= 5)
+            this.hp = 10 + dice.rollSum(12, lvl) + this.conMod;
+        else if (lvl <= 10)
+            this.hp = 15 + dice.rollSum(12, lvl) + this.conMod;
+        else if (lvl <= 15)
+            this.hp = 20 + dice.rollSum(12, lvl) + this.conMod;
+        else
+            this.hp = 25 + dice.rollSum(12, lvl) + this.conMod;
     }
 
     /** Getter methods for basic monster stats. **/
@@ -137,7 +154,7 @@ public abstract class Monster {
     public int getConMod(){
         return this.conMod;
     }
-    public int getIntlMod(){
+    public int getIntMod(){
         return this.intMod;
     }
     public int getWisMod(){
@@ -201,14 +218,10 @@ public abstract class Monster {
     public boolean dodge(int playerRoll){
         int spiderRoll = dice.roll(20) + this.dexMod;
 
-        if (spiderRoll > playerRoll){
-            System.out.println(this.dodgedString);
+        if (spiderRoll > playerRoll)
             return true;
-        }
-        else{
-            System.out.println(this.isHitString);
+        else
             return false;
-        }
     }
 
     /** The monster takes dmg amount of damage. **/
