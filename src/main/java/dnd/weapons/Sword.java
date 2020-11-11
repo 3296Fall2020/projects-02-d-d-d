@@ -15,11 +15,11 @@ public class Sword extends Weapon {
         String usage = "";
 
         if (n == 1)
-            usage = "With a great swipe, you slash out with the claws!";
+            usage = "Hands braced around the hilt of your sword, you lunge forward and strike!";
         else if (n == 2)
-            usage = "Your arm blurs in the air as you swipe out with your claws!";
+            usage = "You bring down your sword in one gleaming, deadly arc!";
         else if (n == 3)
-            usage = "You slash your claws with a dexterity a spider would envy!";
+            usage = "You point your blade towards your target to mark them before rushing to attack!";
         else
             usage = this.playerUsageString;
 

@@ -50,8 +50,11 @@ public abstract class Monster {
     }
 
     /** Monster HP initializer.
-     Monster HP scales with the player's level and is calculated by:
-     Base HP + 2d10 * (PLAYER LEVEL) + (MONSTER CON MOD)**/
+     Monster HP scales with the player's level.
+     At level 1, its health is equal to a random number between 7-12 HP, plus the monster's CON mod.
+
+     At higher levels, it is calculated by:
+     Base + a d12 rolled (PLAYER LEVEL + 2 or 1) times + (MONSTER CON MOD)**/
     public void initHP(){
         if (lvl < 2)
             this.hp = dice.rollWithMin(12, 7) + this.conMod;
@@ -72,6 +75,10 @@ public abstract class Monster {
 
     public String getType(){
         return this.type;
+    }
+
+    public String getDesc(){
+        return this.desc;
     }
 
     public int getHitPoints(){
@@ -195,26 +202,22 @@ public abstract class Monster {
     public int[] doRolls(int mod){
         int rolls[] = new int[2];
 
-        //The monster first tries to attack. The attack roll is 1d20.
+        //The monster first tries to attack. The attack roll is 1d20. Store this into the array at index 0.
         int attackRoll = dice.roll(20);
         rolls[0] = attackRoll;
 
         //This will be the amount of damage the monster will do if it lands the hit.
-        int damageRoll = 0;
+        int damageRoll;
 
-        //Monster decides how to attack. 30% chance of using their special ability (if off cooldown)
+        //Monster decides how to attack. There is 30% chance of using their special ability (if off cooldown)
         int choice = dice.roll(10);
-
-        System.out.println("Special cooldown: " + specialCD);
-
-        if (specialCD == 0)
-            System.out.println("I can use my special ability!");
 
         if (choice <= 10 && specialCD == 0)
             damageRoll = specialAbility(mod);
         else
             damageRoll = basicAttack(mod);
 
+        //Store the damage roll into the array at index 1.
         rolls[1] = damageRoll;
 
         return rolls;

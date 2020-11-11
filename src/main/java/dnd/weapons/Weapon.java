@@ -4,15 +4,20 @@ import dnd.dice.Dice;
 
 public abstract class Weapon {
 
-    /** Each weapon consists of a name, description, damageDie, and abilityMod.
-        The damageDie is the maximum amount of damage a weapon can do.
-        The abilityMod is the ability modifier that is added to the weapon's attack roll.
+    /** Each weapon consists of a name, description, damageDie, and ability.
+
+        The damageDie is the size of the die rolled for the weapon's damage. This represents
+        the maximum damage that the weapon can deal.
+
+        The ability is the ability whose modifier will be added to any attack or damage roll when using this weapon.
+        In combat, different weapons rely on different abilities (ex: swords use STR while wands use INT).
      **/
     public String name;
     public String desc;
     public int damageDie;
     public String ability;
 
+    /** A String that describes how the player uses the weapon. Randomized by the getPlayerUsageString() function. **/
     public String playerUsageString;
 
     /** Return the name of the weapon. **/

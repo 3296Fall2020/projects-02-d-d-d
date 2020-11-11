@@ -5,7 +5,7 @@ import dnd.characters.Character;
 
 public class Orc extends Monster {
 
-    /** Creates a goblin monster of the name "name" with a max HP of "hp" and set its attributes**/
+    /** Creates an orc monster of the name "name" with a max HP of "hp" and set its attributes**/
     public Orc(String name, Character player){
         //orc basic info
         this.name = name;
@@ -31,7 +31,9 @@ public class Orc extends Monster {
         this.introString = "The ground trembles slightly as " + this.name + " the " + this.type + " lumbers towards you...";
         this.tauntString = this.name + " roars and beats their chest.";
         this.victoryString = this.name + " has defeated you.";
-        this.defeatedString = this.name + " has been defeated.";
+        this.defeatedString = "Once more, the ground shakes as " + this.name + " stumbles around, but this time they only " +
+                "make it two steps before their legs give out and they crash to the ground. " + this.name + " lies there, " +
+                "mumbling nonsensical words about bedtime. Looks as good as a victory as any!";
         this.dodgedString = this.name + " dodges the hit.";
         this.isHitString = this.name + " was hit!";
         this.hitsPlayerString = this.name + " hit you!";

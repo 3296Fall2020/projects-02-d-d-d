@@ -11,11 +11,13 @@ public class Goblin extends Monster {
         this.name = name;
         this.player = player;
         this.lvl = player.getLevel();
-        this.desc = "A harried-looking goblin, with mottled green-gray skin and beady black eyes.";
+        this.desc = "A harried-looking goblin, with mottled green-gray skin and beady black eyes. It carries " +
+                    "a small club that it occasionally thumps on the ground for no apparent reason other than " +
+                    "to entertain itself.";
         this.type = "Goblin";
         this.initHP();
 
-        //goblins get clubs. the goblin's damage die = club's damage die.
+        //goblins get clubs. the goblin's damage die = the club's damage die.
         Club club = new Club();
         this.setWeapon(club);
 
@@ -28,10 +30,11 @@ public class Goblin extends Monster {
         this.chaMod = -1;
 
         //set the goblin's strings
-        this.introString = this.name + " the " + this.type + " lopes towards you... It looks like they want a fight!";
+        this.introString = this.name + " the Goblin lopes towards you... It looks like they want a fight!";
         this.tauntString = this.name + " sticks out their tongue and cackles at you.";
         this.victoryString = this.name + " has defeated you.";
-        this.defeatedString = this.name + " has been defeated.";
+        this.defeatedString = this.name + " wobbles around with a confused garble, before gravity claims them " +
+                "and they crash to the ground. Congratulations, you've defeated " + this.name + " the Goblin!";
         this.dodgedString = this.name + " dodges the hit.";
         this.isHitString = this.name + " was hit!";
         this.hitsPlayerString = this.name + " hit you!";
@@ -61,8 +64,8 @@ public class Goblin extends Monster {
             dmg = 15 + dice.rollSum(this.damageDie, 6) + mod;
 
         this.damageDealtString = this.name + " drops to a crouch, then suddenly launches themselves into the air " +
-                "with a warbling screech! They lift their " + weapon.getName() + " over their head then bring it " +
-                "down in a special attack that deals " + dmg + " damage!";
+                "with a warbling screech! They swing their club over their head in a surprising show of strength, then " +
+                "bring it down in a special attack that deals " + dmg + " damage!";
 
         return dmg;
     }

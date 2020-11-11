@@ -31,7 +31,9 @@ public class Spider extends Monster {
         this.introString = this.name + " the " + this.type + " scuttles towards you menacingly... It looks like they want a fight!";
         this.tauntString = this.name + " rears back on four of its legs and taunts you with a hiss.";
         this.victoryString = this.name + " has defeated you.";
-        this.defeatedString = this.name + " has been defeated.";
+        this.defeatedString = "With one last terrible shriek, " + this.name + " pounds its claws into the ground. With startling speed, " +
+                "it burrows into the ground and escapes. That shriek sounded like a promise that this wasn't over yet...but for now, " +
+                "it looks like you've won!";
         this.dodgedString = this.name + " dodges the hit.";
         this.isHitString = this.name + " was hit!";
         this.hitsPlayerString = this.name + " hit you!";

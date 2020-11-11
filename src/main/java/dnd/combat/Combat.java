@@ -42,6 +42,9 @@ public class Combat {
     //int to signify the current combat round
     private int round;
 
+    //a String that displays when the player dodges the opponent's attack
+    private String playerDodgeString;
+
     public Combat(Character c){
         //create dice
         this.dice = new Dice();
@@ -66,6 +69,8 @@ public class Combat {
 
         //check who goes first
         this.playerFirst = decideOrder();
+
+        playerDodgeString = opponent.getName() + " tries to attack, but you manage to dodge the hit!";
 
         System.out.println("Player lvl: " + player.getLevel() + " || HP: " + player.getHitPoints() + " || Monster HP: " + opponent.getHitPoints());
     }
@@ -163,6 +168,9 @@ public class Combat {
     /** Perform opponent turn.**/
     public void opponentTurn(){
         System.out.println("\n**Opponent turn!**");
+
+        //opponent randomly taunts
+        if(dice.roll(4) == 1)
         System.out.println(opponent.getTauntString());
 
         // Reduce the opponent's cooldown by 1 and perform its attack and damage rolls.
@@ -200,18 +208,33 @@ public class Combat {
 
     /** Get the player's choice **/
     public int getPlayerChoice(){
-        System.out.println("Pick an action: \n1. Attack \n2. Use item \n3. Flee");
+        System.out.println("Pick an action: \n 1. Examine opponent\n2. Attack \n3. Use item \n4. Flee");
+
+        // Attacking or fleeing will end the turn.
+        // Examining the Monster and opening the inventory does not end the turn.
+        boolean endTurn = false;
 
         // Currently, the player ATTACKS by default.
-        // This should be implemented with GUI
-        int choice = 1;
+        // Player choice will be implemented with GUI
+        int choice = 2;
 
-        if (choice == 1)
-            attack();
-        else if (choice == 2)
-            openInventory();
-        else
-            flee();
+        while(!endTurn) {
+
+            if (choice == 1){
+                String desc = examineOpponent();
+                System.out.println(desc);
+            }
+            else if (choice == 2) {
+                attack();
+                endTurn = true;
+            }
+            else if (choice == 3)
+                openInventory();
+            else {
+                flee();
+                endTurn = true;
+            }
+        }
         return choice;
     }
 
@@ -247,6 +270,11 @@ public class Combat {
             outcome = loseCombat();
         }
         return outcome;
+    }
+
+    /** Get and display a description of the Monster. **/
+    public String examineOpponent(){
+        return opponent.getDesc();
     }
 
     /** The player attempts to attack the Monster.
@@ -291,7 +319,7 @@ public class Combat {
     public boolean playerDodge(int opponentRoll){
         int dexRoll = dice.roll(20) + player.getDexterityMod();
         if(dexRoll >= opponentRoll){
-            System.out.println("You manage to dodge the hit!");
+            System.out.println(playerDodgeString);
             return true;
         }
         return false;

@@ -7,7 +7,7 @@ public class Bow extends Weapon {
         this.desc = "A bow";
         this.playerUsageString = "You swiftly notch an arrow and fire!";
 
-        this.damageDie = 6;
+        this.damageDie = 8;
         this.ability = "dex";
     }
 
