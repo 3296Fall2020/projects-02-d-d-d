@@ -1,19 +1,21 @@
 package dnd.monsters;
 
 import dnd.weapons.*;
+import dnd.characters.Character;
 
 public class Goblin extends Monster {
 
     /** Creates a goblin monster of the name "name" with a max HP of "hp" and set its attributes**/
-    public Goblin(String name, int playerLvl){
+    public Goblin(String name, Character player){
         //goblin basic info
         this.name = name;
-        this.lvl = playerLvl;
+        this.player = player;
+        this.lvl = player.getLevel();
         this.desc = "A harried-looking goblin, with mottled green-gray skin and beady black eyes.";
         this.type = "Goblin";
         this.initHP();
 
-        //goblins get clubs
+        //goblins get clubs. the goblin's damage die = club's damage die.
         Club club = new Club();
         this.setWeapon(club);
 
@@ -38,10 +40,31 @@ public class Goblin extends Monster {
         this.damageDealtString = "";
     }
 
+
+    /** A goblin's special ability that does more base damage than its basic attack.
+        Can only be used every number of turns represented by specialCD. **/
     public int specialAbility(int mod){
+        this.specialCD = 3;
         int dmg = 0;
-        this.damageDealtString = this.name + " performs their special ability for " + dmg + " damage!";
-        return 0;
+
+        if (lvl < 2)
+            dmg = 5 + dice.roll(this.damageDie + mod);
+        else if (lvl <= 5)
+            dmg = 7 + dice.rollSum(this.damageDie, 2) + mod;
+        else if (lvl <= 8)
+            dmg = 9 + dice.rollSum(this.damageDie, 3) + mod;
+        else if (lvl <= 12)
+            dmg = 11 + dice.rollSum(this.damageDie, 4) + mod;
+        else if (lvl <= 16)
+            dmg = 13 + dice.rollSum(this.damageDie, 5) + mod;
+        else
+            dmg = 15 + dice.rollSum(this.damageDie, 6) + mod;
+
+        this.damageDealtString = this.name + " drops to a crouch, then suddenly launches themselves into the air " +
+                "with a warbling screech! They lift their " + weapon.getName() + " over their head then bring it " +
+                "down in a special attack that deals " + dmg + " damage!";
+
+        return dmg;
     }
 
 }

@@ -165,13 +165,15 @@ public class Combat {
         System.out.println("\n**Opponent turn!**");
         System.out.println(opponent.getTauntString());
 
+        // Reduce the opponent's cooldown by 1 and perform its attack and damage rolls.
+        this.opponent.reduceCD();
         int opponentRolls[] = opponent.doRolls(opponentWeaponMod);
 
         int attackRoll = opponentRolls[0];
         int damageRoll = opponentRolls[1];
 
-        //The opponent first tries to attack by rolling their attack roll.
-        //The attack roll (1d20 + weapon modifier) must exceed the player's roll (1d20 + DEX mod)
+        // The opponent first tries to attack with an attack roll.
+        // The attack roll (1d20 + weapon modifier) must exceed the player's counter roll (1d20 + DEX mod).
         // If the player fails to dodge, they receive damage equal to the opponent's damage roll.
         if(!playerDodge(attackRoll)) {
             int newHP;

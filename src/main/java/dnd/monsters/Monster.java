@@ -16,6 +16,9 @@ public abstract class Monster {
     public Weapon weapon;
     public int damageDie;
 
+    //The monster knows about the player
+    public Character player;
+
     public int strMod;
     public int dexMod;
     public int conMod;
@@ -24,7 +27,6 @@ public abstract class Monster {
     public int chaMod;
 
     //cooldowns
-    public int tauntCD;
     public int specialCD;
 
     //strings
@@ -203,7 +205,12 @@ public abstract class Monster {
         //Monster decides how to attack. 30% chance of using their special ability (if off cooldown)
         int choice = dice.roll(10);
 
-        if (choice <= 0 && specialCD == 0)
+        System.out.println("Special cooldown: " + specialCD);
+
+        if (specialCD == 0)
+            System.out.println("I can use my special ability!");
+
+        if (choice <= 10 && specialCD == 0)
             damageRoll = specialAbility(mod);
         else
             damageRoll = basicAttack(mod);
@@ -214,12 +221,12 @@ public abstract class Monster {
     }
 
     /** Monster tries to dodge.
-     Successful if (1d20 + monster's DEX MOD) >= player's roll
+     Successful if (1d20 + monster's DEX MOD) >= player's attack roll
      **/
     public boolean dodge(int playerRoll){
-        int spiderRoll = dice.roll(20) + this.dexMod;
+        int opponentRoll = dice.roll(20) + this.dexMod;
 
-        if (spiderRoll > playerRoll)
+        if (opponentRoll > playerRoll)
             return true;
         else
             return false;
@@ -231,14 +238,20 @@ public abstract class Monster {
         this.hp -= dmg;
     }
 
-    /** Updates special ability's cooldown.
-        The cooldown reduces by one, unless it is at 0. **/
+    /** Updates the monster's special ability cooldown.
+        The cooldown reduces by one. If it is already at 0, keep it at 0. **/
     public void reduceCD(){
-        this.specialCD--;
+        if (this.specialCD > 0)
+            this.specialCD--;
+        else
+            this.specialCD = 0;
     }
 
     /** The monster's basic attack, determined by the damageDie of their weapon.
-     Returns the amount of damage the monster does, which scales with the player's level ( = monster's level). **/
+     Returns the amount of damage the monster does, which scales with the player's level ( = monster's level).
+
+     Takes in an int for the ability modifier to be added to the damage roll. This depends on the monster's
+     weapon and is decided during combat, in the Combat class. **/
     public int basicAttack(int mod){
         int dmg;
 
@@ -247,20 +260,22 @@ public abstract class Monster {
         else if (lvl <= 5)
             dmg = 3 + dice.rollSum(this.damageDie, 2) + mod;
         else if (lvl <= 8)
-            dmg = 7 + dice.rollSum(this.damageDie, 3) + mod;
+            dmg = 5 + dice.rollSum(this.damageDie, 3) + mod;
         else if (lvl <= 12)
-            dmg = 12 + dice.rollSum(this.damageDie, 4) + mod;
+            dmg = 5 + dice.rollSum(this.damageDie, 4) + mod;
         else if (lvl <= 16)
-            dmg = 16 + dice.rollSum(this.damageDie, 5) + mod;
+            dmg = 7 + dice.rollSum(this.damageDie, 5) + mod;
         else
-            dmg = 22 + dice.rollSum(this.damageDie, 6) + mod;
+            dmg = 7 + dice.rollSum(this.damageDie, 6) + mod;
 
         this.damageDealtString = this.name + " attacks with their " + weapon.name + " for " + dmg + " damage!";
         return dmg;
     }
 
     /** ABSTRACT METHODS **/
-    /** An attack unique to the monster. Has a cooldown represented by the var specialCD. **/
+    /** An abstract method for the monster's special ability Has a cooldown represented by the int specialCD.
+        Special abilities do more base damage than basic attacks and are unique to each monster.
+        Takes in an int for the ability modifier added to the damage roll. **/
     public abstract int specialAbility(int mod);
 
 }

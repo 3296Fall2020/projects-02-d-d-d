@@ -1,14 +1,16 @@
 package dnd.monsters;
 
 import dnd.weapons.*;
+import dnd.characters.Character;
 
 public class Spider extends Monster {
 
     /** Creates a spider monster of the name "name" and set its attributes **/
-    public Spider(String name, int playerLvl){
+    public Spider(String name, Character player){
         //spider basic info
         this.name = name;
-        this.lvl = playerLvl;
+        this.player = player;
+        this.lvl = player.getLevel();
         this.desc = "A large, probably poisonous spider.";
         this.type = "Spider";
         this.initHP();
@@ -39,9 +41,27 @@ public class Spider extends Monster {
     }
 
     public int specialAbility(int mod){
+        this.specialCD = 4;
         int dmg = 0;
-        this.damageDealtString = this.name + " performs their special ability for " + dmg + " damage!";
-        return 0;
+
+        if (lvl < 2)
+            dmg = 2 + dice.rollSum(6, 8);
+        else if (lvl <= 5)
+            dmg = 3 + dice.rollSum(6, 8) + mod;
+        else if (lvl <= 8)
+            dmg = 4 + dice.rollSum(6, 8) + mod;
+        else if (lvl <= 12)
+            dmg = 5 + dice.rollSum(6, 8) + mod;
+        else if (lvl <= 16)
+            dmg = 6 + dice.rollSum(6, 8) + mod;
+        else
+            dmg = 7 + dice.rollSum(6, 8) + mod;
+
+        this.damageDealtString = this.name + " coils themselves into a ball and speeds towards you, before " +
+                "springing out at the last moment and lashing out with all eight of its legs, dealing "
+                + dmg + " special damage!";
+
+        return dmg;
     }
 
 }
