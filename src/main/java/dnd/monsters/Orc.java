@@ -8,9 +8,10 @@ public class Orc extends Monster {
     public Orc(String name, int playerLvl){
         //orc basic info
         this.name = name;
-        this.initHP(playerLvl);
+        this.lvl = playerLvl;
         this.desc = "A hulking orc.";
         this.type = "Orc";
+        this.initHP();
 
         //orcs get clubs
         Club club = new Club();
@@ -37,13 +38,7 @@ public class Orc extends Monster {
         this.damageDealtString = "";
     }
 
-    public int basicAttack(){
-        int dmg = dice.roll(weapon.getDie());
-        this.damageDealtString = this.name + " dealt " + dmg + " damage!";
-        return dmg;
-    }
-
-    public int specialAbility(){
+    public int specialAbility(int mod){
         int dmg = 0;
         this.damageDealtString = this.name + " performs their special ability for " + dmg + " damage!";
         return 0;

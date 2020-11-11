@@ -8,9 +8,10 @@ public class Goblin extends Monster {
     public Goblin(String name, int playerLvl){
         //goblin basic info
         this.name = name;
-        this.initHP(playerLvl);
+        this.lvl = playerLvl;
         this.desc = "A harried-looking goblin, with mottled green-gray skin and beady black eyes.";
         this.type = "Goblin";
+        this.initHP();
 
         //goblins get clubs
         Club club = new Club();
@@ -37,13 +38,7 @@ public class Goblin extends Monster {
         this.damageDealtString = "";
     }
 
-    public int basicAttack(){
-        int dmg = dice.roll(weapon.getDie());
-        this.damageDealtString = this.name + " dealt " + dmg + " damage!";
-        return dmg;
-    }
-
-    public int specialAbility(){
+    public int specialAbility(int mod){
         int dmg = 0;
         this.damageDealtString = this.name + " performs their special ability for " + dmg + " damage!";
         return 0;

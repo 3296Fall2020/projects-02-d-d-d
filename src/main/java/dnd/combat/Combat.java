@@ -62,7 +62,7 @@ public class Combat {
         //create monster generator and generate a monster
         this.myMonsterGenerator = new MonsterGenerator(this.player);
         this.opponent = myMonsterGenerator.generateRandomMonster();
-        this.opponentWeaponMod = getOpponentWeaponMod();
+        this.setOpponentWeaponMod();
 
         //check who goes first
         this.playerFirst = decideOrder();
@@ -89,22 +89,22 @@ public class Combat {
     }
 
     /** Check which ability the monster weapon relies on and return that ability's modifier as an int. **/
-    public int getOpponentWeaponMod(){
+    public void setOpponentWeaponMod(){
         Weapon weapon = this.opponent.getWeapon();
         String ability = weapon.getAbility();
 
         if (ability == "str")
-            return opponent.getStrMod();
+            this.opponentWeaponMod = opponent.getStrMod();
         else if (ability == "dex")
-            return opponent.getDexMod();
+            this.opponentWeaponMod = opponent.getDexMod();
         else if (ability == "con")
-            return opponent.getConMod();
+            this.opponentWeaponMod = opponent.getConMod();
         else if (ability == "int")
-            return opponent.getIntMod();
+            this.opponentWeaponMod = opponent.getIntMod();
         else if (ability == "wis")
-            return opponent.getWisMod();
+            this.opponentWeaponMod = opponent.getWisMod();
         else
-            return opponent.getChaMod();
+            this.opponentWeaponMod = opponent.getChaMod();
     }
 
     /** ROUND HANDLING METHODS **/
@@ -165,9 +165,9 @@ public class Combat {
         System.out.println("\n**Opponent turn!**");
         System.out.println(opponent.getTauntString());
 
-        int opponentRolls[] = opponent.doRolls();
+        int opponentRolls[] = opponent.doRolls(opponentWeaponMod);
 
-        int attackRoll = opponentRolls[0] + opponentWeaponMod;
+        int attackRoll = opponentRolls[0];
         int damageRoll = opponentRolls[1];
 
         //The opponent first tries to attack by rolling their attack roll.
@@ -261,18 +261,20 @@ public class Combat {
         System.out.println(playerWeapon.getPlayerUsageString());
         int tryAttack = dice.roll(20) + playerWeaponMod;
         if(!opponent.dodge(tryAttack)){
-            int dmg = 0;
+            int dmg;
 
             if (player.getLevel() < 2)
-                dmg = dice.roll(playerWeapon.getDie()) + playerWeaponMod;
+                dmg = 2 + dice.roll(playerWeapon.getDie()) + playerWeaponMod;
             else if (player.getLevel() <= 5)
-                dmg = dice.rollSum(playerWeapon.getDie(), 2) + playerWeaponMod;
+                dmg = 5 + dice.rollSum(playerWeapon.getDie(), 2) + playerWeaponMod;
+            else if (player.getLevel() <= 8)
+                dmg = 7 + dice.rollSum(playerWeapon.getDie(), 3) + playerWeaponMod;
             else if (player.getLevel() <= 12)
-                dmg = dice.rollSum(playerWeapon.getDie(), 3) + playerWeaponMod;
-            else if (player.getLevel() <= 18)
-                dmg = dice.rollSum(playerWeapon.getDie(), 4) + playerWeaponMod;
+                dmg = 9 + dice.rollSum(playerWeapon.getDie(), 4) + playerWeaponMod;
+            else if (player.getLevel() <= 16)
+                dmg = 11 + dice.rollSum(playerWeapon.getDie(), 5) + playerWeaponMod;
             else
-                dmg = dice.rollSum(playerWeapon.getDie(), 5) + playerWeaponMod;
+                dmg = 13 + dice.rollSum(playerWeapon.getDie(), 6) + playerWeaponMod;
 
             opponent.takeDamage(dmg);
             System.out.println(opponent.getIsHitString());

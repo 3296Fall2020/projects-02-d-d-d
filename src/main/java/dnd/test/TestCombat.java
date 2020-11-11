@@ -13,7 +13,7 @@ public class TestCombat {
         Character c = new Character("Jim", "human");
         //c.setHitPoints(50);
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 15; i++)
             c.addXP(300);
 
 

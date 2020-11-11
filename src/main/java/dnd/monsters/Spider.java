@@ -8,9 +8,10 @@ public class Spider extends Monster {
     public Spider(String name, int playerLvl){
         //spider basic info
         this.name = name;
-        this.initHP(playerLvl);
+        this.lvl = playerLvl;
         this.desc = "A large, probably poisonous spider.";
         this.type = "Spider";
+        this.initHP();
 
         //spiders get claws
         Claws claws = new Claws();
@@ -37,13 +38,7 @@ public class Spider extends Monster {
         this.damageDealtString = "";
     }
 
-    public int basicAttack(){
-        int dmg = dice.roll(weapon.getDie());
-        this.damageDealtString = this.name + " dealt " + dmg + " damage!";
-        return dmg;
-    }
-
-    public int specialAbility(){
+    public int specialAbility(int mod){
         int dmg = 0;
         this.damageDealtString = this.name + " performs their special ability for " + dmg + " damage!";
         return 0;
