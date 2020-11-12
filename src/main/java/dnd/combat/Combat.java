@@ -18,11 +18,8 @@ public class Combat {
     //the current opponent
     public Monster opponent;
 
-    //placeholder for weapon usage
+    //keep track of the player's weapon
     public Weapon playerWeapon;
-
-    //int for the player's weapon's ability modifier (added to player attack rolls)
-    private int playerWeaponMod;
 
     //int for the monster's weapon's ability modifier (added to monster attack rolls)
     private int opponentWeaponMod;
@@ -56,11 +53,7 @@ public class Combat {
 
         //set player
         this.player = c;
-
-        //give player a weapon (placeholder until Weapon class integrated into Character class)
-        Sword sword = new Sword();
-        this.playerWeapon = sword;
-        this.setPlayerWeaponMod();
+        this.playerWeapon = c.getWeapon();
 
         //create monster generator and generate a monster
         this.myMonsterGenerator = new MonsterGenerator(this.player);
@@ -70,27 +63,8 @@ public class Combat {
         //check who goes first
         this.playerFirst = decideOrder();
 
-        playerDodgeString = opponent.getName() + " tries to attack, but you manage to dodge the hit!";
-
-        System.out.println("Player lvl: " + player.getLevel() + " || HP: " + player.getHitPoints() + " || Monster HP: " + opponent.getHitPoints());
-    }
-
-    /** Check which ability the player weapon relies on and set that ability's modifier as the playerWeaponMod. **/
-    public void setPlayerWeaponMod(){
-        String ability = playerWeapon.getAbility();
-
-        if (ability == "str")
-            this.playerWeaponMod = player.getStrengthMod();
-        else if (ability == "dex")
-            this.playerWeaponMod = player.getDexterityMod();
-        else if (ability == "con")
-            this.playerWeaponMod = player.getConstitutionMod();
-        else if (ability == "int")
-            this.playerWeaponMod = player.getIntelligenceMod();
-        else if (ability == "wis")
-            this.playerWeaponMod = player.getWisdomMod();
-        else
-            this.playerWeaponMod = player.getCharismaMod();
+        //uncomment to see print starting levels and HP
+        //System.out.println("Player lvl: " + player.getLevel() + " || HP: " + player.getHitPoints() + " || Monster HP: " + opponent.getHitPoints());
     }
 
     /** Check which ability the monster weapon relies on and return that ability's modifier as an int. **/
@@ -289,6 +263,7 @@ public class Combat {
      **/
     public void attack(){
         System.out.println(playerWeapon.getPlayerUsageString());
+        int playerWeaponMod = player.getPlayerWeaponMod();
         int tryAttack = dice.roll(20) + playerWeaponMod;
         if(!opponent.dodge(tryAttack)){
             int dmg;
