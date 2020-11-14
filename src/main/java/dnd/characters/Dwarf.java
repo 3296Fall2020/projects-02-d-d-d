@@ -7,8 +7,9 @@ public class Dwarf extends Character{
     public Dwarf(String name) {
         super(name);
         this.race = "Dwarf";
-        this.language = "Dwarfish & Common";
+        this.language = "Dwarfish and Common";
         this.speed = 25;
         this.abilities[2] += 2;
+        this.alignment = "Lawful Good";
     }
 }

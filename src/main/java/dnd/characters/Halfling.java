@@ -12,5 +12,6 @@ public class Halfling extends Character{
         this.language = "Halfling and Common";
         this.speed = 25;
         this.abilities[1] +=2;
+        this.alignment = "Lawful Good";
     }
 }

@@ -8,9 +8,10 @@ public class Elf extends Character{
     public Elf(String name) {
         super(name);
         this.race = "Elf";
-        this.language = "Elvish & Common";
+        this.language = "Elvish and Common";
         this.speed = 30;
         this.abilities[1] += 2;
+        this.alignment = "Chaotic Good";
     }
 
 
