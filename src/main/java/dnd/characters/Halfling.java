@@ -15,6 +15,7 @@ public class Halfling extends Character{
         this.speed = 25;
         this.abilities[1] +=2;
         this.alignment = "Lawful Good";
+        this.hitPoints += 3;
     }
 
     //Override setWeapon method such that if the weapon is something good for dwarfs,

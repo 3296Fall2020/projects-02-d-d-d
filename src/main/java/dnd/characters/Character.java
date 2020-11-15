@@ -12,6 +12,10 @@ import java.util.Random;
 public class Character {
     Dice die = new Dice();
 
+    //healing die of particular size which determines how much player is healed
+    int healingDie;
+
+
     String name; //name of character
 
     //Array of six integers to represent Six ability scores that define each character, usually given between 3 and 18
@@ -82,6 +86,37 @@ public class Character {
         }
 
     }
+
+    //Get number of sides of healing Die
+    public int getHealingDie() {
+        return healingDie;
+    }
+
+    //set number of sides of healing die
+    public void setHealingDie(int healingDie) {
+        this.healingDie = healingDie;
+    }
+
+    //randomly set healing die to be either 6 8 10 or 12
+    public void randHealingDie() {
+        int result = die.roll(4);
+        switch(result) {
+            case 1:
+                this.healingDie = 6;
+                break;
+            case 2:
+                this.healingDie = 8;
+                break;
+            case 3:
+                this.healingDie = 10;
+                break;
+            case 4:
+                this.healingDie = 12;
+                break;
+
+        }
+    }
+
 
     //set alignment of character
     public void setAlignment(String alignment) {
@@ -183,6 +218,7 @@ public class Character {
      * a randomly determined ability score and ability modifiers for strength, dexterity, constitution, intelligence,
      * wisdom, and charisma. Also, gives a random alignment by default and a random class by default.
      * By default, they start at level 1 with 0 XP and 15 hit points. They are default a human.
+     * Also, randomly generate healing die.
      */
     public Character(String name) {
         this.name = name;
@@ -202,6 +238,7 @@ public class Character {
         this.hitPoints = hitPointInitial;
         randomAlignment();
         randomClassMembership();
+        randHealingDie();
     }
 
     /*

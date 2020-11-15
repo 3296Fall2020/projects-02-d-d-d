@@ -1,9 +1,7 @@
 package org.openjfx;
 
+import dnd.characters.*;
 import dnd.characters.Character;
-import dnd.characters.Dwarf;
-import dnd.characters.Elf;
-import dnd.characters.Halfling;
 import dnd.weapons.*;
 import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
@@ -166,6 +164,36 @@ public class AppTest {
         ObjectEquals("Should print Sword", new Sword(), Al.getWeapon());
         assertEquals("Should print Fighter", "Fighter", Al.getClassMembership());
 
+
+    }
+
+    /**
+     * Test 8: Ensures that different healing die are made
+     */
+    @Test
+    public void shouldMakeDifferentHealingDie() {
+        //Testing that other race characters can be made.
+        Dwarf Al = new Dwarf("Al");
+        Dwarf Bo = new Dwarf("Bo");
+        Bo.setHealingDie(Al.getHealingDie());
+        assertEquals("Should print same healing die size", Bo.getHealingDie(), Al.getHealingDie());
+        System.out.println("Al's Healing Die is " + Al.getHealingDie());
+
+
+    }
+
+    /**
+     * Test 8: Ensures that different races have different default hit points
+     */
+    @Test
+    public void shouldHaveDifferentHitPoints() {
+        //Testing that other race characters can be made.
+        Dwarf Al = new Dwarf("Al");
+        Elf Bo = new Elf("Bo");
+        Human Charlie = new Human("Charlie");
+        Halfling Matt = new Halfling("Matt");
+        assertNotEquals("should have different hit point values", Al.getHitPoints(), Bo.getHitPoints());
+        assertNotEquals("should have different hit point values", Charlie.getHitPoints(), Matt.getHitPoints());
 
     }
 
