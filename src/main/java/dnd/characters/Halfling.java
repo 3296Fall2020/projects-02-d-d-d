@@ -1,6 +1,8 @@
 package dnd.characters;
 
 
+import dnd.weapons.*;
+
 //Race based halfling character class
 public class Halfling extends Character{
 
@@ -13,5 +15,18 @@ public class Halfling extends Character{
         this.speed = 25;
         this.abilities[1] +=2;
         this.alignment = "Lawful Good";
+    }
+
+    //Override setWeapon method such that if the weapon is something good for dwarfs,
+    // then their ability scores increase
+    // Halflings show proficiency in daggers and wands So they have +1 charisma
+    @Override
+    public void setWeapon(Weapon weapon) {
+        this.weapon = weapon;
+        if (weapon.equals(new Daggers()) || weapon.equals(new Wand())) {
+            int c = getCharisma();
+            c += 1;
+            setCharisma(c);
+        }
     }
 }

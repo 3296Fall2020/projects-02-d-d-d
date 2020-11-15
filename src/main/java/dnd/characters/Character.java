@@ -312,6 +312,37 @@ public class Character {
     }
 
     //getter method for strength
+    public void setStrength(int strength) {
+        this.abilities[0] = strength;
+    }
+
+    //getter method for dexterity
+    public void setDexterity(int dex) {
+        this.abilities[1]= dex;
+    }
+
+    //getter method for constitution
+    public void setConstitution(int con) {
+        this.abilities[2] = con;
+    }
+
+    //getter method for intelligence
+    public void setIntelligence(int in) {
+        this.abilities[3] = in;
+
+    }
+
+    //getter method for wisdom
+    public void setWisdom(int wisdom) {
+        this.abilities[4] = wisdom;
+    }
+
+    //getter method for charisma
+    public void setCharisma(int chr) {
+       this.abilities[5] = chr;
+    }
+
+    //getter method for strength
     public int getStrengthMod() {
         return this.abilityModifier[0];
     }
@@ -362,24 +393,29 @@ public class Character {
         return this.weapon;
     }
 
+    //Character is by default human, so they have +1 constitution and +1 strength if they choose sword.
     /** Set the player's equipped weapon. **/
     public void setWeapon(Weapon weapon){
         this.weapon = weapon;
+        if (weapon.equals(new Sword())) {
+            setStrength(getStrength()+1);
+            setConstitution(getConstitution()+1);
+        }
     }
 
     /** Check which ability the player weapon relies on and return that ability's modifier. **/
     public int getPlayerWeaponMod(){
         String ability = weapon.getAbility().toLowerCase();
 
-        if (ability == "str")
+        if (ability.equals("str"))
             return this.getStrengthMod();
-        else if (ability == "dex")
+        else if (ability.equals("dex"))
             return this.getDexterityMod();
-        else if (ability == "con")
+        else if (ability.equals("con"))
             return this.getConstitutionMod();
-        else if (ability == "int")
+        else if (ability.equals("int"))
             return this.getIntelligenceMod();
-        else if (ability == "wis")
+        else if (ability.equals("wis"))
             return this.getWisdomMod();
         else
             return this.getCharismaMod();

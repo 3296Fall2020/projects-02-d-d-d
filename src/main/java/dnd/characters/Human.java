@@ -14,4 +14,6 @@ public class Human extends Character{
             this.abilities[i] += 1;
         }
     }
+
+
 }
