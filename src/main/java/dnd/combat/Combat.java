@@ -60,10 +60,10 @@ public class Combat {
         this.active = true;
         this.playerVictory = false;
 
-        //keep track of player, player's weapon, and player's heal cooldown (every 4 turns)
+        //keep track of player, player's weapon, and player's heal cooldown
         this.player = c;
         this.playerWeapon = c.getWeapon();
-        this.healCD = 4;
+        this.healCD = 0;
 
         //create monster generator and generate a monster
         this.myMonsterGenerator = new MonsterGenerator(this.player);
