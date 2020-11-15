@@ -36,11 +36,20 @@ public class Combat {
     //boolean to signify if the player goes first in combat. true if player goes first, false if opponent goes first.
     private boolean playerFirst;
 
+    //int to keep track of the player's healing ability cooldown
+    private int healCD;
+
     //int to signify the current combat round
     private int round;
 
     //a String that displays when the player dodges the opponent's attack
     private String playerDodgeString;
+
+    //a String that displays the player's healing ability cooldown
+    private String healCDString;
+
+    //a String that displays how much HP the player healed.
+    private String playerHPHealed;
 
     public Combat(Character c){
         //create dice
@@ -51,9 +60,10 @@ public class Combat {
         this.active = true;
         this.playerVictory = false;
 
-        //set player
+        //keep track of player, player's weapon, and player's heal cooldown (every 4 turns)
         this.player = c;
         this.playerWeapon = c.getWeapon();
+        this.healCD = 4;
 
         //create monster generator and generate a monster
         this.myMonsterGenerator = new MonsterGenerator(this.player);
@@ -173,6 +183,9 @@ public class Combat {
     public void playerTurn(){
         System.out.println("\n**Player turn!**");
 
+        //update the player's healing cooldown
+        reduceHealCD();
+
         //allow player to decide what to do
         getPlayerChoice();
 
@@ -185,7 +198,7 @@ public class Combat {
         System.out.println("Pick an action: \n 1. Examine opponent\n2. Attack \n3. Use item \n4. Flee");
 
         // Attacking or fleeing will end the turn.
-        // Examining the Monster and opening the inventory does not end the turn.
+        // Examining the Monster and failing to heal do not end the turn.
         boolean endTurn = false;
 
         // Currently, the player ATTACKS by default.
@@ -202,8 +215,12 @@ public class Combat {
                 attack();
                 endTurn = true;
             }
+            else if (choice == 3 && healCD == 0) {
+                heal();
+                endTurn = true;
+            }
             else if (choice == 3)
-                openInventory();
+                System.out.println(this.healCDString);
             else {
                 flee();
                 endTurn = true;
@@ -300,9 +317,46 @@ public class Combat {
         return false;
     }
 
-    /** Open inventory. **/
-    public void openInventory(){
-        // Look through inventory (to be implemented).
+    /** Update the player's healing ability cooldown. Reduce cooldown by one.
+        If at 0, keep at 0. **/
+    public void reduceHealCD(){
+        if (this.healCD > 0) {
+            this.healCD--;
+            this.healCDString = this.healCD + " turns until you can heal again.";
+        }
+        else
+            this.healCD = 0;
+    }
+
+    /** Heal HP. Influenced by the character's healingDie, level, and the higher of their INT or CHA mod. **/
+    public void heal(){
+        // set the bonus as the CHA or INT mod, depending on which mod is higher
+        int bonus;
+        if (player.getCharismaMod() > player.getIntelligenceMod())
+            bonus = player.getCharismaMod();
+        else
+            bonus = player.getIntelligenceMod();
+
+        // if both mods are negative, set bonus to 0
+        if (bonus < 0)
+            bonus = 0;
+
+        // calculate the new HP.
+        // to regain HP, player rolls a die the size of their healingDie (1 + LVL) times, then updates the heal String.
+        int hp;
+        hp = dice.rollSum(player.getHealingDie(), 1 + player.getLevel());
+        this.playerHPHealed = "You close your eyes and reach out to your well of strength, allowing it to spill " +
+                "back into your being... You reopen your eyes with a newfound sense of strength. You " +
+                "healed " + hp + " HP!";
+
+        // add HP healed to current HP.
+        hp += player.getHitPoints();
+
+        // set new HP.
+        player.setHitPoints(hp);
+
+        // start cooldown. player can heal every 4 turns.
+        this.healCD = 4;
     }
 
     /** Win combat, then end it. **/
