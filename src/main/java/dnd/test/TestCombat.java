@@ -10,7 +10,7 @@ public class TestCombat {
     /** A method for testing combat and outputting results to the terminal. **/
     public void test() {
 
-        Character c = new Character("Jim", "human");
+        Character c = new Character("Jim");
         //c.setHitPoints(50);
 
         for (int i = 0; i < 15; i++)

@@ -2,7 +2,7 @@ package dnd.characters;
 
 import dnd.dice.Dice;
 import dnd.dice.RandomNumberGenerator;
-import dnd.weapons.Weapon;
+import dnd.weapons.*;
 
 import java.util.Random;
 
@@ -106,18 +106,37 @@ public class Character {
     //set class membership
     public void setClassMembership(String classMembership) {
         this.classMembership = classMembership;
+        switch (classMembership) {
+            case "Wizard":
+                this.weapon = new Wand();
+                break;
+            case "Rogue":
+                this.weapon = new Bow();
+                break;
+            case "Fighter":
+                this.weapon = new Sword();
+                break;
+            case "Cleric":
+                this.weapon = new Staff();
+                break;
+        }
     }
 
+    //randomly determines class membership and sets default weapon
     public void randomClassMembership() {
         int c = die.roll(4);
         if (c == 1) {
             this.classMembership = "Wizard";
+            this.weapon = new Wand();
         } else if (c == 2) {
             this.classMembership = "Rogue";
+            this.weapon = new Bow();
         } else if (c == 3) {
             this.classMembership = "Fighter";
+            this.weapon = new Sword();
         } else {
             this.classMembership = "Cleric";
+            this.weapon = new Staff();
         }
     }
 
@@ -338,4 +357,31 @@ public class Character {
         return speed;
     }
 
+    /** Get the player's equipped weapon. **/
+    public Weapon getWeapon(){
+        return this.weapon;
+    }
+
+    /** Set the player's equipped weapon. **/
+    public void setWeapon(Weapon weapon){
+        this.weapon = weapon;
+    }
+
+    /** Check which ability the player weapon relies on and return that ability's modifier. **/
+    public int getPlayerWeaponMod(){
+        String ability = weapon.getAbility().toLowerCase();
+
+        if (ability == "str")
+            return this.getStrengthMod();
+        else if (ability == "dex")
+            return this.getDexterityMod();
+        else if (ability == "con")
+            return this.getConstitutionMod();
+        else if (ability == "int")
+            return this.getIntelligenceMod();
+        else if (ability == "wis")
+            return this.getWisdomMod();
+        else
+            return this.getCharismaMod();
+    }
 }

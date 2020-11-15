@@ -4,6 +4,7 @@ import dnd.characters.Character;
 import dnd.characters.Dwarf;
 import dnd.characters.Elf;
 import dnd.characters.Halfling;
+import dnd.weapons.*;
 import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,6 +12,16 @@ import org.junit.jupiter.api.BeforeEach;
 import static org.junit.Assert.*;
 
 public class AppTest {
+
+    //This function checks to see if two objects are equal to one another
+    public boolean ObjectEquals(String str, Object o, Object e){
+        if(e.getClass() == o.getClass()){
+            return true;
+        }
+        else{
+            System.err.println(str);
+            return false;}
+    }
 
     @BeforeEach
     void setUp() {
@@ -133,6 +144,29 @@ public class AppTest {
         assertEquals("Should print Dwarfish and Common", "Dwarfish and Common", Al.getLanguage());
         assertEquals("Should print 25", 25, Al.getSpeed());
         assertEquals("Should be Lawful Good", "Lawful Good", Al.getAlignment());
+    }
+
+    /**
+     * Test 7: Ensures that different class memberships can be made
+     */
+    @Test
+    public void shouldMakeDifferentClasses() {
+        //Testing that other race characters can be made.
+        Dwarf Al = new Dwarf("Al");
+        Al.setClassMembership("Wizard");
+        assertEquals("Should print Wizard", "Wizard", Al.getClassMembership());
+        ObjectEquals("Should print wand", new Wand(), Al.getWeapon());
+        Al.setClassMembership("Cleric");
+        assertEquals("Should print Cleric", "Cleric", Al.getClassMembership());
+        ObjectEquals("Should print Staff", new Staff(), Al.getWeapon());
+        Al.setClassMembership("Rogue");
+        assertEquals("Should print Rogue", "Rogue", Al.getClassMembership());
+        ObjectEquals("Should print Bow", new Bow(), Al.getWeapon());
+        Al.setClassMembership("Fighter");
+        ObjectEquals("Should print Sword", new Sword(), Al.getWeapon());
+        assertEquals("Should print Fighter", "Fighter", Al.getClassMembership());
+
+
     }
 
 }
