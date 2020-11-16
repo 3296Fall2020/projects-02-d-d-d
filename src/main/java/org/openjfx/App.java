@@ -1,6 +1,5 @@
 package org.openjfx;
 
-import dnd.data.User;
 import dnd.test.TestCombat;
 import dnd.test.TestQuizzesAndDice;
 import javafx.application.Application;
@@ -34,7 +33,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"));
+        scene = new Scene(loadFXML("combat"));
         stage.setScene(scene);
         stage.show();
     }
@@ -51,13 +50,13 @@ public class App extends Application {
     public static void main(String[] args) throws InterruptedException, IOException {
 
 
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        User usr = new User("Steve");
+        //Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        //User usr = new User("Steve");
 
-        HttpPost post = new HttpPost("http://localhost:5000/user");
+        //HttpPost post = new HttpPost("http://localhost:5000/user");
 
-        post.setEntity(new StringEntity(gson.toJson(usr)));
-        post.setHeader("Content-type", "application/json");
+        //post.setEntity(new StringEntity(gson.toJson(usr)));
+        //post.setHeader("Content-type", "application/json");
 
 //        HttpClient httpClient = HttpClientBuilder.create().build();
 //        HttpResponse response = httpClient.execute(post);
