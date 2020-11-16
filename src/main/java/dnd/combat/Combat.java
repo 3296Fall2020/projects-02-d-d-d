@@ -4,10 +4,9 @@ import dnd.monsters.*;
 import dnd.weapons.*;
 import dnd.characters.Character;
 import dnd.dice.Dice;
+import javafx.beans.property.StringProperty;
 
 public class Combat {
-
-    /* CHARACTER VARIABLES */
 
     //The player
     public Character player;
@@ -31,7 +30,10 @@ public class Combat {
     private boolean active;
 
     //boolean representing if the player won or not
-    private boolean playerVictory;
+    public boolean playerVictory;
+
+   //String describing the outcome of the battle
+   private String outcomeString;
 
     //boolean to signify if the player goes first in combat. true if player goes first, false if opponent goes first.
     private boolean playerFirst;
@@ -47,9 +49,6 @@ public class Combat {
 
     //a String that displays the player's healing ability cooldown
     private String healCDString;
-
-    //a String that displays how much HP the player healed.
-    private String playerHPHealed;
 
     public Combat(Character c){
         //create dice
@@ -72,6 +71,9 @@ public class Combat {
 
         //check who goes first
         this.playerFirst = decideOrder();
+
+        //set the player's dodge string
+        this.playerDodgeString = opponent.name + " tries to attack, but you manage to dodge!";
 
         //uncomment to see print starting levels and HP
         //System.out.println("Player lvl: " + player.getLevel() + " || HP: " + player.getHitPoints() + " || Monster HP: " + opponent.getHitPoints());
@@ -97,6 +99,17 @@ public class Combat {
     }
 
     /** ROUND HANDLING METHODS **/
+    public String getCombatDetails(){
+        String ret = "";
+
+        ret += "You are fighting " + opponent.getName() + "\n";
+        ret += "Your health: " + player.getHitPoints() + "\n";
+        ret += "Opponent's health: " + opponent.getHitPoints() + "\n";
+
+        return ret;
+    }
+
+
     /** Signifies new round. **/
     public void newRound(){
         this.round++;
@@ -126,16 +139,16 @@ public class Combat {
         {
             newRound();
             if (playerFirst){
-                if(allowTurn())
-                    playerTurn();
+                if(allowTurn()){}
+                    //playerTurn();
                 if(allowTurn())
                     opponentTurn();
             }
             else{
                 if(allowTurn())
                     opponentTurn();
-                if(allowTurn())
-                    playerTurn();
+                if(allowTurn()){}
+                    //playerTurn();
             }
         }
     }
@@ -148,14 +161,20 @@ public class Combat {
         return true;
     }
 
+    public boolean isPlayerFirst(){
+        if (playerFirst == true)
+            return true;
+        return false;
+    }
+
     /** COMBAT METHODS **/
-    /** Perform opponent turn.**/
-    public void opponentTurn(){
-        System.out.println("\n**Opponent turn!**");
+    /** Perform opponent turn. Returns String describing opponent turn.**/
+    public String opponentTurn(){
+        String ret = "";
 
         //opponent randomly taunts
         if(dice.roll(4) == 1)
-        System.out.println(opponent.getTauntString());
+            ret += opponent.getTauntString() + "\n";
 
         // Reduce the opponent's cooldown by 1 and perform its attack and damage rolls.
         this.opponent.reduceCD();
@@ -171,62 +190,48 @@ public class Combat {
             int newHP;
             newHP = player.getHitPoints() - damageRoll;
             player.setHitPoints(newHP);
+            ret += opponent.getHitsPlayerString() + "\n";
+            ret += opponent.getDamageDealtString() + "\n";
             System.out.println(opponent.getHitsPlayerString());
             System.out.println(opponent.getDamageDealtString());
         }
-
-        //check at the end of the turn if the opponent has won
-        checkForWin();
+        else{
+            ret += playerDodgeString + "\n";
+        }
+        return ret;
     }
 
     /** Perform player turn. **/
-    public void playerTurn(){
-        System.out.println("\n**Player turn!**");
+    public String playerTurn(int choice){
+        String ret = "";
 
         //update the player's healing cooldown
         reduceHealCD();
 
         //allow player to decide what to do
-        getPlayerChoice();
+        ret += parseChoice(choice) + "\n";
 
-        //check at the end of the turn if the player has won
-        checkForWin();
+        return ret;
     }
 
-    /** Get the player's choice **/
-    public int getPlayerChoice(){
-        System.out.println("Pick an action: \n 1. Examine opponent\n2. Attack \n3. Use item \n4. Flee");
-
-        // Attacking or fleeing will end the turn.
-        // Examining the Monster and failing to heal do not end the turn.
-        boolean endTurn = false;
-
-        // Currently, the player ATTACKS by default.
-        // Player choice will be implemented with GUI
-        int choice = 2;
-
-        while(!endTurn) {
-
-            if (choice == 1){
-                String desc = examineOpponent();
-                System.out.println(desc);
-            }
-            else if (choice == 2) {
-                attack();
-                endTurn = true;
-            }
-            else if (choice == 3 && healCD == 0) {
-                heal();
-                endTurn = true;
-            }
-            else if (choice == 3)
-                System.out.println(this.healCDString);
-            else {
-                flee();
-                endTurn = true;
-            }
+    /** Get the player's choice. Return a string containing what happened during the player's turn. **/
+    public String parseChoice(int choice){
+        String ret = "";
+        if (choice == 1) {
+            ret += examineOpponent();
         }
-        return choice;
+        else if (choice == 2) {
+            ret += attack();
+        }
+        else if (choice == 3 && healCD == 0) {
+            ret += heal();
+        }
+        else if (choice == 3) {
+            ret += this.healCDString;
+        }
+        else
+            ret += flee();
+        return ret;
     }
 
     /** Check if the turn should be allowed. **/
@@ -234,33 +239,6 @@ public class Combat {
         if (!active)
             return false;
         return true;
-    }
-
-    /** Checks if player or opponent has won.
-        If player or opponent health reaches 0 or lower, return false and switch combat active status to false.
-        If the opponent drops to 0 or lower, set playerVictory to true.
-        Else, return true. **/
-    public boolean checkForWin(){
-        if (player.getHitPoints() <= 0 || opponent.hp <= 0) {
-            active = false;
-            if (opponent.hp <= 0)
-                playerVictory = true;
-            System.out.println(getOutcome());
-            return true;
-        }
-        return false;
-    }
-
-    /** Check who won the battle. **/
-    public String getOutcome(){
-        String outcome;
-        if (playerVictory) {
-            outcome = winCombat();
-        }
-        else {
-            outcome = loseCombat();
-        }
-        return outcome;
     }
 
     /** Get and display a description of the Monster. **/
@@ -277,9 +255,12 @@ public class Combat {
 
         For example, a lvl 17 character with a Sword (weapon die = 6, weapon mod = STR) will deal:
                                  dmg = 4d6 + player's STR modifier
+
+     Returns a String describing what happened during the player's attack.
      **/
-    public void attack(){
-        System.out.println(playerWeapon.getPlayerUsageString());
+    public String attack(){
+        String ret = "";
+        ret += playerWeapon.getPlayerUsageString() + "\n";
         int playerWeaponMod = player.getPlayerWeaponMod();
         int tryAttack = dice.roll(20) + playerWeaponMod;
         if(!opponent.dodge(tryAttack)){
@@ -299,11 +280,17 @@ public class Combat {
                 dmg = 13 + dice.rollSum(playerWeapon.getDie(), 6) + playerWeaponMod;
 
             opponent.takeDamage(dmg);
+            ret += opponent.getIsHitString() + "\n";
+            ret += opponent.getDamageTakenString() + "\n";
             System.out.println(opponent.getIsHitString());
             System.out.println(opponent.getDamageTakenString());
         }
-        else
+        else {
+            ret += opponent.getDodgedString() + "\n";
             System.out.println(opponent.getDodgedString());
+        }
+
+        return ret;
     }
 
     /** The player tries to dodge the attack.
@@ -322,14 +309,15 @@ public class Combat {
     public void reduceHealCD(){
         if (this.healCD > 0) {
             this.healCD--;
-            this.healCDString = this.healCD + " turns until you can heal again.";
         }
         else
             this.healCD = 0;
     }
 
-    /** Heal HP. Influenced by the character's healingDie, level, and the higher of their INT or CHA mod. **/
-    public void heal(){
+    /** Heal HP. Influenced by the character's healingDie, level, and the higher of their INT or CHA mod.
+        Returns a string describing the player's heal action.**/
+    public String heal(){
+        String healed = "";
         // set the bonus as the CHA or INT mod, depending on which mod is higher
         int bonus;
         if (player.getCharismaMod() > player.getIntelligenceMod())
@@ -345,9 +333,6 @@ public class Combat {
         // to regain HP, player rolls a die the size of their healingDie (1 + LVL) times, then updates the heal String.
         int hp;
         hp = dice.rollSum(player.getHealingDie(), 1 + player.getLevel());
-        this.playerHPHealed = "You close your eyes and reach out to your well of strength, allowing it to spill " +
-                "back into your being... You reopen your eyes with a newfound sense of strength. You " +
-                "healed " + hp + " HP!";
 
         // add HP healed to current HP.
         hp += player.getHitPoints();
@@ -357,6 +342,43 @@ public class Combat {
 
         // start cooldown. player can heal every 4 turns.
         this.healCD = 4;
+
+        healed = "You close your eyes and reach out to your well of strength, allowing it to spill " +
+                "back into your being... You reopen your eyes with a newfound sense of strength. You " +
+                "healed " + hp + " HP!\n";
+
+        return healed;
+    }
+
+    /** Return the outcome string. **/
+    public String getOutcomeString(){
+        return this.outcomeString;
+    }
+
+    /** Checks if player or opponent has won.
+     If player or opponent health reaches 0 or lower, return false and switch combat active status to false.
+     If the opponent drops to 0 or lower, set playerVictory to true.
+     Else, return true. **/
+    public boolean checkForWin(){
+        if (player.getHitPoints() <= 0 || opponent.hp <= 0) {
+            active = false;
+            if (opponent.hp <= 0) {
+                playerVictory = true;
+            }
+            updateOutcome();
+            return true;
+        }
+        return false;
+    }
+
+    /** Check who won the battle. **/
+    public void updateOutcome(){
+        if (playerVictory) {
+            this.outcomeString = winCombat();
+        }
+        else {
+            this.outcomeString = loseCombat();
+        }
     }
 
     /** Win combat, then end it. **/
@@ -379,9 +401,8 @@ public class Combat {
     }
 
     /** Flee combat, then end it. **/
-    public void flee(){
-        System.out.println("You fled combat!");
+    public String flee(){
         active = false;
+        return "You fled combat!";
     }
-
 }

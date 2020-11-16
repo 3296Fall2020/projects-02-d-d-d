@@ -1,11 +1,16 @@
 package org.openjfx;
 
+import dnd.combat.Combat;
 import dnd.test.TestCombat;
+import dnd.characters.Character;
 import dnd.test.TestQuizzesAndDice;
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -30,10 +35,12 @@ import com.google.gson.*;
 public class App extends Application {
 
     private static Scene scene;
+    public static Character player;
+    public static Combat combat;
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("combat"));
+        scene = new Scene(loadFXML("primary"));
         stage.setScene(scene);
         stage.show();
     }
@@ -68,10 +75,11 @@ public class App extends Application {
         // -------------------------------------------------------------
 
         // Creating a test combat and outputting results to terminal.
-        TestCombat combatTest = new TestCombat();
-        combatTest.test();
+        //TestCombat combatTest = new TestCombat();
+        //combatTest.test();
 
-
+        player = new Character("Jim");
+        player.setHitPoints(100);
 
         /*
         String server = "localhost:50051";
