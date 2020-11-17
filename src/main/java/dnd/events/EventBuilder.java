@@ -33,14 +33,6 @@ public abstract class EventBuilder {
         randomizer = new RandomNumberGenerator();
     }
 
-    /** A method for choosing whether it should be a 2-choice event or 3-choice event. **/
-    public int randomizeNumChoices(){
-        if (randomizer.randomIntInRange(2, 3) == 2)
-            return 2;
-        else
-            return 3;
-    }
-
     /** !!! SETTER METHODS !!! **/
     public void setChoiceAButtonText(String text){
         this.choiceAButtonText = text;
@@ -97,9 +89,6 @@ public abstract class EventBuilder {
         These are abstract classes whose implementations are uniquely randomized across different types of Events.
         Each one returns an Event of type that matches the builder's type. **/
 
-    // Build an event with 2 choices.
-    public abstract Event buildEvent2Choices();
+    public abstract Event buildEvent();
 
-    // Build an event with 3 choices.
-    public abstract Event buildEvent3Choices();
 }

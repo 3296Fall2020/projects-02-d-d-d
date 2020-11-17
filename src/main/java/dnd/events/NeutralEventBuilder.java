@@ -11,33 +11,16 @@ public class NeutralEventBuilder extends EventBuilder{
     }
 
     public NeutralEvent buildEvent(){
-        NeutralEvent event;
-        numChoices = randomizeNumChoices();
-
-        if(numChoices == 2) {
-            event = buildEvent2Choices();
-            event.numChoices = 2;
-        }
-        else{
-            event = buildEvent3Choices();
-            event.numChoices = 3;
-        }
-
-        return event;
-    }
-
-    @Override
-    public NeutralEvent buildEvent2Choices(){
         NeutralEvent event = new NeutralEvent(player);
 
-        return event;
-    }
-
-    @Override
-    public NeutralEvent buildEvent3Choices(){
-        NeutralEvent event = new NeutralEvent(player);
+        event.setEventDescription(randomizeDesc());
 
         return event;
     }
 
+    public String randomizeDesc(){
+        String desc = "This is an event!";
+
+        return desc;
+    }
 }
