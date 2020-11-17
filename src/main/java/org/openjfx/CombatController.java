@@ -67,10 +67,6 @@ public class CombatController extends App implements Initializable {
         roundDescription += text + "\n";
     }
 
-    private void showOutcome(String text){
-        outcomeDescription.setText(text);
-    }
-
     @FXML
     private void clearText(){
         description.setText("");

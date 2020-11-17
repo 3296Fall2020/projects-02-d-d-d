@@ -1,27 +1,15 @@
 package org.openjfx;
 
 import dnd.combat.Combat;
-import dnd.test.TestCombat;
 import dnd.characters.Character;
 import dnd.test.TestQuizzesAndDice;
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollBar;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClientBuilder;
-import com.google.gson.*;
 
 
 //import io.grpc.ManagedChannel;
@@ -74,10 +62,7 @@ public class App extends Application {
         test.testQuizzesAndDice(); // calling test function
         // -------------------------------------------------------------
 
-        // Creating a test combat and outputting results to terminal.
-        //TestCombat combatTest = new TestCombat();
-        //combatTest.test();
-
+        //creating a character for testing
         player = new Character("Jim");
         player.setHitPoints(100);
 

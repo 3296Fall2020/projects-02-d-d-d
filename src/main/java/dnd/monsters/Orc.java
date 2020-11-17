@@ -14,6 +14,7 @@ public class Orc extends Monster {
         this.desc = "A hulking orc.";
         this.type = "Orc";
         this.initHP();
+        this.xp = 40;
 
         //orcs get clubs
         Club club = new Club();

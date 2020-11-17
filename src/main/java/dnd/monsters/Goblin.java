@@ -16,6 +16,7 @@ public class Goblin extends Monster {
                     "to entertain itself.";
         this.type = "Goblin";
         this.initHP();
+        this.xp = 30;
 
         //goblins get clubs. the goblin's damage die = the club's damage die.
         Club club = new Club();

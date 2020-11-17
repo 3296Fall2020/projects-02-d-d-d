@@ -15,6 +15,7 @@ public class CorruptedMage extends Monster {
                 "Clutched in their blackened hands is a gnarled staff that crackles with dark-gold magic.";
         this.type = "Corrupted Mage";
         this.initHP();
+        this.xp = 40;
 
         //mages get staves
         Staff staff = new Staff();
