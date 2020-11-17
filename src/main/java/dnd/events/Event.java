@@ -1,5 +1,6 @@
 package dnd.events;
 
+import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import dnd.characters.Character;
 
@@ -13,6 +14,11 @@ public abstract class Event {
 
     // An int representing how many choices the event involves.
     public int numChoices;
+
+    // Buttons for the choices
+    Button buttonA;
+    Button buttonB;
+    Button buttonC;
 
     public Event(Character player){
         this.player = player;

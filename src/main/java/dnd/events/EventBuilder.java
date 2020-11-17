@@ -17,11 +17,6 @@ public abstract class EventBuilder {
     // An int for how many choices the event offers (currently supports up to 3)
     int numChoices;
 
-    // Buttons for the choices
-    Button buttonA;
-    Button buttonB;
-    Button buttonC;
-
     // Strings for choice button text
     String choiceAButtonText;
     String choiceBButtonText;
