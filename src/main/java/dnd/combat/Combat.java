@@ -332,7 +332,11 @@ public class Combat {
         // calculate the new HP.
         // to regain HP, player rolls a die the size of their healingDie (1 + LVL) times, then updates the heal String.
         int hp;
-        hp = dice.rollSum(player.getHealingDie(), 1 + player.getLevel());
+        hp = dice.rollSum(player.getHealingDie(), player.getLevel()) + bonus;
+
+        healed = "You close your eyes and reach out to your well of strength, allowing it to spill " +
+                "back into your being... You reopen your eyes with a newfound sense of strength. You " +
+                "healed " + hp + " HP!\n";
 
         // add HP healed to current HP.
         hp += player.getHitPoints();
@@ -342,10 +346,6 @@ public class Combat {
 
         // start cooldown. player can heal every 4 turns.
         this.healCD = 4;
-
-        healed = "You close your eyes and reach out to your well of strength, allowing it to spill " +
-                "back into your being... You reopen your eyes with a newfound sense of strength. You " +
-                "healed " + hp + " HP!\n";
 
         return healed;
     }

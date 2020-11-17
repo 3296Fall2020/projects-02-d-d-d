@@ -14,17 +14,20 @@ import java.util.ResourceBundle;
 
 public class CombatController extends App implements Initializable {
 
-    public Text description;
-    public Text enemyTurnDescription;
-    public Text outcomeDescription;
+    //variables for the fxml file
+    @FXML
+    public Text description; //the main text for the combat screen
+    public Text enemyTurnDescription; //text describing the enemy's turn
+    public Text outcomeDescription; //text describing the outcome of the fight
+    public Text combatDetails; //contains the player and enemy's HP
 
     //a String with the current round's description
     public String roundDescription = "";
 
-    //a String with the current combat's details
-    @FXML
-    public Text combatDetails;
+    //a boolean that keeps track of whether the cooldown has been decreased this round already.
+    private boolean cdDecreased;
 
+    //buttons on the combat screen
     @FXML
     Button examineButton;
     @FXML
@@ -36,13 +39,22 @@ public class CombatController extends App implements Initializable {
     @FXML
     Button endCombatButton;
 
+    //an int representing the player's healing ability cooldown (= once per 4 attacks)
+    private int healCD;
+
+    //Runs when combat.fxml is first loaded. Displays the combat details, introduces the opponent, and makes
+    //sure that the "return" button to return to the main screen is not visible.
+    //Initializes the heal countdown to 0 and cdDecreased to false.
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         updateCombatDetails();
         description.setText(combat.opponent.getIntroString());
         endCombatButton.setVisible(false);
+        this.healCD = 0;
+        this.cdDecreased = false;
     }
 
+    //print the updated combat details each round
     private void updateCombatDetails(){
         combatDetails.setText(combat.getCombatDetails() + "\n\n");
     }
@@ -88,25 +100,43 @@ public class CombatController extends App implements Initializable {
         }
         showRoundDescription();
         updateCombat();
+        updateHealCD();
     }
 
     @FXML
     private void heal() throws IOException {
         roundDescription = "";
-        if(combat.isPlayerFirst()) {
-            updateRoundDescription("It's your turn!");
-            String healText = combat.heal();
-            updateRoundDescription(healText);
-            opponentTurn();
-        }
+
+        // If healing is off cooldown, allow it.
+        if(this.healCD == 0) {
+            if (combat.isPlayerFirst()) {
+                updateRoundDescription("It's your turn!");
+                String healText = combat.heal();
+                updateRoundDescription(healText);
+                opponentTurn();
+            } else {
+                opponentTurn();
+                updateRoundDescription("It's your turn!");
+                String healText = combat.heal();
+                updateRoundDescription(healText);
+            }
+            this.healCD = 4;
+            showRoundDescription();
+            updateCombat();
+        } // If healing is on cooldown, notify the player and force them to make another choice.
         else{
-            opponentTurn();
-            updateRoundDescription("It's your turn!");
-            String healText = combat.heal();
-            updateRoundDescription(healText);
+            updateRoundDescription("Please wait " + this.healCD + " turns before trying to heal again!\n");
+            showRoundDescription();
+
         }
-        showRoundDescription();
-        updateCombat();
+    }
+
+    private void updateHealCD() {
+        if (this.healCD > 0) {
+            this.healCD--;
+        }
+        else
+            this.healCD = 0;
     }
 
     @FXML

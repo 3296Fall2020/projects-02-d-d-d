@@ -14,6 +14,11 @@ public class PrimaryController extends App {
     }
 
     @FXML
+    private void newGame() throws IOException {
+        //make new game here & do character creation
+    }
+
+    @FXML
     private void switchToSecondary() throws IOException {
         App.setRoot("secondary");
     }

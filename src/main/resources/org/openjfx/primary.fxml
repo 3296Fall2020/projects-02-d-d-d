@@ -9,6 +9,7 @@
       fx:controller="org.openjfx.PrimaryController" minWidth="900" minHeight="600">
    <children>
       <Label text="Start screen" />
+      <Button fx:id="newGameButton" text="New game" onAction="#newGame"/>
       <Button fx:id="initCombatButton" text="Start combat" onAction="#initCombat"/>
    </children>
    <padding>
