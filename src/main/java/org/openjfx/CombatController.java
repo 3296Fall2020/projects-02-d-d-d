@@ -1,6 +1,7 @@
 package org.openjfx;
 
 import com.google.common.io.Resources;
+import dnd.combat.Combat;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
@@ -13,6 +14,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CombatController extends App implements Initializable {
+
+    //the current combat
+    public Combat combat;
 
     //variables for the fxml file
     @FXML
@@ -47,6 +51,7 @@ public class CombatController extends App implements Initializable {
     //Initializes the heal countdown to 0 and cdDecreased to false.
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        combat = new Combat(player);
         updateCombatDetails();
         description.setText(combat.opponent.getIntroString());
         endCombatButton.setVisible(false);

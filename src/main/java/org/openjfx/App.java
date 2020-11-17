@@ -2,6 +2,9 @@ package org.openjfx;
 
 import dnd.combat.Combat;
 import dnd.characters.Character;
+import dnd.data.User;
+import dnd.quizzes.QuizGenerator;
+import dnd.test.TestQuizGeneration;
 import dnd.test.TestQuizzesAndDice;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +13,14 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClientBuilder;
+import com.google.gson.*;
 
 
 //import io.grpc.ManagedChannel;
@@ -24,7 +35,6 @@ public class App extends Application {
 
     private static Scene scene;
     public static Character player;
-    public static Combat combat;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -61,6 +71,12 @@ public class App extends Application {
         TestQuizzesAndDice test = new TestQuizzesAndDice(); // creating test object
         test.testQuizzesAndDice(); // calling test function
         // -------------------------------------------------------------
+
+        // Testing random quiz generation -----------------------------
+        TestQuizGeneration testQuizGeneration = new TestQuizGeneration();
+        testQuizGeneration.testQuizGeneration();
+        // ------------------------------------------------------------
+
 
         //creating a character for testing
         player = new Character("Jim");

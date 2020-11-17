@@ -9,7 +9,6 @@ public class PrimaryController extends App {
 
     @FXML
     private void initCombat() throws IOException {
-        combat = new Combat(player);
         App.setRoot("combat");
     }
 
