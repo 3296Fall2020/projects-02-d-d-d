@@ -14,6 +14,7 @@ public class NeutralEventBuilder extends EventBuilder{
         NeutralEvent event = new NeutralEvent(player);
 
         event.setEventDescription(randomizeDesc());
+        //do buttons
 
         return event;
     }
