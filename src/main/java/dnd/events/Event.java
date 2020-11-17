@@ -1,6 +1,7 @@
 package dnd.events;
 
 import javafx.scene.text.Text;
+import dnd.characters.Character;
 
 public abstract class Event {
 
@@ -9,6 +10,9 @@ public abstract class Event {
 
     // A string containing the event's main text.
     private String eventDescription;
+
+    // An int representing how many choices the event involves.
+    public int numChoices;
 
     public Event(Character player){
         this.player = player;
@@ -28,6 +32,11 @@ public abstract class Event {
     public String getEventDescription(){
         return this.eventDescription;
     }
+
+    /** Events have unique choices. **/
+    public abstract void chooseA();
+    public abstract void chooseB();
+    public abstract void chooseC();
 
     /** Events have unique consequences upon pass or failure. **/
     public abstract void passEvent();
