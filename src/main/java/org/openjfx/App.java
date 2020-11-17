@@ -1,7 +1,9 @@
 package org.openjfx;
 
 import dnd.data.User;
+import dnd.quizzes.QuizGenerator;
 import dnd.test.TestCombat;
+import dnd.test.TestQuizGeneration;
 import dnd.test.TestQuizzesAndDice;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -67,6 +69,11 @@ public class App extends Application {
         TestQuizzesAndDice test = new TestQuizzesAndDice(); // creating test object
         test.testQuizzesAndDice(); // calling test function
         // -------------------------------------------------------------
+
+        // Testing random quiz generation -----------------------------
+        TestQuizGeneration testQuizGeneration = new TestQuizGeneration();
+        testQuizGeneration.testQuizGeneration();
+        // ------------------------------------------------------------
 
         // Creating a test combat and outputting results to terminal.
         TestCombat combatTest = new TestCombat();

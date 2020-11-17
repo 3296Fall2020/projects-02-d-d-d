@@ -36,13 +36,13 @@ public class TestQuizzesAndDice {
         System.out.println(quizResults3[0] + " * " + quizResults3[1] + " = " + quizResults3[2]);
 
 
-        DivisionQuiz quiz4 = new DivisionQuiz();
+        MathQuiz quiz4 = new DivisionQuiz();
         int[] quizResults4 = quiz4.generateQuiz(3, 2);
         System.out.println(quizResults4[0] + " / " + quizResults4[1] + " = " + quizResults4[2]);
 
 
-        DivisionQuiz quiz6 = new DivisionQuiz();
-        int[] quizResults6 = quiz6.generateQuizWithRemainder(3, 2);
+        MathQuiz quiz6 = new DivisionWithRemainderQuiz();
+        int[] quizResults6 = quiz6.generateQuiz(3, 2);
         System.out.println(quizResults6[0] + " / " + quizResults6[1] + " = " + quizResults6[2] + " R " + quizResults6[3]);
         // -----------------------------------------------------------------------------------
 
