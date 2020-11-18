@@ -51,6 +51,10 @@ public class EventController extends App implements Initializable {
         prepareButtons();
     }
 
+    private void clearDescription(){
+        eventText.setText("");
+    }
+
     // Updates the event description Text field with the completed event description String.
     private void showDescription(){
         eventText.setText(this.eventDescription);
@@ -73,24 +77,44 @@ public class EventController extends App implements Initializable {
     }
 
     @FXML
-    public void choiceAAction(){
+    public void choiceAAction() throws IOException {
         String desc = event.chooseA();
         addToDescription(desc);
         showDescription();
+        replaceButtons();
     }
 
     @FXML
-    public void choiceBAction(){
+    public void choiceBAction() throws IOException {
         String desc = event.chooseB();
         addToDescription(desc);
         showDescription();
+        replaceButtons();
     }
 
     @FXML
-    public void choiceCAction(){
+    public void choiceCAction() throws IOException {
         String desc = event.chooseC();
         addToDescription(desc);
         showDescription();
+        replaceButtons();
+    }
+
+    /** Disables choiceA and choiceC buttons, then repurposes the choiceB button to be a return button. **/
+    @FXML
+    public void replaceButtons() throws IOException{
+        choiceAButton.setVisible(false);
+        choiceCButton.setVisible(false);
+        choiceBButton.setText("Return");
+
+        //repurpose choiceB to be a "return" button
+        choiceBButton.setOnAction(value ->  {
+            try {
+                App.setRoot("primary");
+            } catch (IOException e) {
+                System.out.println("Error: Couldn't return to page");
+            }
+        });
     }
 
 }

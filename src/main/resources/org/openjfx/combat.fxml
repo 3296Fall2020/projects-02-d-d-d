@@ -24,8 +24,8 @@
             <Button fx:id="attackButton" text="Attack" onAction="#attack"/>
             <Button fx:id="healButton" text="Heal" onAction="#heal"/>
             <Button fx:id="fleeButton" text="Flee" onAction="#flee"/>
-            <Button fx:id="endCombatButton" text="Return" onAction="#endCombat"/>
         </HBox>
+        <Button fx:id="endCombatButton" text="Return" onAction="#endCombat"/>
     </children>
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
