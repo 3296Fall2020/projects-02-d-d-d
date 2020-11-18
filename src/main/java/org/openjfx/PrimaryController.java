@@ -21,4 +21,9 @@ public class PrimaryController extends App {
     private void switchToSecondary() throws IOException {
         App.setRoot("secondary");
     }
+
+    @FXML
+    private void getEvent() throws IOException {
+        App.setRoot("event");
+    }
 }

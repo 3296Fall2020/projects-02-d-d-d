@@ -10,27 +10,37 @@ public class NeutralEvent extends Event {
     }
 
     @Override
-    public void chooseA() {
+    public String chooseA() {
+        String ret = "Chose A";
 
+        return ret;
     }
 
     @Override
-    public void chooseB() {
+    public String chooseB() {
+        String ret = "Chose B";
 
+        return ret;
     }
 
     @Override
-    public void chooseC() {
+    public String chooseC() {
+        String ret = "Chose C";
 
+        return ret;
     }
 
     @Override
-    public void passEvent() {
+    public String passEvent() {
+        String ret = "Passed";
 
+        return ret;
     }
 
     @Override
-    public void failEvent() {
+    public String failEvent() {
+        String ret = "Failed";
 
+        return ret;
     }
 }

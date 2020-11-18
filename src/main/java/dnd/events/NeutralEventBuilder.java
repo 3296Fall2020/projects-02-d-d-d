@@ -14,7 +14,13 @@ public class NeutralEventBuilder extends EventBuilder{
         NeutralEvent event = new NeutralEvent(player);
 
         event.setEventDescription(randomizeDesc());
-        //do buttons
+
+        event.setButtonAText("Choice A");
+        if (randomizer.randomIntInRange(1,2) == 1)
+            event.setButtonBText("Choice B ver. 1");
+        else
+            event.setButtonBText("Choice B ver. 2");
+        event.setButtonCText("Choice C");
 
         return event;
     }

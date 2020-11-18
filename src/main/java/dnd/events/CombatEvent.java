@@ -10,27 +10,27 @@ public class CombatEvent extends Event{
     }
 
     @Override
-    public void chooseA() {
-
+    public String chooseA() {
+        return "";
     }
 
     @Override
-    public void chooseB() {
-
+    public String chooseB() {
+        return "";
     }
 
     @Override
-    public void chooseC() {
-
+    public String chooseC() {
+        return "";
     }
 
     @Override
-    public void passEvent() {
-
+    public String passEvent() {
+        return "";
     }
 
     @Override
-    public void failEvent() {
-
+    public String failEvent() {
+        return "";
     }
 }

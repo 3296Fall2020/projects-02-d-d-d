@@ -15,10 +15,10 @@ public abstract class Event {
     // An int representing how many choices the event involves.
     public int numChoices;
 
-    // Buttons for the choices
-    Button buttonA;
-    Button buttonB;
-    Button buttonC;
+    // Strings for button text
+    String buttonAText;
+    String buttonBText;
+    String buttonCText;
 
     public Event(Character player){
         this.player = player;
@@ -39,13 +39,38 @@ public abstract class Event {
         return this.eventDescription;
     }
 
-    /** Events have unique choices. **/
-    public abstract void chooseA();
-    public abstract void chooseB();
-    public abstract void chooseC();
+    /** SETTER & GETTER METHODS FOR BUTTON TEXT **/
+    public void setButtonAText(String text){
+        this.buttonAText = text;
+    }
 
-    /** Events have unique consequences upon pass or failure. **/
-    public abstract void passEvent();
-    public abstract void failEvent();
+    public void setButtonBText(String text){
+        this.buttonBText = text;
+    }
+
+    public void setButtonCText(String text){
+        this.buttonCText = text;
+    }
+
+    public String getButtonAText(){
+        return this.buttonAText;
+    }
+
+    public String getButtonBText(){
+        return this.buttonBText;
+    }
+
+    public String getButtonCText(){
+        return this.buttonCText;
+    }
+
+    /** Events have unique choices. Returns String descriptions of the consequences.**/
+    public abstract String chooseA();
+    public abstract String chooseB();
+    public abstract String chooseC();
+
+    /** Events have unique consequences upon pass or failure. Returns String descriptions of the consequences.**/
+    public abstract String passEvent();
+    public abstract String failEvent();
 
 }

@@ -10,6 +10,7 @@
    <children>
       <Label text="Start screen" />
       <Button fx:id="newGameButton" text="New game" onAction="#newGame"/>
+      <Button fx:id="getEventButton" text="Test event" onAction="#getEvent"/>
       <Button fx:id="initCombatButton" text="Start combat" onAction="#initCombat"/>
    </children>
    <padding>
