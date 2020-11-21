@@ -17,6 +17,11 @@ public class RandomEventGenerator {
     // A random number generator
     RandomNumberGenerator randomizer;
 
+    // ints to keep track of how many of each event types there currently are. must be manually updated :(
+    final int numQuizEvents = 2;
+    final int numLuckEvents = 2;
+    final int numStandardEvents = 2;
+
     public RandomEventGenerator(Character player){
         this.dice = new Dice();
         this.randomizer = new RandomNumberGenerator();
@@ -30,11 +35,11 @@ public class RandomEventGenerator {
         return false;
     }
 
-    /** Randomly decide what type of event to make, build an event of that type, then return the built event. **/
+    /** Randomly decide on an event type, retrieve an event of that type, then return the generated event. **/
     public Event generateRandomEvent(){
         int n = dice.roll(4);
 
-        if (n <= 4)
+        if (n <= 2)
             return getStandardEvent();
         else if (n == 3)
             return getQuizEvent();
@@ -42,8 +47,12 @@ public class RandomEventGenerator {
             return getLuckEvent();
     }
 
+    /** Event getter methods. **/
+
+    /** FOR NOW, INDIVIDUAL EVENT CLASSES MUST BE HARD-CODED AND MANUALLY FACTORED INTO ITS DESIGNATED SETTER BELOW. **/
+
     public Event getStandardEvent(){
-        int n = randomizer.randomIntInRange(1, 2);
+        int n = randomizer.randomIntInRange(1, numStandardEvents);
 
         if (n == 1)
             return (new StandardEvent1(player));
@@ -53,7 +62,7 @@ public class RandomEventGenerator {
     }
 
     public Event getQuizEvent(){
-        int n = randomizer.randomIntInRange(1, 10);
+        int n = randomizer.randomIntInRange(1, numQuizEvents);
 
         if (n == 1)
             return (new QuizEvent1(player));
@@ -63,7 +72,7 @@ public class RandomEventGenerator {
     }
 
     public Event getLuckEvent(){
-        int n = randomizer.randomIntInRange(1, 10);
+        int n = randomizer.randomIntInRange(1, numLuckEvents);
 
         if (n == 1)
             return (new LuckEvent1(player));
