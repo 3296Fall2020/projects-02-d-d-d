@@ -48,11 +48,14 @@ public class EventController extends App implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         eventGenerator = new RandomEventGenerator(player);
         this.event = eventGenerator.generateRandomEvent();
+        this.eventDescription = event.getEventDescription();
+        showDescription();
         prepareButtons();
     }
 
     private void clearDescription(){
-        eventText.setText("");
+        event.setEventDescription("");
+        this.eventDescription = "";
     }
 
     // Updates the event description Text field with the completed event description String.
@@ -78,6 +81,8 @@ public class EventController extends App implements Initializable {
 
     @FXML
     public void choiceAAction() throws IOException {
+        clearDescription();
+
         String desc = event.chooseA();
         addToDescription(desc);
         showDescription();
@@ -86,6 +91,8 @@ public class EventController extends App implements Initializable {
 
     @FXML
     public void choiceBAction() throws IOException {
+        clearDescription();
+
         String desc = event.chooseB();
         addToDescription(desc);
         showDescription();
@@ -94,18 +101,20 @@ public class EventController extends App implements Initializable {
 
     @FXML
     public void choiceCAction() throws IOException {
+        clearDescription();
+
         String desc = event.chooseC();
         addToDescription(desc);
         showDescription();
         replaceButtons();
     }
 
-    /** Disables choiceA and choiceC buttons, then repurposes the choiceB button to be a return button. **/
+    /** Disables choiceA and choiceC buttons, then repurposes the choiceB button to be a "continue" button. **/
     @FXML
     public void replaceButtons() throws IOException{
         choiceAButton.setVisible(false);
         choiceCButton.setVisible(false);
-        choiceBButton.setText("Return");
+        choiceBButton.setText("Continue");
 
         //repurpose choiceB to be a "return" button
         choiceBButton.setOnAction(value ->  {

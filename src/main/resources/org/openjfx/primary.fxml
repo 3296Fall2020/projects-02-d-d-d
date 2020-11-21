@@ -12,6 +12,7 @@
       <Button fx:id="newGameButton" text="New game" onAction="#newGame"/>
       <Button fx:id="getEventButton" text="Test event" onAction="#getEvent"/>
       <Button fx:id="initCombatButton" text="Start combat" onAction="#initCombat"/>
+      <Button fx:id="ventureButton" text="Venture forth" onAction="#venture"/>
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

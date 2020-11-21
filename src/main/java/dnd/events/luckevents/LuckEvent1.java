@@ -1,11 +1,12 @@
-package dnd.events;
+package dnd.events.luckevents;
 
 import dnd.characters.Character;
+import dnd.events.Event;
 
-public class QuizEvent extends Event{
+public class LuckEvent1 extends Event {
 
-    /** Quiz events incorporate math quizzes that must be answered correctly to succeed. **/
-    public QuizEvent(Character player) {
+    /** Luck events are events that depend purely on the player's luck. **/
+    public LuckEvent1(Character player) {
         super(player);
     }
 

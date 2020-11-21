@@ -1,11 +1,12 @@
-package dnd.events;
+package dnd.events.quizevents;
 
 import dnd.characters.Character;
+import dnd.events.Event;
 
-public class CombatEvent extends Event{
+public class QuizEvent1 extends Event {
 
-    /** Combat events are random combat encounters with random monsters. **/
-    public CombatEvent(Character player) {
+    /** Quiz events incorporate math quizzes that must be answered correctly to succeed. **/
+    public QuizEvent1(Character player) {
         super(player);
     }
 
