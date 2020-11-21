@@ -15,9 +15,7 @@ public class StandardEvent2 extends Event {
     }
 
     public void buildDescription(){
-        String desc = "";
-
-        desc = "This is an event ver. 2!";
+        String desc = "This is standard event 2";
 
         this.setEventDescription(desc);
     }
