@@ -69,10 +69,13 @@ public abstract class Event {
         return words[randomizer.randomIntInRange(0, words.length - 1)];
     }
 
-    //get a random adjective describing the NPC's appearance. best if used in the case, "They looked ___."
+    //get a random adjective describing the NPC's appearance. best if used in the case, "They looked/seemed ___."
     public String getRandomImpression(){
-        String[] words = {"nervous", "impatient", "sketchy", "trustworthy", "strong", "weak",
-                        "queasy", "pale", "lively", "excitable", ""};
+        String[] words = {"nervous", "impatient", "sketchy", "reliable", "strong", "weak",
+                        "queasy", "pale", "lively", "excitable", "kind", "mean", "irritable",
+                        "confident", "playful", "mischievous", "sad", "happy", "cheerful",
+                        "tired", "sleepy", "nice", "intelligent", "jolly", "ominous", "moody",
+                        "confused", "friendly"};
         return words[randomizer.randomIntInRange(0, words.length - 1)];
     }
 
