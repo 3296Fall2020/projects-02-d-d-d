@@ -23,11 +23,6 @@ public abstract class Event {
     String buttonBText;
     String buttonCText;
 
-    //Strings for choice results
-    String choiceAResult;
-    String choiceBResult;
-    String choiceCResult;
-
     public Event(Character player){
         this.player = player;
         dice = new Dice();
@@ -61,7 +56,8 @@ public abstract class Event {
                         "Nessie", "Gar", "Eliza", "Safana", "Nell", "Riker", "Amir", "Calen", "Ashe",
                         "Roel", "Oliver", "Celine", "Aveline", "Ada", "Dinah", "Bo", "Robb", "Edd", "Ned",
                         "Naya", "Wynne", "Zephyr", "Xiaowei", "Sunny", "Giselle", "Robert", "Edward",
-                        "Axel", "Alex", "Sofia", "Max", "Mars", "Chet", "Jun"};
+                        "Axel", "Alex", "Sofia", "Max", "Mars", "Chet", "Jun", "Cassidy", "Jack", "Zachary",
+                        "Noah", "Mason", "Alfred"};
         return words[randomizer.randomIntInRange(0, words.length - 1)];
     }
 
@@ -115,32 +111,6 @@ public abstract class Event {
 
     public String getButtonCText(){
         return this.buttonCText;
-    }
-
-    /** SETTER & GETTER METHODS FOR CHOICE RESULTS **/
-
-    public void setChoiceAResult(String text){
-        this.choiceAResult = text;
-    }
-
-    public void setChoiceBResult(String text){
-        this.choiceBResult = text;
-    }
-
-    public void setChoiceCResult(String text){
-        this.choiceCResult = text;
-    }
-
-    public String getChoiceAResult(String text){
-        return this.choiceAResult;
-    }
-
-    public String getChoiceBResult(String text){
-        return this.choiceBResult;
-    }
-
-    public String getChoiceCResult(String text){
-        return this.choiceCResult;
     }
 
     /** Events have unique choices. Returns String descriptions of the consequences.**/
