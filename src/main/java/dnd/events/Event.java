@@ -55,6 +55,43 @@ public abstract class Event {
         return "\n\n";
     }
 
+    //get a random NPC name
+    public String getRandomName(){
+        String[] words = {"Janus", "Karl", "Magda", "Valerie", "Credence", "Charity", "Mercy", "Lux",
+                        "Nessie", "Gar", "Eliza", "Safana", "Nell", "Riker", "Amir", "Calen", "Ashe",
+                        "Roel", "Oliver", "Celine", "Aveline", "Ada", "Dinah", "Bo", "Robb", "Edd", "Ned",
+                        "Naya", "Wynne", "Zephyr", "Xiaowei", "Sunny", "Giselle", "Robert", "Edward",
+                        "Axel", "Alex", "Sofia", "Max", "Mars", "Chet", "Jun"};
+        return words[randomizer.randomIntInRange(0, words.length - 1)];
+    }
+
+    //get a random adjective for taste. best if used in the case, "It tasted ___."
+    public String getRandomTaste(){
+        String[] words = {"earthy", "yummy", "sharp", "sweet", "sour", "heady", "new", "unique",
+                        "fruity", "bitter", "tangy", "bold", "bland", "odd", "strange", "good",
+                        "delicious", "gross", "spicy", "plain"};
+        return words[randomizer.randomIntInRange(0, words.length - 1)];
+    }
+
+    //get a random adjective describing the NPC's appearance. best if used in the case, "They looked ___."
+    public String getRandomImpression(){
+        String[] words = {"nervous", "impatient", "sketchy", "trustworthy", "strong", "weak",
+                        "queasy", "pale", "lively", "excitable", ""};
+        return words[randomizer.randomIntInRange(0, words.length - 1)];
+    }
+
+    //get a random color. best if used in the case, "The ___ object" or "The object was ___."
+    public String getRandomColor(){
+        String[] words = {"red", "blue", "green", "yellow", "orange", "purple", "magenta", "lavender",
+                        "black", "white", "pink", "silver", "brown", "gray", "indigo", "navy", "lime green",
+                        "baby blue", "neon pink", "electric blue", "bright yellow", "maroon", "crimson",
+                        "scarlet", "lilac", "violet", "fuschia", "marigold", "ochre", "sunflower yellow",
+                        "shamrock green", "ash gray", "vivid red", "vivid blue", "vivid green", "vivid purple",
+                        "light blue", "light green", "light orange", "light yellow", "soft yellow", "soft pink",
+                        "pitch black", "blinding white"};
+        return words[randomizer.randomIntInRange(0, words.length - 1)];
+    }
+
     /** SETTER & GETTER METHODS FOR BUTTON TEXT **/
     public void setButtonAText(String text){
         this.buttonAText = text;
