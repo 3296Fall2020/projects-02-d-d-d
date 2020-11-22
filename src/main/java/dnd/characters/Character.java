@@ -4,6 +4,8 @@ import dnd.dice.Dice;
 import dnd.dice.RandomNumberGenerator;
 import dnd.weapons.*;
 
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.Random;
 
 
@@ -457,4 +459,25 @@ public class Character {
         else
             return this.getCharismaMod();
     }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Character character = (Character) o;
+        return healingDie == character.healingDie &&
+                level == character.level &&
+                XP == character.XP &&
+                hitPoints == character.hitPoints &&
+                speed == character.speed &&
+                name.equals(character.name) &&
+                Arrays.equals(abilities, character.abilities) &&
+                Arrays.equals(abilityModifier, character.abilityModifier) &&
+                race.equals(character.race) &&
+                language.equals(character.language) &&
+                classMembership.equals(character.classMembership) &&
+                alignment.equals(character.alignment);
+    }
+
 }

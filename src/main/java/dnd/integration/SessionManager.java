@@ -8,19 +8,23 @@ import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
 import com.google.gson.*;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -30,17 +34,13 @@ import java.util.List;
 */
 public class SessionManager {
 
-    private boolean authenticated;
+    private boolean authenticated = false;
     private LocalDateTime tokenTime;
     private List<String> credentialsCache = new ArrayList<>();
-    private Configuration config;
-    private HttpClient client;
-
-
-    public SessionManager() {
-        this.config = new Configuration();
-        this.authenticated = false;
-    }
+    private Configuration config = Configuration.getInstance();
+    private CloseableHttpClient client;
+    private CharacterService characterService = new CharacterService();
+    private GameService gameService = new GameService();
 
     // Authenticate the session with the given username and password, store the token in the
     // class http client for future use
@@ -50,12 +50,12 @@ public class SessionManager {
                 = new UsernamePasswordCredentials(username, password);
         provider.setCredentials(AuthScope.ANY, credentials);
 
-        HttpClient client = HttpClientBuilder.create()
+        CloseableHttpClient client = HttpClientBuilder.create()
                 .setDefaultCredentialsProvider(provider)
                 .build();
 
         try {
-            HttpResponse response = client.execute(
+            CloseableHttpResponse response = client.execute(
                     new HttpGet(config.url + config.token_endpoint));
             int statusCode = response.getStatusLine()
                     .getStatusCode();
@@ -65,7 +65,7 @@ public class SessionManager {
                 this.tokenTime = LocalDateTime.now();
 
                 provider = new BasicCredentialsProvider();
-                credentials = new UsernamePasswordCredentials(message.get("token").toString(), "x");
+                credentials = new UsernamePasswordCredentials(message.get("token").getAsString(), "x");
                 provider.setCredentials(AuthScope.ANY, credentials);
 
                 this.client = HttpClientBuilder.create()
@@ -76,8 +76,10 @@ public class SessionManager {
                     this.credentialsCache.add(password);
                 }
                 this.authenticated = true;
+                response.close();
                 return true;
             }
+            response.close();
         } catch (java.io.IOException e) {
             System.out.println("Failed to get token: " + e.getLocalizedMessage());
         }
@@ -92,13 +94,13 @@ public class SessionManager {
         message.addProperty("password", desiredPassword);
 
 
-        HttpClient client = HttpClientBuilder.create().build();
+        CloseableHttpClient client = HttpClientBuilder.create().build();
         HttpPost post = new HttpPost(config.url + config.create_user_endpoint);
 
         HttpEntity stringEntity = new StringEntity(message.toString(), ContentType.APPLICATION_JSON);
         post.setEntity(stringEntity);
         try {
-            HttpResponse response = client.execute(post);
+            CloseableHttpResponse response = client.execute(post);
             if (response.getStatusLine().getStatusCode() != 201) {
                 return false;
             }
@@ -106,6 +108,7 @@ public class SessionManager {
             if (content.contains(desiredUsername)) {
                 return true;
             }
+            response.close();
         } catch (java.io.IOException e) {
             System.out.println("Failed to create user: " + e.getLocalizedMessage());
         }
@@ -119,7 +122,6 @@ public class SessionManager {
             return false;
         }
         LocalDateTime now = LocalDateTime.now();
-        System.out.println(this.tokenTime.until(now, ChronoUnit.MINUTES));
         // check if we need to renew our api token
         if (this.tokenTime.until(now, ChronoUnit.MINUTES) > 9) {
             return this.authenticateSession(this.credentialsCache.get(0), this.credentialsCache.get(1));
@@ -133,7 +135,16 @@ public class SessionManager {
         if (!this.ensureAuthentication()) {
             return null;
         }
-        List<String> games = new ArrayList<>();
+        List<String> games = null;
+        try {
+            CloseableHttpResponse response = this.client.execute(this.gameService.getGamesForUser());
+            String content = EntityUtils.toString(response.getEntity());
+            JsonObject message = JsonParser.parseString(content).getAsJsonObject();
+            games = Arrays.asList(new Gson().fromJson(message.getAsJsonArray("games"), String[].class));
+            response.close();
+        } catch (IOException e) {
+            System.out.println("Failed to get games: " + e.getLocalizedMessage());
+        }
         return games;
     }
 
@@ -142,20 +153,40 @@ public class SessionManager {
             return null;
         }
         List<Character> characters = new ArrayList<>();
+        try {
+            CloseableHttpResponse response = this.client.execute(this.gameService.getGameForName(gameName));
+            if (response.getStatusLine().getStatusCode() != 200) {
+                return null;
+            }
+            String content = EntityUtils.toString(response.getEntity());
+            JsonObject message = JsonParser.parseString(content).getAsJsonObject();
+            JsonArray jsonCharacters = message.getAsJsonObject("game").getAsJsonArray("characters");
+            this.characterService.fillCharacterListFromJson(jsonCharacters, characters);
+            response.close();
+        } catch (IOException e) {
+            System.out.println("Failed to get game: " + e.getLocalizedMessage());
+        }
         return characters;
     }
 
-    // Save a game to the db, denoting if this is an existing game or a new one
-    public boolean saveGame(String gameTitle, List<Character> characters, boolean newGame) {
+    // Save a game to the db, backend will use as an update if this game already exists
+    public boolean saveGame(String gameName, List<Character> characters) {
         if (!this.ensureAuthentication()) {
             return false;
         }
-        if (newGame) {
+        JsonArray jsonCharacters = this.characterService.createJsonListFromCharacterList(characters);
 
-        } else {
-
+        try {
+            CloseableHttpResponse response = this.client.execute(this.gameService.createOrUpdateGame(gameName, jsonCharacters));
+            if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+                return false;
+            }
+            response.close();
+        } catch (IOException e) {
+            System.out.println("Failed to save game: " + e.getLocalizedMessage());
         }
-        return false;
+
+        return true;
     }
 
 
