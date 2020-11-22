@@ -5,6 +5,10 @@ import dnd.events.Event;
 
 public class StandardEvent1 extends Event {
 
+    private int hpRegained = dice.roll(4) + player.getConstitutionMod();
+    private int hpLost = dice.roll(6);
+    private String color = getRandomColor();
+
     /** Standard events are events that simply occur, and may or may not have an effect on the player. **/
     public StandardEvent1(Character player) {
         super(player);
@@ -16,7 +20,7 @@ public class StandardEvent1 extends Event {
 
     public void buildDescription(){
         String desc = "You've begun to lose track of how long you've been walking, but soon you come across " +
-                "a quiet pond surrounded by clumps of weeds and clusters of small, blue-and-white spotted " +
+                "a quiet pond surrounded by clumps of weeds and clusters of small, " + color + " spotted " +
                 "mushrooms. There's a strange thickness in the air, almost sickly sweet.";
 
         desc += newParagraph();
@@ -44,11 +48,11 @@ public class StandardEvent1 extends Event {
     }
 
     public void buildButtons(){
-        this.setButtonAText("Drink from the pond.");
+        this.setButtonAText("Drink from the pond");
 
-        this.setButtonBText("Eat a mushroom.");
+        this.setButtonBText("Eat a mushroom");
 
-        this.setButtonCText("Leave the pond alone.");
+        this.setButtonCText("Leave the pond alone");
     }
 
     public String chooseA() {
@@ -60,8 +64,8 @@ public class StandardEvent1 extends Event {
         ret += "Carefully, you bend down, dip cupped hands into the water, and drink.";
 
         newParagraph();
-        ret += "The water tastes remarkably plain at first, but after a few seconds, you realize that it leaves " +
-                "a metallic sort of tang in the back of your mouth. ";
+        ret += "The water tastes " + getRandomTaste() + " at first, but after a few seconds, you realize that it leaves a" +
+                "more noticeable, metallic tang in the back of your mouth. ";
 
         newParagraph();
         ret += "You stand back up - then wince as your stomach suddenly cinches. The pain is quickly gone; it's as " +
@@ -76,7 +80,7 @@ public class StandardEvent1 extends Event {
     }
 
     public String chooseB() {
-        String ret = "The mushrooms look appetizing, and you wouldn't mind having a quick snack. ";
+        String ret = "Those " + color + " mushrooms look appetizing, and you wouldn't mind having a quick snack. ";
         if (player.getIntelligence() >= 14)
             ret += "You also recognize that these mushrooms aren't one of the many poisonous ones that populate " +
                     "the wild. ";
@@ -101,32 +105,32 @@ public class StandardEvent1 extends Event {
     }
 
     public String chooseC() {
-        String ret = "You don't have a good feeling about this place. ";
+        String ret = "You don't really have a good feeling about this place. ";
 
         if (player.getWisdom() >= 12)
             ret += "You also figure that it's probably best not to eat or drink from a strange place in the woods. ";
 
         newParagraph();
-        ret += "Sparing the pond one last look, you continue your path around it, and eventually, it disappears " +
-                "behind you.";
+        ret += "Sparing the water one last look, you continue your path around it, and soon the glimmering pond " +
+                "and its little " + color + " mushrooms disappear behind you.";
 
         return ret;
     }
 
     public String passEvent() {
         newParagraph();
-        String ret = "You regained 5 HP!";
+        String ret = "You regained " + hpRegained + " HP!";
 
-        this.player.setHitPoints(player.getHitPoints() + 5);
+        this.player.setHitPoints(player.getHitPoints() + hpRegained);
 
         return ret;
     }
 
     public String failEvent() {
         newParagraph();
-        String ret = "You lost 3 HP!";
+        String ret = "You lost " + hpLost + " HP!";
 
-        this.player.setHitPoints(player.getHitPoints() - 3);
+        this.player.setHitPoints(player.getHitPoints() - hpLost);
 
         return ret;
     }
