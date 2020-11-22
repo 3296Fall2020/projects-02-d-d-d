@@ -36,10 +36,14 @@ public class PrimaryController extends App {
         App.setRoot("event");
     }
 
-    /** Advance. Either receive a combat encounter (40% chance) or a random event. **/
+    /** Advance. Decide what type of event to do next.
+
+        Combat (25% chance) = 1
+        Quiz (20% chance) = 2
+        Standard event (55% chance) = 0 **/
     @FXML
     private void venture() throws IOException{
-        if (eventGenerator.checkForCombat())
+        if (eventGenerator.decideEventType() == 1)
             App.setRoot("combat");
         else
             App.setRoot("event");
