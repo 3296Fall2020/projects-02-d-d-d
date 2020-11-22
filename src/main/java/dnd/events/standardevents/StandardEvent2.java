@@ -23,7 +23,7 @@ public class StandardEvent2 extends Event {
             desc += "For a few happy moments, you don't notice a thing, too focused on the path ahead. But then a particularly " +
                     "loud 'crunch!' of a twig finally draws your attention. You whirl around to confront the...bushes? ";
 
-        newParagraph();
+        desc += newParagraph();
         desc += "\"Who's there!\" you ";
 
         if (player.getCharisma() >= 14)
