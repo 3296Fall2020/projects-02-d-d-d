@@ -141,4 +141,13 @@ public class CharacterTest {
 
     }
 
+    /**
+     * Test 7: Ensures that the factory class is working properly
+     */
+    @Test
+    public void factoryShouldCreateInstance() {
+        Character res= CharacterFactory.createCharacter("Dwarf", "bob");
+        assertTrue(res instanceof Dwarf);
+    }
+
 }
