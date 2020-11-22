@@ -2,8 +2,6 @@ package dnd.events;
 
 import dnd.dice.Dice;
 import dnd.dice.RandomNumberGenerator;
-import javafx.scene.control.Button;
-import javafx.scene.text.Text;
 import dnd.characters.Character;
 
 public abstract class Event {
@@ -27,6 +25,10 @@ public abstract class Event {
         this.player = player;
         dice = new Dice();
         randomizer = new RandomNumberGenerator();
+
+        //build the event:
+        this.buildDescription();
+        this.buildButtons();
     }
 
     // Set the eventDescription
@@ -123,6 +125,10 @@ public abstract class Event {
     public String getButtonCText(){
         return this.buttonCText;
     }
+
+    /** Events will have unique functions that dictate the main text of the event and the available choices. **/
+    public abstract void buildDescription();
+    public abstract void buildButtons();
 
     /** Events have unique choices. Returns String descriptions of the consequences.**/
     public abstract String chooseA();

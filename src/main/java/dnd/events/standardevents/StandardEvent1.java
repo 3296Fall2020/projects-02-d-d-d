@@ -11,10 +11,6 @@ public class StandardEvent1 extends Event {
     /** Standard events are events that simply occur, and may or may not have an effect on the player. **/
     public StandardEvent1(Character player) {
         super(player);
-
-        //build the event:
-        this.buildDescription();
-        this.buildButtons();
     }
 
     public void buildDescription(){
