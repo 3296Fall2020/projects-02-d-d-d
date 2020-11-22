@@ -4,7 +4,7 @@ import dnd.dice.*;
 import dnd.characters.Character;
 import dnd.events.luckevents.*;
 import dnd.events.quizevents.*;
-import dnd.events.standardevent.*;
+import dnd.events.standardevents.*;
 
 public class RandomEventGenerator {
 

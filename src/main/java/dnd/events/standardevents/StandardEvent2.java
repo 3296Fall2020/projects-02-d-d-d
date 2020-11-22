@@ -1,4 +1,4 @@
-package dnd.events.standardevent;
+package dnd.events.standardevents;
 
 import dnd.characters.Character;
 import dnd.events.Event;
