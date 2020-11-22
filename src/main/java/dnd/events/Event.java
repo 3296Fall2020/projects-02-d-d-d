@@ -91,6 +91,14 @@ public abstract class Event {
         return words[randomizer.randomIntInRange(0, words.length - 1)];
     }
 
+    //get a random small animal. doesn't check for the preceding a/an, so best if used in the case, "The ___."
+    public String getRandomSmallAnimal(){
+        String[] words = {"hare", "rabbit", "chicken", "duck", "goose", "frog", "snake", "magpie", "swallow",
+                        "hummingbird", "squirrel", "rooster", "hen", "duckling", "toad", "owl", "skunk",
+                        "raccoon", "chipmunk", "mouse", "hedgehog", "porcupine", "armadillo", "dog", "cat"};
+        return words[randomizer.randomIntInRange(0, words.length - 1)];
+    }
+
     /** SETTER & GETTER METHODS FOR BUTTON TEXT **/
     public void setButtonAText(String text){
         this.buttonAText = text;

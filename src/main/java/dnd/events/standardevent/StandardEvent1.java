@@ -6,7 +6,6 @@ import dnd.events.Event;
 public class StandardEvent1 extends Event {
 
     private int hpRegained = dice.roll(4) + player.getConstitutionMod();
-    private int hpLost = dice.roll(6);
     private String color = getRandomColor();
 
     /** Standard events are events that simply occur, and may or may not have an effect on the player. **/
@@ -60,18 +59,18 @@ public class StandardEvent1 extends Event {
                 "can see all the way through to the stone-strewn bottom of the pond, but strangely you can't " +
                 "see your reflection on the surface.";
 
-        newParagraph();
+        ret += newParagraph();
         ret += "Carefully, you bend down, dip cupped hands into the water, and drink.";
 
-        newParagraph();
+        ret += newParagraph();
         ret += "The water tastes " + getRandomTaste() + " at first, but after a few seconds, you realize that it leaves a" +
                 "more noticeable, metallic tang in the back of your mouth. ";
 
-        newParagraph();
+        ret += newParagraph();
         ret += "You stand back up - then wince as your stomach suddenly cinches. The pain is quickly gone; it's as " +
                 "if someone pinched your side. You don't notice anything else... (For now?)";
 
-        newParagraph();
+        ret += newParagraph();
         ret += "You should probably move on.";
 
         ret += failEvent();
@@ -87,7 +86,7 @@ public class StandardEvent1 extends Event {
         if (player.getClassMembership() == "Rogue")
             ret += "You think you've even eaten this type of mushroom before in one of your travels. ";
 
-        newParagraph();
+        ret += newParagraph();
         ret += "You kneel down by the edge of the pond and";
         if (player.getDexterity() >= 12)
             ret += " carefully pluck ";
@@ -95,7 +94,7 @@ public class StandardEvent1 extends Event {
             ret += ", after several tugs, manage to dig out ";
         ret += "one of the mushrooms. It's small enough to fit in your mouth in one bite. ";
 
-        newParagraph();
+        ret += newParagraph();
         ret += "It tastes " + getRandomTaste() + ". A little puzzled, you climb back to your feet. Somehow, you feel " +
                 "a little stronger than before. Better keep moving.";
 
@@ -110,16 +109,15 @@ public class StandardEvent1 extends Event {
         if (player.getWisdom() >= 12)
             ret += "You also figure that it's probably best not to eat or drink from a strange place in the woods. ";
 
-        newParagraph();
+        ret += newParagraph();
         ret += "Sparing the water one last look, you continue your path around it, and soon the glimmering pond " +
-                "and its little " + color + " mushrooms disappear behind you.";
+                "and its little " + color + " mushrooms disappear behind you. ";
 
         return ret;
     }
 
     public String passEvent() {
-        newParagraph();
-        String ret = "You regained " + hpRegained + " HP!";
+        String ret = newParagraph() + "You regained " + hpRegained + " HP! ";
 
         this.player.setHitPoints(player.getHitPoints() + hpRegained);
 
@@ -127,10 +125,15 @@ public class StandardEvent1 extends Event {
     }
 
     public String failEvent() {
-        newParagraph();
-        String ret = "You lost " + hpLost + " HP!";
-
-        this.player.setHitPoints(player.getHitPoints() - hpLost);
+        String ret = newParagraph();
+        if (player.getHitPoints() < 5){
+            ret += "Luckily, you didn't take any damage. ";
+        }
+        else{
+            int hpLost = dice.roll(4);
+            this.player.setHitPoints(player.getHitPoints() - hpLost);
+            ret += "You took " + hpLost + " damage! ";
+        }
 
         return ret;
     }
