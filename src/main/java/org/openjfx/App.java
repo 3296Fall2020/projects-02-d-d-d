@@ -1,10 +1,10 @@
 package org.openjfx;
 
 
-import dnd.combat.Combat;
+//import dnd.combat.Combat;
 import dnd.characters.Character;
-import dnd.data.User;
-import dnd.quizzes.QuizGenerator;
+//import dnd.data.User;
+//import dnd.quizzes.QuizGenerator;
 import dnd.test.TestQuizGeneration;
 import dnd.test.TestQuizzesAndDice;
 import javafx.application.Application;
@@ -26,7 +26,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"));
+        scene = new Scene(loadFXML("login"));
         stage.setScene(scene);
         stage.show();
     }

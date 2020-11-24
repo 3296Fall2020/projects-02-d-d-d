@@ -99,6 +99,7 @@ public class SessionManager {
 
         HttpEntity stringEntity = new StringEntity(message.toString(), ContentType.APPLICATION_JSON);
         post.setEntity(stringEntity);
+
         try {
             CloseableHttpResponse response = client.execute(post);
             if (response.getStatusLine().getStatusCode() != 201) {
