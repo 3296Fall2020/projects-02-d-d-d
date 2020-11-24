@@ -14,10 +14,10 @@
 
     <children>
         <Label text="Start screen" />
-        <Label text="Username"></Label>
-        <TextField fx:id="loginField"></TextField>
+        <Label text="username"></Label>
+        <TextField fx:id="username"></TextField>
         <Label text="Password"></Label>
-        <PasswordField fx:id="passwordField"></PasswordField>
+        <PasswordField fx:id="password"></PasswordField>
         <Region minHeight="5" disable="true"></Region>
 
         <Button fx:id="loginButton" text="Login" onAction="#loginButton"/>

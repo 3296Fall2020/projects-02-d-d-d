@@ -27,14 +27,14 @@ public class LoginController extends App {
     //if the user is created, they will be taken to the primary controller screen.
     @FXML
     private void createProfile() throws IOException {
-
-//        if (sessionManager.createUser(username.getText(), password.getText())) {
+        sessionManager = new SessionManager();
+        if (sessionManager.createUser(username.getText(), password.getText())) {
             App.setRoot("primary");
-//        } else {
-//            username.setText("Sorry! Username or password already taken.");
-//            password.setText("Sorry! Username or password already taken.");
-//        }
-
+        } else {
+            username.setText("Sorry! Username or password already taken. Try again!");
+        }
+            // if you have not logged in at all, client needs to login at least once for cacheing
+        sessionManager.ensureAuthentication();
     }
 
     //Login and authenticate session based on username and password given. If the given username and password are not
@@ -42,12 +42,12 @@ public class LoginController extends App {
     // If it is correct, the primary controller will be shown.
     @FXML
     private void loginButton() throws IOException {
-      //  if (sessionManager.authenticateSession(username.getText(), password.getText())) {
+        sessionManager = new SessionManager();
+        if (sessionManager.authenticateSession(username.getText(), password.getText())) {
             App.setRoot("primary");
-//        } else {
-//            username.setText("Username or password not correct");
-//            password.setText("Username or password not correct");
-//        }
+        } else {
+            username.setText("Username or password not correct. Try again!");
+        }
 
     }
 
