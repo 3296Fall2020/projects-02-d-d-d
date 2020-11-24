@@ -13,6 +13,7 @@ public abstract class Monster {
     public String desc;
     public int lvl;
     public int hp;
+    public int xp;
     public Weapon weapon;
     public int damageDie;
 
@@ -85,6 +86,10 @@ public abstract class Monster {
         return this.hp;
     }
 
+    public int getXP(){
+        return this.xp;
+    }
+
     public Weapon getWeapon(){
         return this.weapon;
     }
@@ -150,6 +155,11 @@ public abstract class Monster {
     public void setWeapon(Weapon newWeapon){
         this.weapon = newWeapon;
         this.damageDie = newWeapon.getDie();
+    }
+
+    //Overrides the monster's XP with xp
+    public void setXP(int xp){
+        this.xp = xp;
     }
     /****/
 

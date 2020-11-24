@@ -16,6 +16,7 @@ public class Dragonling extends Monster {
                     "it is already at least three times your size. You wonder what it likes to collect!";
         this.type = "Dragonling";
         this.initHP();
+        this.xp = 50;
 
         //dragonlings get claws
         Claws claws = new Claws();

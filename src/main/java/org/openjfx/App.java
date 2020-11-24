@@ -1,7 +1,10 @@
 package org.openjfx;
 
+
+import dnd.combat.Combat;
+import dnd.characters.Character;
+import dnd.data.User;
 import dnd.quizzes.QuizGenerator;
-import dnd.test.TestCombat;
 import dnd.test.TestQuizGeneration;
 import dnd.test.TestQuizzesAndDice;
 import javafx.application.Application;
@@ -19,6 +22,7 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
+    public static Character player;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -39,8 +43,6 @@ public class App extends Application {
     public static void main(String[] args) {
 
 
-
-
         // Demonstrating test quizzes and dice rolls ------------------
         TestQuizzesAndDice test = new TestQuizzesAndDice(); // creating test object
         test.testQuizzesAndDice(); // calling test function
@@ -51,11 +53,10 @@ public class App extends Application {
         testQuizGeneration.testQuizGeneration();
         // ------------------------------------------------------------
 
-        // Creating a test combat and outputting results to terminal.
-        TestCombat combatTest = new TestCombat();
-        combatTest.test();
 
-
+        //creating a character for testing
+        player = new Character("Jim");
+        player.setHitPoints(100);
 
         launch();
     }

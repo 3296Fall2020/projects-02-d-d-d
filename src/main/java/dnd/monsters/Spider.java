@@ -14,6 +14,7 @@ public class Spider extends Monster {
         this.desc = "A large, probably poisonous spider.";
         this.type = "Spider";
         this.initHP();
+        this.xp = 30;
 
         //spiders get claws
         Claws claws = new Claws();
