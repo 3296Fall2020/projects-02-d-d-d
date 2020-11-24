@@ -16,6 +16,7 @@ public class Bandit extends Monster {
                 "for Bandits (or a fashion statement?), all you know of this one's identity is their alias.";
         this.type = "Bandit";
         this.initHP();
+        this.xp = 30;
 
         //bandits get bows
         Bow bow = new Bow();

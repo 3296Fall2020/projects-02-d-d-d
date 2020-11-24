@@ -15,6 +15,7 @@ public class CorruptedMage extends Monster {
                 "Clutched in their blackened hands is a gnarled staff that crackles with dark-gold magic.";
         this.type = "Corrupted Mage";
         this.initHP();
+        this.xp = 40;
 
         //mages get staves
         Staff staff = new Staff();
@@ -29,7 +30,7 @@ public class CorruptedMage extends Monster {
         this.chaMod = 1;
 
         //set the mage's strings
-        this.introString = "The mage sneers at you. \"My name " + this.name + ",\" they declare. \"Remember " +
+        this.introString = "The mage sneers at you. \"My name is " + this.name + ",\" they declare. \"Remember " +
                 "me, for I will be your downfall.\" You'll see about that!";
         this.tauntString = this.name + " tightens their grip on their staff and hisses at you.";
         this.victoryString = this.name + " has defeated you.";
