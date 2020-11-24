@@ -56,7 +56,12 @@ public class CombatController extends App implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         combat = new Combat(player);
         updateCombatDetails();
-        description.setText(combat.opponent.getIntroString());
+
+        roundDescription = "Uh oh, you've encountered a " + combat.getOpponentType() + "!\n\n";
+        roundDescription += combat.opponent.getIntroString() + "\n\n";
+        roundDescription += "Combat start!";
+        description.setText(roundDescription);
+
         endCombatButton.setVisible(false);
         this.healCD = 0;
         this.cdDecreased = false;

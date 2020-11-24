@@ -14,13 +14,13 @@ public class Combat {
     //A MonsterGenerator for generating a random monster
     private MonsterGenerator myMonsterGenerator;
 
-    //the current opponent
+    //the current Monster opponent
     public Monster opponent;
 
     //keep track of the player's weapon
     public Weapon playerWeapon;
 
-    //int for the monster's weapon's ability modifier (added to monster attack rolls)
+    //int for the opponent's weapon's ability modifier (added to opponent attack rolls)
     private int opponentWeaponMod;
 
     //dice for combat
@@ -98,6 +98,14 @@ public class Combat {
         ret += "Opponent's health: " + opponent.getHitPoints() + "\n";
 
         return ret;
+    }
+
+    public String getOpponentType(){
+        return opponent.getType();
+    }
+
+    public String getOpponentName(){
+        return opponent.getName();
     }
 
     /** Decides turn order by comparing player and monster dexterity mods.
