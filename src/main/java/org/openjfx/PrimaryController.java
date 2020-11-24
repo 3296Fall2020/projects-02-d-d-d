@@ -8,9 +8,10 @@ import dnd.combat.Combat;
 import dnd.dice.Dice;
 import dnd.dice.RandomNumberGenerator;
 import dnd.events.RandomEventGenerator;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-public class PrimaryController extends App {
+public class PrimaryController extends App{
 
     RandomEventGenerator eventGenerator= new RandomEventGenerator(player);
     RandomNumberGenerator numberGenerator = new RandomNumberGenerator();
@@ -47,5 +48,10 @@ public class PrimaryController extends App {
             App.setRoot("combat");
         else
             App.setRoot("event");
+    }
+
+    public void loadGame(ActionEvent actionEvent) throws IOException {
+        //set loaded game from profile here
+
     }
 }
