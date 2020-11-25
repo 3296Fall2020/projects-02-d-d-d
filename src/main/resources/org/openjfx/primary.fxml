@@ -14,6 +14,7 @@
       <Button fx:id="getEventButton" text="Test Event" onAction="#getEvent"/>
       <Button fx:id="initCombatButton" text="Start Combat" onAction="#initCombat"/>
       <Button fx:id="ventureButton" text="Venture Forth" onAction="#venture"/>
+      <Button fx:id="quizButton" text="Math Quiz" onAction="#loadQuiz"/>
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
