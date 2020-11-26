@@ -2,7 +2,8 @@ package dnd.events;
 
 import dnd.dice.*;
 import dnd.characters.Character;
-import dnd.events.quizevents.*;
+import dnd.events.quizevents.QuizEvent1;
+import dnd.events.quizevents.QuizEvent2;
 import dnd.events.standardevents.*;
 
 public class RandomEventGenerator {
@@ -39,7 +40,7 @@ public class RandomEventGenerator {
     }
 
     /** Randomly decide on an event type, retrieve an event of that type, then return the generated event. **/
-    public Event generateRandomEvent(){
+    public StandardEvent generateRandomStandardEvent(){
         int n = randomizer.randomIntInRange(1, numStandardEvents);
 
         if (n == 1)
@@ -48,6 +49,16 @@ public class RandomEventGenerator {
             return (new StandardEvent2(player));
         else
             return (new StandardEvent4(player));
+    }
+
+    /** Randomly decide on an event type, retrieve an event of that type, then return the generated event. **/
+    public QuizEvent generateRandomQuizEvent(){
+        int n = randomizer.randomIntInRange(1, numStandardEvents);
+
+        if (n == 1)
+            return (new QuizEvent1(player));
+        else
+            return (new QuizEvent2(player));
     }
 
 }

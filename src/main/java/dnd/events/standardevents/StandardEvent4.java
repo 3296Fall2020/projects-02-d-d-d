@@ -1,9 +1,9 @@
 package dnd.events.standardevents;
 
 import dnd.characters.Character;
-import dnd.events.Event;
+import dnd.events.StandardEvent;
 
-public class StandardEvent4 extends Event {
+public class StandardEvent4 extends StandardEvent {
 
     /** Standard events are events that simply occur, and may or may not have an effect on the player. **/
     public StandardEvent4(Character player) {

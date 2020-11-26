@@ -1,9 +1,9 @@
 package dnd.events.standardevents;
 
 import dnd.characters.Character;
-import dnd.events.Event;
+import dnd.events.StandardEvent;
 
-public class StandardEvent2 extends Event {
+public class StandardEvent2 extends StandardEvent {
 
     private String animal = getRandomSmallAnimal();
     private String color = getRandomColor();

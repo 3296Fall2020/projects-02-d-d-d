@@ -106,6 +106,11 @@ public class QuizController extends App implements Initializable{
         App.setRoot("primary");
     }
 
+    @FXML
+    private void switchToEndscreen() throws IOException {
+        App.setRoot("quizendscreen");
+    }
+
     // Checks the user's entered solution for correctness
     // The page will indicate if the user is correct and allow the user to continue if they are correct
     @FXML

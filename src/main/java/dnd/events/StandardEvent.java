@@ -4,7 +4,7 @@ import dnd.dice.Dice;
 import dnd.dice.RandomNumberGenerator;
 import dnd.characters.Character;
 
-public abstract class Event {
+public abstract class StandardEvent {
 
     // The player
     public Character player;
@@ -21,7 +21,7 @@ public abstract class Event {
     String buttonBText;
     String buttonCText;
 
-    public Event(Character player){
+    public StandardEvent(Character player){
         this.player = player;
         dice = new Dice();
         randomizer = new RandomNumberGenerator();

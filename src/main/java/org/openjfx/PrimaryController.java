@@ -44,10 +44,12 @@ public class PrimaryController extends App{
         Standard event (55% chance) = 0 **/
     @FXML
     private void venture() throws IOException{
-        if (eventGenerator.decideEventType() == 1)
+        if (eventGenerator.decideEventType() == 100)
             App.setRoot("combat");
+        else if (eventGenerator.decideEventType() <= 4)
+            App.setRoot("quizevent");
         else
-            App.setRoot("event");
+            App.setRoot("standardevent");
     }
 
     public void loadGame(ActionEvent actionEvent) throws IOException {

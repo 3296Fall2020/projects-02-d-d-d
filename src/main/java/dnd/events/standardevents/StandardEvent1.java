@@ -1,9 +1,9 @@
 package dnd.events.standardevents;
 
 import dnd.characters.Character;
-import dnd.events.Event;
+import dnd.events.StandardEvent;
 
-public class StandardEvent1 extends Event {
+public class StandardEvent1 extends StandardEvent {
 
     private int hpRegained = dice.roll(4) + player.getConstitutionMod();
     private String color = getRandomColor();
