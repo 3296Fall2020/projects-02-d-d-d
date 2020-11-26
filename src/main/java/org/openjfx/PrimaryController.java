@@ -54,4 +54,9 @@ public class PrimaryController extends App{
         //set loaded game from profile here
 
     }
+
+    @FXML
+    private void loadQuiz() throws IOException {
+        App.setRoot("quiz");
+    }
 }
