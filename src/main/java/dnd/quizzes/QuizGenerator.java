@@ -47,7 +47,7 @@ public class QuizGenerator {
                 break;
             case 5:
                 numDigitsOne = randomNumGenerator.randomIntInRange(3, 5); // number of digits is between 3 and 5
-                numDigitsTwo = randomNumGenerator.randomIntInRange(3, 5); // number of digits is between 3 and 5
+                numDigitsTwo = randomNumGenerator.randomIntInRange(3, 4); // number of digits is between 3 and 5
                 quizType = randomNumGenerator.randomIntInRange(2,4); // either multiplication or division or division with remainder quiz
                 break;
         }

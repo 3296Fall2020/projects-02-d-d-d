@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.geometry.Insets?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.HBox?>
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.openjfx.QuizController" minWidth="900" minHeight="600">
+
+    <children>
+        <Label text="Solve this quiz in order to continue!" />
+        <Text fx:id="quizPrompt"><font><Font size = "35.0"></Font></font></Text>
+        <HBox alignment="CENTER">
+            <Label text="Enter your solution here:   "></Label>
+            <TextField fx:id="solutionField" maxWidth="140"></TextField>
+        </HBox>
+        <HBox alignment="CENTER">
+            <Label text="Remainder   " fx:id="remainderLabel"></Label>
+            <TextField fx:id="remainderField" maxWidth="140"></TextField>
+        </HBox>
+        <Text fx:id="correctnessIndicator" text="Correct! You may now continue!"></Text>
+        <Button fx:id="Submit" text="Submit" onAction="#checkSolution"/>
+
+        <Region minHeight="5" disable="true"></Region>
+        <Label text="Too hard? Try a new quiz:" ></Label>
+        <Button fx:id="generateQuiz" text="New Quiz" onAction="#generateQuizText"/>
+
+        <Label text="Enter your grade level here! We support grades 1 through 5" ></Label>
+        <HBox alignment="CENTER">
+            <TextField fx:id="gradeLevelField" maxWidth="50"></TextField>
+            <Button fx:id="submitGradeLevel" text="Submit Grade Level" onAction="#submitGradeLevel"/>
+        </HBox>
+
+        <Region minHeight="5" disable="true"></Region>
+        <Button fx:id="continueButton" text="CONTINUE" onAction="#setPrimary"></Button>
+    </children>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+</VBox>
+
+
