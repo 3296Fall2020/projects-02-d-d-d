@@ -15,11 +15,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CharacterController implements Initializable {
+public class CharacterController extends App implements Initializable {
 
     //By default, a human character with same name as user is created upon start of new game.
     private String charText;
-    private Character current;
 
     @FXML
     Button continueButton; // button to continue once the user has finished customizing
@@ -45,25 +44,25 @@ public class CharacterController implements Initializable {
 
     // sets the primary.fxml page to be the page in focus
     @FXML
-    private void setPrimary() throws IOException {
-        App.setRoot("primary");
+    private void startGame() throws IOException {
+        App.setRoot("game");
     }
 
     //Prints statistics of character
     public void statsSetter() {
-        charText = "Name: " + current.getName() + "\nRace: " + current.getRace()
-                + "\nAlignment: " + current.getAlignment() + "\nClass: " +
-                current.getClassMembership() + "\nLanguage : " + current.getLanguage() +
-                "\n\nStrength: " + current.getStrength() +
-                "\tDexterity: " + current.getDexterity() +
-                "\nConstitution: " + current.getConstitution() +
-                "\tIntelligence: " + current.getIntelligence() +
-                "\nWisdom: " + current.getWisdom() +
-                "\tCharisma: " + current.getCharisma() +
-                "\n\nSpeed : " + current.getSpeed() + " feet " +
-                "\nXP: " + current.getXP() + " points " +
-                "\nLevel: " + current.getLevel() +
-                "\nWeapon: " + current.getWeapon().getName();
+        charText = "Name: " + player.getName() + "\nRace: " + player.getRace()
+                + "\nAlignment: " + player.getAlignment() + "\nClass: " +
+                player.getClassMembership() + "\nLanguage : " + player.getLanguage() +
+                "\n\nStrength: " + player.getStrength() +
+                "\tDexterity: " + player.getDexterity() +
+                "\nConstitution: " + player.getConstitution() +
+                "\tIntelligence: " + player.getIntelligence() +
+                "\nWisdom: " + player.getWisdom() +
+                "\tCharisma: " + player.getCharisma() +
+                "\n\nSpeed : " + player.getSpeed() + " feet " +
+                "\nXP: " + player.getXP() + " points " +
+                "\nLevel: " + player.getLevel() +
+                "\nWeapon: " + player.getWeapon().getName();
         statsDisplay.setText(charText);
     }
 
@@ -76,25 +75,25 @@ public class CharacterController implements Initializable {
     //Updates character stats if fields are changed for race, class, weapon, alignment, race, and name
     public void updateCharacter(ActionEvent actionEvent) {
         if (!raceCombo.getSelectionModel().isEmpty()) { //if race is changed
-            current = CharacterFactory.createCharacter(raceCombo.getSelectionModel().getSelectedItem(), nameField.getText());
+            player = CharacterFactory.createCharacter(raceCombo.getSelectionModel().getSelectedItem(), nameField.getText());
         }
         if (!classCombo.getSelectionModel().isEmpty()) {
-            current.setClassMembership((classCombo.getSelectionModel().getSelectedItem())); //set class
+            player.setClassMembership((classCombo.getSelectionModel().getSelectedItem())); //set class
         }
         if (!weaponCombo.getSelectionModel().isEmpty()) {
-            current.setWeapon(WeaponFactory.createWeapon(weaponCombo.getSelectionModel().getSelectedItem())); //set weapon
+            player.setWeapon(WeaponFactory.createWeapon(weaponCombo.getSelectionModel().getSelectedItem())); //set weapon
         }
         if (!alignmentCombo.getSelectionModel().isEmpty()) {
-            current.setAlignment(alignmentCombo.getSelectionModel().getSelectedItem()); //set alignment
+            player.setAlignment(alignmentCombo.getSelectionModel().getSelectedItem()); //set alignment
         }
-        current.setName(nameField.getText());
+        player.setName(nameField.getText());
         statsSetter();
     }
 
     //creates a character and sets the character name as name and race as what the user chose
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        current = CharacterFactory.createCharacter("Human", UserNameSingleton.getInstance().getUserName().getText());
+        player = CharacterFactory.createCharacter("Human", UserNameSingleton.getInstance().getUserName().getText());
         statsSetter();
     }
 }

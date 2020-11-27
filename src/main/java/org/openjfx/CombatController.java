@@ -211,7 +211,7 @@ public class CombatController extends App implements Initializable {
     /** End combat by switching "pages." (Currently switches to primary.fxml by default) **/
     @FXML
     private void endCombat() throws IOException {
-        App.setRoot("primary");
+        App.setRoot("game");
     }
 
 }

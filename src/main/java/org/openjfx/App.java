@@ -53,11 +53,6 @@ public class App extends Application {
         testQuizGeneration.testQuizGeneration();
         // ------------------------------------------------------------
 
-
-        //creating a character for testing
-        player = new Character("Jim");
-        player.setHitPoints(100);
-
         launch();
     }
 

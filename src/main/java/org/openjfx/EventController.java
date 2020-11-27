@@ -119,7 +119,7 @@ public class EventController extends App implements Initializable {
         //repurpose choiceB to be a "return" button
         choiceBButton.setOnAction(value ->  {
             try {
-                App.setRoot("primary");
+                App.setRoot("game");
             } catch (IOException e) {
                 System.out.println("Error: Couldn't return to page");
             }

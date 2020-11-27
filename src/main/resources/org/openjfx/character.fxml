@@ -78,7 +78,7 @@
         </HBox>
         <Button fx:id="updateButton" text="Update Character!" onAction="#updateCharacter"></Button>
         <Text fx:id="statsDisplay"><font><Font size = "14.0"></Font></font></Text>
-        <Button fx:id="continueButton" text="CONTINUE" onAction="#setPrimary"></Button>
+        <Button fx:id="continueButton" text="CONTINUE" onAction="#startGame"></Button>
     </children>
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
