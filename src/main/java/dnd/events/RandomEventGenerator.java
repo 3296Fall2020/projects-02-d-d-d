@@ -2,7 +2,6 @@ package dnd.events;
 
 import dnd.dice.*;
 import dnd.characters.Character;
-import dnd.events.quizevents.*;
 import dnd.events.standardevents.*;
 
 public class RandomEventGenerator {
@@ -17,7 +16,7 @@ public class RandomEventGenerator {
     private RandomNumberGenerator randomizer;
 
     // ints to keep track of how many of each event types there currently are. must be manually updated :(
-    private final int numStandardEvents = 2;
+    private final int numStandardEvents = 4;
 
     public RandomEventGenerator(Character player){
         this.dice = new Dice();
@@ -26,9 +25,9 @@ public class RandomEventGenerator {
     }
 
     /** Decide what type of event to do.
-        Combat (25% chance) = return 1
-        Quiz (20% chance) = return 2
-        Standard event (50% chance) = return 0**/
+     Combat (25% chance) = return 1
+     Quiz (20% chance) = return 2
+     Standard event (50% chance) = return 0**/
     public int decideEventType(){
         if (dice.roll(20) <= 5)
             return 1;
@@ -39,13 +38,20 @@ public class RandomEventGenerator {
     }
 
     /** Randomly decide on an event type, retrieve an event of that type, then return the generated event. **/
-    public Event generateRandomEvent(){
+    public StandardEvent generateRandomStandardEvent(){
         int n = randomizer.randomIntInRange(1, numStandardEvents);
 
         if (n == 1)
             return (new StandardEvent1(player));
-        else
+        else if (n == 2)
             return (new StandardEvent2(player));
+        else
+            return (new StandardEvent4(player));
+    }
+
+    /** Randomly decide on an event type, retrieve an event of that type, then return the generated event. **/
+    public QuizEvent generateQuizEvent() {
+        return (new QuizEvent(player));
     }
 
 }
