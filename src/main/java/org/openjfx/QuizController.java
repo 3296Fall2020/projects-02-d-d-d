@@ -53,7 +53,7 @@ public class QuizController extends App implements Initializable{
             e.printStackTrace();
         }
         correctnessIndicator.setVisible(false); // making correctness indicator invisible
-        continueButton.setStyle("-fx-background-color: #26ff72; -fx-border-color: 01752a; -fx-border-width: 1;"); // making button green
+        continueButton.setStyle("-fx-background-color: #26ff72; -fx-border-color: #01752a; -fx-border-width: 1;"); // making button green
         continueButton.setVisible(false); // making continue button invisible
         if(remainderSolution == -1) { // case with no remainder (i.e. no division with remainder quiz)
             remainderField.setVisible(false); // making remainder field invisible
@@ -160,6 +160,12 @@ public class QuizController extends App implements Initializable{
         }
         catch(final NumberFormatException e) {
             // do nothing
+        }
+
+        try {
+            generateQuizText();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

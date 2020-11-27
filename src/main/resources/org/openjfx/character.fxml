@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+
+<VBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.openjfx.CharacterController" minWidth="1000" minHeight="1500">
+
+    <children>
+        <Label text="Customize your character here!" />
+        <Text fx:id="namePrompt"><font><Font size = "35.0"></Font></font></Text>
+        <HBox alignment="CENTER">
+            <Label text="Update your character name here:   "></Label>
+            <TextField fx:id="nameField" maxWidth="140"></TextField>
+        </HBox>
+        <HBox alignment="CENTER">
+        <ComboBox fx:id="raceCombo" layoutX="15.0" layoutY="33.0" prefWidth="240.0" promptText="Choose Your Race">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Human" />
+                    <String fx:value="Dwarf" />
+                    <String fx:value="Elf" />
+                    <String fx:value="Halfling" />
+                </FXCollections>
+            </items>
+        </ComboBox>
+        <ComboBox fx:id="classCombo" layoutX="15.0" layoutY="33.0" prefWidth="260.0" promptText="Change Your Class Membership">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Wizard" />
+                    <String fx:value="Rogue" />
+                    <String fx:value="Fighter" />
+                    <String fx:value="Cleric" />
+                </FXCollections>
+            </items>
+        </ComboBox>
+        </HBox>
+        <Region minHeight="5" disable="true"></Region>
+        <HBox alignment="CENTER">
+        <ComboBox fx:id="weaponCombo" layoutX="0.0" layoutY="33.0" prefWidth="200.0" promptText="Change Your Weapon">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value= "Bow" />
+                    <String fx:value="Claws" />
+                    <String fx:value="Club" />
+                    <String fx:value="Daggers" />
+                    <String fx:value="Staff" />
+                    <String fx:value="Sword" />
+                    <String fx:value="Wand" />
+                </FXCollections>
+            </items>
+        </ComboBox>
+        <ComboBox fx:id="alignmentCombo" layoutX="15.0" layoutY="0.0" prefWidth="200.0" promptText="Change Your Alignment">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Lawful Good" />
+                    <String fx:value="Lawful Neutral" />
+                    <String fx:value="Lawful Evil" />
+                    <String fx:value="Neutral Good" />
+                    <String fx:value="True Neutral" />
+                    <String fx:value="Neutral Evil" />
+                    <String fx:value="Chaotic Good" />
+                    <String fx:value="Chaotic Neutral" />
+                    <String fx:value="Chaotic Evil" />
+                </FXCollections>
+            </items>
+        </ComboBox>
+        </HBox>
+        <Button fx:id="updateButton" text="Update Character!" onAction="#updateCharacter"></Button>
+        <Text fx:id="statsDisplay"><font><Font size = "14.0"></Font></font></Text>
+        <Button fx:id="continueButton" text="CONTINUE" onAction="#setPrimary"></Button>
+    </children>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+</VBox>
+
+
+
