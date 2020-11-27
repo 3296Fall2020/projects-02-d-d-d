@@ -59,4 +59,9 @@ public class PrimaryController extends App{
     private void loadQuiz() throws IOException {
         App.setRoot("quiz");
     }
+
+    @FXML
+    private void customizeCharacter() throws IOException {
+        App.setRoot("character");
+    }
 }

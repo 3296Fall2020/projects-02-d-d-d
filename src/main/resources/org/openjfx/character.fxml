@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.openjfx.CharacterController" minWidth="900" minHeight="600">
+
+    <children>
+        <Label text="Create and customize your character here!" />
+        <Text fx:id="namePrompt"><font><Font size = "35.0"></Font></font></Text>
+        <HBox alignment="CENTER">
+            <Label text="Enter your character name here:   "></Label>
+            <TextField fx:id="nameField" maxWidth="140"></TextField>
+        </HBox>
+        <ComboBox fx:id="raceCombo" layoutX="15.0" layoutY="33.0" prefWidth="240.0" promptText="Choose Your Race!">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Human" />
+                    <String fx:value="Dwarf" />
+                    <String fx:value="Elf" />
+                    <String fx:value="Halfling" />
+                </FXCollections>
+            </items>
+        </ComboBox>
+        <Button fx:id="initCharacter" text="Initialize Your Character!" onAction="#initCharacter"/>
+        <Region minHeight="5" disable="true"></Region>
+        <Button fx:id="viewStats" text="Display Character Stats!" onAction="#seeStats"></Button>
+        <Text fx:id="statsDisplay"><font><Font size = "14.0"></Font></font></Text>
+        <Button fx:id="continueButton" text="CONTINUE" onAction="#setPrimary"></Button>
+    </children>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+</VBox>
+
+
+
