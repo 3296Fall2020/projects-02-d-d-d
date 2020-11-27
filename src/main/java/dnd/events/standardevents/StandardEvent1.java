@@ -6,7 +6,7 @@ import dnd.events.StandardEvent;
 public class StandardEvent1 extends StandardEvent {
 
     private int hpRegained = dice.roll(4) + player.getConstitutionMod();
-    private String color = getRandomColor();
+    private String color;
 
     /** Standard events are events that simply occur, and may or may not have an effect on the player. **/
     public StandardEvent1(Character player) {
@@ -14,6 +14,8 @@ public class StandardEvent1 extends StandardEvent {
     }
 
     public void buildDescription(){
+        this.color = getRandomColor();
+
         String desc = "You've begun to lose track of how long you've been walking, but soon you come across " +
                 "a quiet pond surrounded by clumps of weeds and clusters of small, " + color + " spotted " +
                 "mushrooms. There's a strange thickness in the air, almost sickly sweet.";

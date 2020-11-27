@@ -15,7 +15,7 @@
         <VBox alignment="CENTER" spacing="20.0">
             <children>
                 <Label text="Text" />
-                <Text fx:id="eventText" wrappingWidth="900" textAlignment="LEFT"></Text>
+                <Text fx:id="eventText" wrappingWidth="700" textAlignment="LEFT"></Text>
                 <HBox fx:id="buttonBox" alignment="CENTER" spacing="10.0">
                     <Button fx:id="choiceAButton" onAction="#choiceAAction"/>
                     <Button fx:id="choiceBButton" onAction="#choiceBAction"/>
