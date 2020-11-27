@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import dnd.integration.*;
+import dnd.characters.UserNameSingleton;
 
 import java.io.IOException;
 
@@ -35,6 +36,7 @@ public class LoginController extends App {
         }
             // if you have not logged in at all, client needs to login at least once for cacheing
         sessionManager.ensureAuthentication();
+        UserNameSingleton.getInstance().setUserName(username); //gets username for character creation later using singleton
     }
 
     //Login and authenticate session based on username and password given. If the given username and password are not
@@ -48,6 +50,7 @@ public class LoginController extends App {
         } else {
             username.setText("Username or password not correct. Try again!");
         }
+        UserNameSingleton.getInstance().setUserName(username); //gets username for character creation later using singleton
 
     }
 

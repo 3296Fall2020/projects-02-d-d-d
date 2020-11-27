@@ -13,7 +13,7 @@
       fx:controller="org.openjfx.LoginController" minWidth="900" minHeight="600">
 
     <children>
-        <Label text="Start screen" />
+        <Label text="Login screen!" />
         <Label text="username"></Label>
         <TextField fx:id="username"></TextField>
         <Label text="Password"></Label>
