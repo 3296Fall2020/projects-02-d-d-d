@@ -75,6 +75,9 @@ public class CharacterController implements Initializable {
 
     //Updates character stats if fields are changed for race, class, weapon, alignment, race, and name
     public void updateCharacter(ActionEvent actionEvent) {
+        if (!raceCombo.getSelectionModel().isEmpty()) { //if race is changed
+            current = CharacterFactory.createCharacter(raceCombo.getSelectionModel().getSelectedItem(), nameField.getText());
+        }
         if (!classCombo.getSelectionModel().isEmpty()) {
             current.setClassMembership((classCombo.getSelectionModel().getSelectedItem())); //set class
         }
@@ -83,9 +86,6 @@ public class CharacterController implements Initializable {
         }
         if (!alignmentCombo.getSelectionModel().isEmpty()) {
             current.setAlignment(alignmentCombo.getSelectionModel().getSelectedItem()); //set alignment
-        }
-        if (!raceCombo.getSelectionModel().isEmpty()) {
-            current.setRace(raceCombo.getSelectionModel().getSelectedItem()); //set race
         }
         current.setName(nameField.getText());
         statsSetter();
