@@ -1,11 +1,8 @@
 package org.openjfx;
 
-import com.google.common.io.Resources;
 import dnd.combat.Combat;
-import dnd.events.Event;
+import dnd.events.StandardEvent;
 import dnd.events.RandomEventGenerator;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -15,7 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class EventController extends App implements Initializable {
+public class StandardEventController extends App implements Initializable {
 
     //the current combat
     public Combat combat;
@@ -28,7 +25,7 @@ public class EventController extends App implements Initializable {
     public String eventDescription = "";
 
     //the event
-    public Event event;
+    public StandardEvent event;
 
     //an event generator
     private RandomEventGenerator eventGenerator;
@@ -47,7 +44,7 @@ public class EventController extends App implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         eventGenerator = new RandomEventGenerator(player);
-        this.event = eventGenerator.generateRandomEvent();
+        this.event = eventGenerator.generateRandomStandardEvent();
         this.eventDescription = event.getEventDescription();
         showDescription();
         prepareButtons();

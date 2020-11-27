@@ -40,7 +40,7 @@
         </HBox>
 
         <Region minHeight="5" disable="true"></Region>
-        <Button fx:id="continueButton" text="CONTINUE" onAction="#setPrimary"></Button>
+        <Button fx:id="continueButton" text="CONTINUE" onAction="#switchToEndscreen"></Button>
     </children>
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

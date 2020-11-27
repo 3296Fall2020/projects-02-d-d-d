@@ -1,9 +1,9 @@
 package dnd.events.standardevents;
 
 import dnd.characters.Character;
-import dnd.events.Event;
+import dnd.events.StandardEvent;
 
-public class StandardEvent2 extends Event {
+public class StandardEvent2 extends StandardEvent {
 
     private String animal = getRandomSmallAnimal();
     private String color = getRandomColor();
@@ -51,7 +51,7 @@ public class StandardEvent2 extends Event {
     }
 
     public String chooseA() {
-        String ret = "";
+        String ret = newParagraph();
 
         if (player.getClassMembership() == "Fighter")
             ret += "You're a fighter, which means that you face your problems head-on, and this is no exception. ";
@@ -79,7 +79,7 @@ public class StandardEvent2 extends Event {
     }
 
     public String chooseB() {
-        String ret = "Right, right. It's best not to act too rashly. ";
+        String ret = newParagraph() + "Right, right. It's best not to act too rashly. ";
 
         if (player.getAlignment().contains("good"))
             ret += "Besides, you can't risk hurting an innocent person! ";
@@ -107,14 +107,14 @@ public class StandardEvent2 extends Event {
     }
 
     public String chooseC() {
-        String ret = "Whatever's hiding in there, it's none of your business nor any business you would willingly involve " +
+        String ret = newParagraph() + "Whatever's hiding in there, it's none of your business nor any business you would willingly involve " +
                 "yourself in. You decide to hurry on along.";
 
         return ret;
     }
 
     public String passEvent() {
-        String ret = "";
+        String ret = newParagraph();
 
         if (player.getWisdom() <= 10){
             ret += "You feel like the " + animal + " has imparted some of its wisdom to you before it left. You gained " +
