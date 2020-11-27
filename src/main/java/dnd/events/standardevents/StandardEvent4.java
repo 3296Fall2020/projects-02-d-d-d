@@ -161,7 +161,7 @@ public class StandardEvent4 extends StandardEvent {
         String ret = newParagraph();
 
         int xpGain = dice.rollSum(2, 10);
-        ret += "You gained " + xpGain +"! ";
+        ret += "You gained " + xpGain +"XP! ";
         player.addXP(xpGain);
 
         return ret;

@@ -34,7 +34,7 @@ public class PrimaryController extends App{
 
     @FXML
     private void getEvent() throws IOException {
-        App.setRoot("event");
+        App.setRoot("standardevent");
     }
 
     /** Advance. Decide what type of event to do next.
@@ -44,9 +44,9 @@ public class PrimaryController extends App{
         Standard event (55% chance) = 0 **/
     @FXML
     private void venture() throws IOException{
-        if (eventGenerator.decideEventType() == 100)
+        if (eventGenerator.decideEventType() == 1)
             App.setRoot("combat");
-        else if (eventGenerator.decideEventType() <= 4)
+        else if (eventGenerator.decideEventType() == 2)
             App.setRoot("quizevent");
         else
             App.setRoot("standardevent");

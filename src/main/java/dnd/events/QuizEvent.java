@@ -8,7 +8,7 @@ import org.openjfx.App;
 
 import java.io.IOException;
 
-public abstract class QuizEvent {
+public class QuizEvent {
 
     // The player
     public Character player;
@@ -23,15 +23,16 @@ public abstract class QuizEvent {
     // A string containing the event's main text.
     private String eventDescription;
 
-    // Boolean to keep track of whether the player is here pre- or post-quiz
-    private boolean returningFromQuiz;
-
     public QuizEvent(Character player){
         this.player = player;
         dice = new Dice();
         randomizer = new RandomNumberGenerator();
 
         //build the event:
+        this.buildDescription();
+
+        //build the event:
+        this.setNPCName(this.getRandomName());
         this.buildDescription();
     }
 
@@ -78,10 +79,22 @@ public abstract class QuizEvent {
     }
 
     /** Events will have unique functions that dictate the main text of the event and the available choices. **/
-    public abstract void buildDescription();
+    public void buildDescription(){
+        String desc = "This is quiz event with NPC " + getNPCName();
+
+        this.setEventDescription(desc);
+    }
 
     /** Events have unique consequences upon pass or failure. Returns String descriptions of the consequences.**/
-    public abstract String passEvent();
-    public abstract String failEvent();
+    public String passEvent(){
+        String ret = "";
+
+        return ret;
+    }
+    public String failEvent(){
+        String ret = "";
+
+        return ret;
+    }
 
 }

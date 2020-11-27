@@ -42,7 +42,7 @@ public class QuizEventController extends App implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         eventGenerator = new RandomEventGenerator(player);
-        this.event = eventGenerator.generateRandomQuizEvent();
+        this.event = eventGenerator.generateQuizEvent();
         this.eventDescription = event.getEventDescription();
         showDescription();
     }
