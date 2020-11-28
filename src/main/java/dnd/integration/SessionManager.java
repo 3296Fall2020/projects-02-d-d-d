@@ -151,12 +151,14 @@ public class SessionManager {
 
     public List<Character> fetchCharactersForGame(String gameName) {
         if (!this.ensureAuthentication()) {
+            System.out.println("Error 1");
             return null;
         }
         List<Character> characters = new ArrayList<>();
         try {
             CloseableHttpResponse response = this.client.execute(this.gameService.getGameForName(gameName));
             if (response.getStatusLine().getStatusCode() != 200) {
+                System.out.println("Error 2");
                 return null;
             }
             String content = EntityUtils.toString(response.getEntity());

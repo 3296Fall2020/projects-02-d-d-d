@@ -179,7 +179,7 @@ public class CombatController extends App implements Initializable {
     @FXML
     private void flee() throws IOException {
         updateRoundDescription("You fled combat!");
-        App.setRoot("primary");
+        App.setRoot("game");
     }
 
     /** Check on the combat status. If someone has won (someone's HP dropped to 0), show the end screen.
@@ -208,7 +208,7 @@ public class CombatController extends App implements Initializable {
         endCombatButton.setVisible(true);
     }
 
-    /** End combat by switching "pages." (Currently switches to primary.fxml by default) **/
+    /** End combat **/
     @FXML
     private void endCombat() throws IOException {
         App.setRoot("game");

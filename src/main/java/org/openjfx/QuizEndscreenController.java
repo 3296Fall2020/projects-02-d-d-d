@@ -24,10 +24,6 @@ public class QuizEndscreenController extends App implements Initializable {
     //the event
     public QuizEvent event;
 
-    //buttons on the screen
-    @FXML
-    Button returnButton;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.description = setDescription();
@@ -54,9 +50,10 @@ public class QuizEndscreenController extends App implements Initializable {
         return ret;
     }
 
+    // Return to the game
     @FXML
     public void exitQuiz() throws IOException {
-        App.setRoot("primary");
+        App.setRoot("game");
     }
 
 }

@@ -1,6 +1,7 @@
 package org.openjfx;
 //This contains the GUI setup for the character customization page
 import dnd.characters.Character;
+import dnd.integration.SessionManager;
 import dnd.weapons.WeaponFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,12 +14,16 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class CharacterController extends App implements Initializable {
 
     //By default, a human character with same name as user is created upon start of new game.
     private String charText;
+
+    private String gameName = UserNameSingleton.getInstance().getUserName().getText();
 
     @FXML
     Button continueButton; // button to continue once the user has finished customizing
@@ -42,7 +47,7 @@ public class CharacterController extends App implements Initializable {
     @FXML
     ComboBox<String> alignmentCombo; // field for user to choose their alignment
 
-    // sets the primary.fxml page to be the page in focus
+    // sets the game.fxml page to be the page in focus
     @FXML
     private void startGame() throws IOException {
         App.setRoot("game");

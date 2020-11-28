@@ -5,6 +5,7 @@ package org.openjfx;
 import dnd.characters.Character;
 //import dnd.data.User;
 //import dnd.quizzes.QuizGenerator;
+import dnd.integration.SessionManager;
 import dnd.test.TestQuizGeneration;
 import dnd.test.TestQuizzesAndDice;
 import javafx.application.Application;
@@ -14,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 
 /**
@@ -23,6 +25,8 @@ public class App extends Application {
 
     private static Scene scene;
     public static Character player;
+    public static SessionManager sessionManager;
+    public static List<Character> characterList;
 
     @Override
     public void start(Stage stage) throws IOException {

@@ -14,11 +14,14 @@
     <content>
         <VBox alignment="CENTER" spacing="20.0">
             <children>
+                <Text fx:id="saveMessage" wrappingWidth="700" textAlignment="CENTER"></Text>
                 <Button fx:id="ventureButton" text="Venture Forth" onAction="#venture"/>
                 <Button fx:id="getEventButton" text="Test Event" onAction="#getEvent"/>
                 <Button fx:id="initCombatButton" text="Start Combat" onAction="#initCombat"/>
                 <Button fx:id="quizButton" text="Math Quiz" onAction="#loadQuiz"/>
                 <Button fx:id="charButton" text="Customize Character" onAction="#customizeCharacter"/>
+                <Button fx:id="saveButton" text="Save" onAction="#saveGame"/>
+                <Button fx:id="menuButton" text="Return to menu" onAction="#returnToMenu"/>
             </children>
             <padding>
                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
