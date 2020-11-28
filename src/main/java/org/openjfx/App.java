@@ -1,10 +1,6 @@
 package org.openjfx;
 
-
-//import dnd.combat.Combat;
 import dnd.characters.Character;
-//import dnd.data.User;
-//import dnd.quizzes.QuizGenerator;
 import dnd.integration.SessionManager;
 import dnd.test.TestQuizGeneration;
 import dnd.test.TestQuizzesAndDice;
@@ -16,7 +12,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.List;
-
 
 /**
  * JavaFX App

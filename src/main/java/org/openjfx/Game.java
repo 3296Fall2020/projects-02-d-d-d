@@ -2,13 +2,9 @@ package org.openjfx;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
-import dnd.characters.Character;
 import dnd.characters.UserNameSingleton;
-import dnd.dice.Dice;
 import dnd.dice.RandomNumberGenerator;
 import dnd.events.RandomEventGenerator;
 import javafx.fxml.FXML;

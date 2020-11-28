@@ -1,9 +1,6 @@
 package org.openjfx;
 
-import com.google.common.io.Resources;
 import dnd.combat.Combat;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -29,9 +26,6 @@ public class CombatController extends App implements Initializable {
 
     //a String with the current round's description
     public String roundDescription = "";
-
-    //a boolean that keeps track of whether the cooldown has been decreased this round already.
-    private boolean cdDecreased;
 
     /** The buttons that are on the combat screen.
         These are instantiated in the Controller so that they can be accessed and modified (such as setting visibility). **/
@@ -64,7 +58,6 @@ public class CombatController extends App implements Initializable {
 
         endCombatButton.setVisible(false);
         this.healCD = 0;
-        this.cdDecreased = false;
     }
 
     /** Print the updated combat details each round.

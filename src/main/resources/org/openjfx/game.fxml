@@ -31,7 +31,7 @@
                               </VBox>
                                <Text fx:id="saveMessage" wrappingWidth="700" textAlignment="CENTER"></Text>
                               <Button fx:id="saveButton" onAction="#saveGame" text="Save" />
-                              <Button fx:id="menuButton" onAction="#returnToMenu" text="Return to menu" />
+                              <Button fx:id="menuButton" onAction="#returnToMenu" text="Main Menu" />
                            </children>
                         </VBox>
                      </children>
