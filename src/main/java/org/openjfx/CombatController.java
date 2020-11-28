@@ -93,7 +93,7 @@ public class CombatController extends App implements Initializable {
     /** Examining the opponent. Updates the roundDescription with the opponent's description. **/
     @FXML
     private void examine() throws IOException {
-        String examineText = combat.examineOpponent();
+        String examineText = "\n" + combat.examineOpponent();
         updateRoundDescription(examineText);
         showRoundDescription();
     }

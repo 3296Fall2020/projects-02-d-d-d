@@ -93,9 +93,11 @@ public class Combat {
     public String getCombatDetails(){
         String ret = "";
 
+        ret += "Your HP: " + player.getHitPoints() + "\n";
+        ret += "Your weapon: " + player.getWeapon().getName() + "\n\n";
+
         ret += "You are fighting " + opponent.getName() + "\n";
-        ret += "Your health: " + player.getHitPoints() + "\n";
-        ret += "Opponent's health: " + opponent.getHitPoints() + "\n";
+        ret += opponent.getName() + "'s HP: " + opponent.getHitPoints() + "\n";
 
         return ret;
     }
