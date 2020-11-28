@@ -1,27 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Button?>
 <?import javafx.geometry.Insets?>
-
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
-
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.HBox?>
-<ScrollPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.openjfx.Game" minWidth="900">
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<ScrollPane minWidth="900" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.Game">
     <content>
-        <VBox alignment="CENTER" spacing="20.0">
+        <VBox alignment="CENTER" prefHeight="371.0" prefWidth="900.0" spacing="20.0">
             <children>
-                <Text fx:id="saveMessage" wrappingWidth="700" textAlignment="CENTER"></Text>
-                <Button fx:id="ventureButton" text="Venture Forth" onAction="#venture"/>
-                <Button fx:id="getEventButton" text="Test Event" onAction="#getEvent"/>
-                <Button fx:id="initCombatButton" text="Start Combat" onAction="#initCombat"/>
-                <Button fx:id="quizButton" text="Math Quiz" onAction="#loadQuiz"/>
-                <Button fx:id="charButton" text="Customize Character" onAction="#customizeCharacter"/>
-                <Button fx:id="saveButton" text="Save" onAction="#saveGame"/>
-                <Button fx:id="menuButton" text="Return to menu" onAction="#returnToMenu"/>
+            <SplitPane dividerPositions="0.5" prefHeight="200.0" prefWidth="200.0">
+               <items>
+                  <VBox alignment="CENTER" maxWidth="170.0" minHeight="200.0" minWidth="170.0" prefHeight="198.0" prefWidth="218.0">
+                     <children>
+                        <VBox alignment="CENTER" maxWidth="200.0" minWidth="151.0" prefHeight="198.0" prefWidth="151.0" spacing="10.0">
+                           <children>
+                              <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                     <Text fx:id="characterStats" wrappingWidth="700" textAlignment="CENTER"></Text>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </VBox>
+                               <Text fx:id="saveMessage" wrappingWidth="700" textAlignment="CENTER"></Text>
+                              <Button fx:id="saveButton" onAction="#saveGame" text="Save" />
+                              <Button fx:id="menuButton" onAction="#returnToMenu" text="Return to menu" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                         <Text fx:id="idleDescription" wrappingWidth="700" textAlignment="CENTER"></Text>
+                        <HBox alignment="CENTER" prefHeight="149.0" prefWidth="671.0" spacing="10.0">
+                           <children>
+                                  <Button fx:id="ventureButton" onAction="#venture" text="Venture out" />
+                                  <Button fx:id="initCombatButton" onAction="#initCombat" text="Pick a fight" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </items>
+            </SplitPane>
             </children>
             <padding>
                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

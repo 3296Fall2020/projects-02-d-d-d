@@ -80,21 +80,26 @@ public class QuizEvent {
 
     /** Events will have unique functions that dictate the main text of the event and the available choices. **/
     public void buildDescription(){
-        String desc = "This is quiz event with NPC " + getNPCName();
+        String desc = "Out of nowhere, you begin to hear a strange humming... ";
+
+        desc += newParagraph();
+        desc += "You blink in confusion, looking around. Where is that coming from? ";
+
+        desc += newParagraph();
+        desc += "The air suddenly begins to ripple before you, humming and humming until...\"pop!\" A small pixie " +
+                "has appeared!";
+
+        desc += newParagraph();
+        desc += "\"Greetings! My name is " + getNPCName() + ",\" giggles the pixie, their wings fluttering about. ";
+
+        desc += newParagraph();
+        desc += "Now you understand where that humming was coming from!";
+
+        desc += newParagraph();
+        desc += "\"I have a little riddle for you, if you dare accept the challenge! I'll even reward you if you " +
+                "get it right.\" " + getNPCName() + " smiles mischievously. \"What do you say?\"";
 
         this.setEventDescription(desc);
-    }
-
-    /** Events have unique consequences upon pass or failure. Returns String descriptions of the consequences.**/
-    public String passEvent(){
-        String ret = "";
-
-        return ret;
-    }
-    public String failEvent(){
-        String ret = "";
-
-        return ret;
     }
 
 }
