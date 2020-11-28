@@ -62,7 +62,7 @@ public class MainMenuController extends App implements Initializable {
 
     // Display the character details from the existing save
     public void showSaveDetails(){
-        String info = "Existing save found: ";
+        String info = "An existing save was found: \n";
 
         // Only gets the most recently saved character by default
         Character c = getSavedCharacter();

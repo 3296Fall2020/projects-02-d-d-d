@@ -11,7 +11,7 @@
       fx:controller="org.openjfx.MainMenuController" minWidth="900" minHeight="600">
    <children>
       <Text fx:id="titleField"><font><Font size = "40.0"></Font></font></Text>
-      <Text text="" fx:id="characterDescriptionField"/>
+      <Text text="" fx:id="characterDescriptionField" textAlignment="CENTER"/>
       <Button fx:id="loadGameButton" text="Continue" onAction="#loadGame"/>
       <Button fx:id="newGameButton" text="New Game" onAction="#newGame"/>
    </children>

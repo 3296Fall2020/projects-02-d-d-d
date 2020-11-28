@@ -13,6 +13,7 @@ import dnd.dice.RandomNumberGenerator;
 import dnd.events.RandomEventGenerator;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.paint.*;
 import javafx.scene.text.Text;
 
@@ -26,6 +27,11 @@ public class Game extends App implements Initializable {
 
     RandomEventGenerator eventGenerator = new RandomEventGenerator(player);
     RandomNumberGenerator randomizer = new RandomNumberGenerator();
+
+    public Button saveButton;
+    public Button menuButton;
+    public Button ventureButton;
+    public Button initCombatButton;
 
     /** Advance. Decide what type of event to do next.
 
@@ -95,9 +101,39 @@ public class Game extends App implements Initializable {
         idleDescription.setText(text);
     }
 
+    @FXML
+    private void gameOver() throws IOException {
+        updateIdleDescription("Oh no, you've dropped below 0 HP! Your journey has come to an end... \n\n" +
+                "Start a new game, or return to the main menu?");
+
+        initCombatButton.setVisible(false);
+        ventureButton.setVisible(false);
+
+        saveButton.setText("New Game");
+        menuButton.setText("Main Menu");
+
+        //repurpose saveButton to be a "new game" button
+        saveButton.setOnAction(value ->  {
+            try {
+                App.setRoot("character");
+            } catch (IOException e) {
+                System.out.println("Error: Couldn't start a new game");
+            }
+        });
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         showStats();
-        showIdleDescription();
+        if (player.getHitPoints() <= 0){
+            try {
+                gameOver();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else{
+            showIdleDescription();
+        }
     }
 }
