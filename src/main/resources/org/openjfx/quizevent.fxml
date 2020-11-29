@@ -14,7 +14,7 @@
     <content>
         <VBox alignment="CENTER" spacing="20.0">
             <children>
-                <Text fx:id="eventText" wrappingWidth="700" textAlignment="LEFT"></Text>
+                <Text fx:id="eventText" wrappingWidth="850" textAlignment="LEFT"></Text>
                 <HBox fx:id="buttonBox" alignment="CENTER" spacing="10.0">
                     <Button fx:id="acceptButton" text="Accept" onAction="#doQuiz"/>
                     <Button fx:id="refuseButton" text="Refuse" onAction="#refuseQuiz"/>

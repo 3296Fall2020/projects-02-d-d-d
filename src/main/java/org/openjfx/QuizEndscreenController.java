@@ -1,6 +1,7 @@
 package org.openjfx;
 
 import dnd.combat.Combat;
+import dnd.dice.Dice;
 import dnd.events.QuizEvent;
 import dnd.events.RandomEventGenerator;
 import javafx.fxml.FXML;
@@ -24,9 +25,7 @@ public class QuizEndscreenController extends App implements Initializable {
     //the event
     public QuizEvent event;
 
-    //buttons on the screen
-    @FXML
-    Button returnButton;
+    private Dice dice = new Dice();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -40,7 +39,7 @@ public class QuizEndscreenController extends App implements Initializable {
     private String setDescription(){
         String ret = "\n\n";
 
-        ret += "Quiz success! ";
+        ret += "You managed to solve the riddle! ";
 
         return ret;
     }
@@ -49,14 +48,57 @@ public class QuizEndscreenController extends App implements Initializable {
     public String giveRewards(){
         String ret = "\n\n";
 
-        ret += "You earned a reward! ";
+        ret += "You gained ";
+        ret += getRandomReward();
 
         return ret;
     }
 
+    // Pick a random reward and return a String description of it
+    public String getRandomReward(){
+        String ret = "";
+        int rand = dice.roll(10);
+        int gain = dice.rollSum(4, 2);
+
+        if (rand == 1){
+            player.setIntelligence(player.getIntelligence() + gain);
+            ret = gain + " Intelligence!";
+        }
+        else if (rand == 2){
+            player.setWisdom(player.getWisdom() + gain);
+            ret = gain + " Wisdom!";
+        }
+        else if (rand == 3){
+            player.setStrength(player.getWisdom() + gain);
+            ret = gain + " Strength!";
+        }        else if (rand == 4){
+            player.setConstitution(player.getConstitution() + gain);
+            ret = gain + " Constitution!";
+        }        else if (rand == 5){
+            player.setCharisma(player.getCharisma() + gain);
+            ret = gain + " Charisma!";
+        }
+        else if (rand == 6){
+            player.setDexterity(player.getDexterity() + gain);
+            ret = gain + " Dexterity!";
+        }
+        else if (rand == 7){
+            gain = dice.rollSum(6, 2);
+            player.setHitPoints(player.getHitPoints() + gain);
+            ret = gain + " HP!";
+        }
+        else{
+            gain = 35;
+            player.addXP(gain);
+            ret = gain + " XP!";
+        }
+        return ret;
+    }
+
+    // Return to the game
     @FXML
     public void exitQuiz() throws IOException {
-        App.setRoot("primary");
+        App.setRoot("game");
     }
 
 }

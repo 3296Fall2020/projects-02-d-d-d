@@ -11,8 +11,6 @@ import java.io.IOException;
 
 public class LoginController extends App {
 
-    private SessionManager sessionManager;
-
     //buttons on the login screen
     @FXML
     Button loginButton;
@@ -30,13 +28,14 @@ public class LoginController extends App {
     private void createProfile() throws IOException {
         sessionManager = new SessionManager();
         if (sessionManager.createUser(username.getText(), password.getText())) {
-            App.setRoot("primary");
+            // if you have not logged in at all, client needs to login at least once for cacheing
+            UserNameSingleton.getInstance().setUserName(username); //gets username for character creation later using singleton
+            sessionManager.ensureAuthentication();
+            App.setRoot("mainmenu");
         } else {
             username.setText("Sorry! Username or password already taken. Try again!");
         }
-            // if you have not logged in at all, client needs to login at least once for cacheing
-        sessionManager.ensureAuthentication();
-        UserNameSingleton.getInstance().setUserName(username); //gets username for character creation later using singleton
+
     }
 
     //Login and authenticate session based on username and password given. If the given username and password are not
@@ -46,12 +45,11 @@ public class LoginController extends App {
     private void loginButton() throws IOException {
         sessionManager = new SessionManager();
         if (sessionManager.authenticateSession(username.getText(), password.getText())) {
-            App.setRoot("primary");
+            UserNameSingleton.getInstance().setUserName(username); //gets username for character creation later using singleton
+            App.setRoot("mainmenu");
         } else {
             username.setText("Username or password not correct. Try again!");
         }
-        UserNameSingleton.getInstance().setUserName(username); //gets username for character creation later using singleton
-
     }
 
 

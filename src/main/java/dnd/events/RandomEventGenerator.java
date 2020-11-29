@@ -16,7 +16,7 @@ public class RandomEventGenerator {
     private RandomNumberGenerator randomizer;
 
     // ints to keep track of how many of each event types there currently are. must be manually updated :(
-    private final int numStandardEvents = 4;
+    private final int numStandardEvents = 3;
 
     public RandomEventGenerator(Character player){
         this.dice = new Dice();
@@ -46,7 +46,7 @@ public class RandomEventGenerator {
         else if (n == 2)
             return (new StandardEvent2(player));
         else
-            return (new StandardEvent4(player));
+            return (new StandardEvent3(player));
     }
 
     /** Randomly decide on an event type, retrieve an event of that type, then return the generated event. **/

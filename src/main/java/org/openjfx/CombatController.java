@@ -1,9 +1,6 @@
 package org.openjfx;
 
-import com.google.common.io.Resources;
 import dnd.combat.Combat;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -30,9 +27,6 @@ public class CombatController extends App implements Initializable {
     //a String with the current round's description
     public String roundDescription = "";
 
-    //a boolean that keeps track of whether the cooldown has been decreased this round already.
-    private boolean cdDecreased;
-
     /** The buttons that are on the combat screen.
         These are instantiated in the Controller so that they can be accessed and modified (such as setting visibility). **/
     @FXML
@@ -48,6 +42,7 @@ public class CombatController extends App implements Initializable {
 
     //an int representing the player's healing ability cooldown (= once per 4 attacks)
     private int healCD;
+    private boolean alreadyExamined; // true if we have already used examine
 
     /** Runs when combat.fxml is first loaded. Displays the combat details, introduces the opponent, and makes
         sure that the "return" button (to return to the main screen) is not visible.
@@ -64,7 +59,8 @@ public class CombatController extends App implements Initializable {
 
         endCombatButton.setVisible(false);
         this.healCD = 0;
-        this.cdDecreased = false;
+
+        this.alreadyExamined = false; // indicating we have not already examined
     }
 
     /** Print the updated combat details each round.
@@ -93,9 +89,12 @@ public class CombatController extends App implements Initializable {
     /** Examining the opponent. Updates the roundDescription with the opponent's description. **/
     @FXML
     private void examine() throws IOException {
-        String examineText = combat.examineOpponent();
-        updateRoundDescription(examineText);
-        showRoundDescription();
+        if (!alreadyExamined) {
+            String examineText = "\n" + combat.examineOpponent();
+            updateRoundDescription(examineText);
+            showRoundDescription();
+            alreadyExamined = true; // setting true now that we have examined
+        }
     }
 
     /** Attacking the opponent. Depending on who goes first, either the player attacks and then the opponent
@@ -179,7 +178,7 @@ public class CombatController extends App implements Initializable {
     @FXML
     private void flee() throws IOException {
         updateRoundDescription("You fled combat!");
-        App.setRoot("primary");
+        App.setRoot("game");
     }
 
     /** Check on the combat status. If someone has won (someone's HP dropped to 0), show the end screen.
@@ -208,10 +207,10 @@ public class CombatController extends App implements Initializable {
         endCombatButton.setVisible(true);
     }
 
-    /** End combat by switching "pages." (Currently switches to primary.fxml by default) **/
+    /** End combat **/
     @FXML
     private void endCombat() throws IOException {
-        App.setRoot("primary");
+        App.setRoot("game");
     }
 
 }

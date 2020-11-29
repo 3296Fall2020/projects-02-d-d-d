@@ -100,10 +100,10 @@ public class QuizController extends App implements Initializable{
         quizPrompt.setText(quizText); // setting the quiz text to be the newly generated quiz
     }
 
-    // sets the primary.fxml page to be the page in focus
+    // sets the game.fxml page to be the page in focus
     @FXML
-    private void setPrimary() throws IOException {
-        App.setRoot("primary");
+    private void returnToGame() throws IOException {
+        App.setRoot("game");
     }
 
     @FXML
