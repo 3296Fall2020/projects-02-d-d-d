@@ -22,6 +22,7 @@ public class CharacterController extends App implements Initializable {
 
     //By default, a human character with same name as user is created upon start of new game.
     private String charText;
+    private String prevRace; //keep track of previous race so that new instances of character are not created if race is chosen but not altered during customization
 
     private String gameName = UserNameSingleton.getInstance().getUserName().getText();
 
@@ -79,8 +80,10 @@ public class CharacterController extends App implements Initializable {
 
     //Updates character stats if fields are changed for race, class, weapon, alignment, race, and name
     public void updateCharacter(ActionEvent actionEvent) {
-        if (!raceCombo.getSelectionModel().isEmpty()) { //if race is changed
-            player = CharacterFactory.createCharacter(raceCombo.getSelectionModel().getSelectedItem(), nameField.getText());
+        prevRace = player.getRace();
+        String currentRace = raceCombo.getSelectionModel().getSelectedItem();
+        if ((!raceCombo.getSelectionModel().isEmpty()) && !prevRace.equals(currentRace)) { //if race is indicated and changed from previous
+            player = CharacterFactory.createCharacter(currentRace, nameField.getText());
         }
         if (!classCombo.getSelectionModel().isEmpty()) {
             player.setClassMembership((classCombo.getSelectionModel().getSelectedItem())); //set class
