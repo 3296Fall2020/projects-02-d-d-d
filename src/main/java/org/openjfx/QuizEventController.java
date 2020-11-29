@@ -69,7 +69,7 @@ public class QuizEventController extends App implements Initializable {
 
     @FXML
     public void refuseQuiz() throws IOException {
-        App.setRoot("primary");
+        App.setRoot("mainmenu");
     }
 
 }
