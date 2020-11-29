@@ -25,6 +25,7 @@ public class MainMenuController extends App implements Initializable {
 
     public Button newGameButton;
     public Button loadGameButton;
+    public Button logOutButton;
 
     //Creates a new game. The player must create a new character.
     @FXML
@@ -91,5 +92,9 @@ public class MainMenuController extends App implements Initializable {
         else {
             showSaveDetails();
         }
+    }
+
+    public void logOut(ActionEvent actionEvent) throws IOException {
+        App.setRoot("login");
     }
 }
