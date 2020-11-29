@@ -29,12 +29,13 @@ public class LoginController extends App {
         sessionManager = new SessionManager();
         if (sessionManager.createUser(username.getText(), password.getText())) {
             // if you have not logged in at all, client needs to login at least once for cacheing
-            sessionManager.ensureAuthentication();
             UserNameSingleton.getInstance().setUserName(username); //gets username for character creation later using singleton
-            App.setRoot("game");
+            sessionManager.ensureAuthentication();
+            App.setRoot("mainmenu");
         } else {
             username.setText("Sorry! Username or password already taken. Try again!");
         }
+
     }
 
     //Login and authenticate session based on username and password given. If the given username and password are not
