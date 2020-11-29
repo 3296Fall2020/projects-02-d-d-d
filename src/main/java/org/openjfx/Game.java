@@ -71,7 +71,7 @@ public class Game extends App implements Initializable {
     //Show player stats
     private void showStats(){
         String stats = "Name: " + player.getName() +
-                "\nRace & class: " + player.getRace() + " " + player.getClassMembership() +
+                "\nRace & Class: " + player.getRace() + " " + player.getClassMembership() +
                 "\nLevel: " + player.getLevel() + " (" + player.getXP() + " XP)" +
                 "\nHP: " + player.getHitPoints();
         characterStats.setText(stats);
