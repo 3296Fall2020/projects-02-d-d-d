@@ -23,7 +23,9 @@ public class CharacterController extends App implements Initializable {
     //By default, a human character with same name as user is created upon start of new game.
     private String charText;
     private String prevRace; //keep track of previous race so that new instances of character are not created if race is chosen but not altered during customization
-
+    private int HP; //keep track of character HP
+    private int Level; //keep track of character level
+    private int XP; //keep track of XP
     private String gameName = UserNameSingleton.getInstance().getUserName().getText();
 
     @FXML
@@ -81,9 +83,15 @@ public class CharacterController extends App implements Initializable {
     //Updates character stats if fields are changed for race, class, weapon, alignment, race, and name
     public void updateCharacter(ActionEvent actionEvent) {
         prevRace = player.getRace();
+        XP = player.getXP();
+        HP = player.getHitPoints();
+        Level = player.getLevel();
         String currentRace = raceCombo.getSelectionModel().getSelectedItem();
         if ((!raceCombo.getSelectionModel().isEmpty()) && !prevRace.equals(currentRace)) { //if race is indicated and changed from previous
             player = CharacterFactory.createCharacter(currentRace, nameField.getText());
+            player.setXP(XP);
+            player.setHitPoints(HP);
+            player.setLevel(Level);
         }
         if (!classCombo.getSelectionModel().isEmpty()) {
             player.setClassMembership((classCombo.getSelectionModel().getSelectedItem())); //set class
@@ -101,7 +109,7 @@ public class CharacterController extends App implements Initializable {
     //creates a character and sets the character name as name and race as what the user chose
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        player = CharacterFactory.createCharacter("Human", UserNameSingleton.getInstance().getUserName().getText());
+      //  player = CharacterFactory.createCharacter("Human", UserNameSingleton.getInstance().getUserName().getText());
         statsSetter();
     }
 }

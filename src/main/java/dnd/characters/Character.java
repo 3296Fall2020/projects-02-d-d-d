@@ -177,6 +177,10 @@ public class Character {
         }
     }
 
+    public void setXP(int XP) {
+        this.XP = XP;
+    }
+
     /*
      * This function generates the six ability scores randomly.
      * It simulates rolling four 6-sided dice and recording the total of the

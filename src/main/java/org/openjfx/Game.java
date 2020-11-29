@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import dnd.characters.UserNameSingleton;
 import dnd.dice.RandomNumberGenerator;
 import dnd.events.RandomEventGenerator;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -26,6 +27,7 @@ public class Game extends App implements Initializable {
 
     public Button saveButton;
     public Button menuButton;
+    public Button customizeCharacterButton;
     public Button ventureButton;
     public Button initCombatButton;
 
@@ -131,5 +133,9 @@ public class Game extends App implements Initializable {
         else{
             showIdleDescription();
         }
+    }
+
+    public void customizeCharacter(ActionEvent actionEvent) throws IOException {
+        App.setRoot("character");
     }
 }

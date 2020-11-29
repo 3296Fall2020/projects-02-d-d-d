@@ -14,7 +14,7 @@
     <content>
         <VBox alignment="CENTER" prefHeight="371.0" prefWidth="900.0" spacing="20.0">
             <children>
-            <SplitPane dividerPositions="0.5" prefHeight="200.0" prefWidth="200.0">
+            <SplitPane dividerPositions="0.5" prefHeight="250.0" prefWidth="200.0">
                <items>
                   <VBox alignment="CENTER" maxWidth="170.0" minHeight="200.0" minWidth="170.0" prefHeight="198.0" prefWidth="218.0">
                      <children>
@@ -34,6 +34,7 @@
                                <Text fx:id="saveMessage" wrappingWidth="700" textAlignment="CENTER"></Text>
                               <Button fx:id="saveButton" onAction="#saveGame" text="Save" />
                               <Button fx:id="menuButton" onAction="#returnToMenu" text="Main Menu" />
+                               <Button fx:id="customizeCharacterButton" onAction="#customizeCharacter" text="Customize Character" />
                            </children>
                         </VBox>
                      </children>
