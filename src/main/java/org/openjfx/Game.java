@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import dnd.characters.Character;
 import dnd.characters.UserNameSingleton;
 import dnd.dice.RandomNumberGenerator;
 import dnd.events.RandomEventGenerator;
@@ -106,13 +107,17 @@ public class Game extends App implements Initializable {
 
         initCombatButton.setVisible(false);
         ventureButton.setVisible(false);
-
+        customizeCharacterButton.setVisible(false);
         saveButton.setText("New Game");
         menuButton.setText("Main Menu");
 
         //repurpose saveButton to be a "new game" button
         saveButton.setOnAction(value ->  {
             try {
+                //reset player stats without reseting customziation (level 0, 15 hit points, 0 xp)
+                player.setLevel(Character.LevelInitial);
+                player.setXP(Character.XPInitial);
+                player.setHitPoints(Character.hitPointInitial);
                 App.setRoot("character");
             } catch (IOException e) {
                 System.out.println("Error: Couldn't start a new game");

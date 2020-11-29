@@ -37,12 +37,15 @@ public class Character {
     int level;
     int XP;
     private static final int XPIncrement = 300;
-
+    public static final int XPInitial = 0; //set default XP to 0
+    public static final int LevelInitial = 1; //set default level to 1
 
     //In D&D, characters have hit points that define how tough they are in combat, and this is defined by hit die specific to their class.
     //Players start with hit points equal to highest roll of that dice, as indicated by class description.
     int hitPoints;
-    private static final int hitPointInitial = 15;
+    public static final int hitPointInitial = 15;
+
+
 
     //In D&D, every character belongs to a race, and many subraces exist.
     //Most common races include: dwarves, elves, halflings, and humans
@@ -232,8 +235,8 @@ public class Character {
         generateAbilityScores();
         this.abilityModifier = new int[6];
         determineAbilityModifier();
-        this.level = 1;
-        this.XP = 0;
+        this.level = LevelInitial;
+        this.XP = XPInitial;
         //By default, every character is a human
         this.race = "Human";
         this.language = "Common";

@@ -81,6 +81,7 @@ public class CharacterController extends App implements Initializable {
     }
 
     //Updates character stats if fields are changed for race, class, weapon, alignment, race, and name
+    //if updating character midgame, maintains same XP, HP, and level if new instance of character is created because new race
     public void updateCharacter(ActionEvent actionEvent) {
         prevRace = player.getRace();
         XP = player.getXP();
@@ -104,12 +105,13 @@ public class CharacterController extends App implements Initializable {
         }
         player.setName(nameField.getText());
         statsSetter();
+        characterList.add(0, player); //makes sure character saves in game for user
+        sessionManager.saveGame(gameName, characterList);
     }
 
     //creates a character and sets the character name as name and race as what the user chose
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-      //  player = CharacterFactory.createCharacter("Human", UserNameSingleton.getInstance().getUserName().getText());
         statsSetter();
     }
 }
