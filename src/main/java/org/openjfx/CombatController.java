@@ -42,6 +42,7 @@ public class CombatController extends App implements Initializable {
 
     //an int representing the player's healing ability cooldown (= once per 4 attacks)
     private int healCD;
+    private boolean alreadyExamined; // true if we have already used examine
 
     /** Runs when combat.fxml is first loaded. Displays the combat details, introduces the opponent, and makes
         sure that the "return" button (to return to the main screen) is not visible.
@@ -58,6 +59,8 @@ public class CombatController extends App implements Initializable {
 
         endCombatButton.setVisible(false);
         this.healCD = 0;
+
+        this.alreadyExamined = false; // indicating we have not already examined
     }
 
     /** Print the updated combat details each round.
@@ -86,9 +89,12 @@ public class CombatController extends App implements Initializable {
     /** Examining the opponent. Updates the roundDescription with the opponent's description. **/
     @FXML
     private void examine() throws IOException {
-        String examineText = "\n" + combat.examineOpponent();
-        updateRoundDescription(examineText);
-        showRoundDescription();
+        if (!alreadyExamined) {
+            String examineText = "\n" + combat.examineOpponent();
+            updateRoundDescription(examineText);
+            showRoundDescription();
+            alreadyExamined = true; // setting true now that we have examined
+        }
     }
 
     /** Attacking the opponent. Depending on who goes first, either the player attacks and then the opponent
