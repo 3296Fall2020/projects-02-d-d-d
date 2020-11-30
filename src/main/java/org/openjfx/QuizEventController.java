@@ -30,21 +30,31 @@ public class QuizEventController extends App implements Initializable {
     //an event generator
     private RandomEventGenerator eventGenerator;
 
+    @FXML
+    Text characterStats;
+
     //buttons on the screen
     @FXML
     Button choiceAButton;
     @FXML
     Button choiceBButton;
 
-    // Boolean to keep track of whether the player is here pre- or post-quiz
-    private boolean returningFromQuiz;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         eventGenerator = new RandomEventGenerator(player);
         this.event = eventGenerator.generateQuizEvent();
         this.eventDescription = event.getEventDescription();
+        showStats();
         showDescription();
+    }
+
+    //Show player stats
+    private void showStats(){
+        String stats = "Name: " + player.getName() +
+                "\nRace & Class: " + player.getRace() + " " + player.getClassMembership() +
+                "\nLevel: " + player.getLevel() + " (" + player.getXP() + " XP)" +
+                "\nHP: " + player.getHitPoints();
+        characterStats.setText(stats);
     }
 
     private void clearDescription(){

@@ -30,6 +30,9 @@ public class StandardEventController extends App implements Initializable {
     //an event generator
     private RandomEventGenerator eventGenerator;
 
+    @FXML
+    Text characterStats;
+
     //buttons on the combat screen
     @FXML
     Button choiceAButton;
@@ -46,8 +49,18 @@ public class StandardEventController extends App implements Initializable {
         eventGenerator = new RandomEventGenerator(player);
         this.event = eventGenerator.generateRandomStandardEvent();
         this.eventDescription = event.getEventDescription();
+        showStats();
         showDescription();
         prepareButtons();
+    }
+
+    //Show player stats
+    private void showStats(){
+        String stats = "Name: " + player.getName() +
+                "\nRace & Class: " + player.getRace() + " " + player.getClassMembership() +
+                "\nLevel: " + player.getLevel() + " (" + player.getXP() + " XP)" +
+                "\nHP: " + player.getHitPoints();
+        characterStats.setText(stats);
     }
 
     private void clearDescription(){

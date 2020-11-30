@@ -23,7 +23,6 @@
                 <Image url="@images/title_banner.png" />
             </image>
         </ImageView>
-        <Label text="Login screen!" />
         <Label text="Username"></Label>
         <TextField fx:id="username" maxWidth="150"></TextField>
         <Label text="Password"></Label>
@@ -31,8 +30,8 @@
         <Region minHeight="5" disable="true"></Region>
 
         <Button fx:id="loginButton" text="Login" onAction="#loginButton"/>
-        <Text fx:id="usernameTaken"></Text>
-        <Button fx:id="createProfile" text="Don't have a login yet? Create a Profile!" onAction="#createProfile"/>
+        <Text fx:id="createMessage" text="Don't have a login yet?"></Text>
+        <Button fx:id="createProfile" text="Create a Profile!" onAction="#createProfile"/>
     </children>
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
