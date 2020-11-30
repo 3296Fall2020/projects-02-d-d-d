@@ -16,8 +16,6 @@ import javafx.scene.text.Text;
 
 public class MainMenuController extends App implements Initializable {
 
-    private final String title = "Dungeons & Dragons & Digits";
-
     public Text titleField;
     public Text characterDescriptionField;
 
@@ -78,8 +76,6 @@ public class MainMenuController extends App implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        titleField.setText(title);
-
         //Initialize the character list from the user's save
         initCharacterList();
 

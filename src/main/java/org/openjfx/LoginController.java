@@ -2,12 +2,22 @@ package org.openjfx;
 
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import dnd.integration.*;
 import dnd.characters.UserNameSingleton;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class LoginController extends App {
 
@@ -21,6 +31,7 @@ public class LoginController extends App {
     @FXML
     TextField password;
 
+    public Text usernameTaken;
 
     //if user can be created, it is created. otherwise, user is prompted to choose another username and password
     //if the user is created, they will be taken to the primary controller screen.
@@ -33,7 +44,8 @@ public class LoginController extends App {
             sessionManager.ensureAuthentication();
             App.setRoot("mainmenu");
         } else {
-            username.setText("Sorry! Username or password already taken. Try again!");
+            usernameTaken.setFill(Color.RED);
+            usernameTaken.setText("Sorry, the username \"" + username.getText() + "\" has already been taken!");
         }
 
     }
@@ -51,6 +63,5 @@ public class LoginController extends App {
             username.setText("Username or password not correct. Try again!");
         }
     }
-
 
 }

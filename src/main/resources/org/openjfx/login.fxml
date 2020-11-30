@@ -9,18 +9,29 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.layout.Region?>
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="org.openjfx.LoginController" minWidth="900" minHeight="600">
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+<VBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.openjfx.LoginController" minWidth="900" minHeight="600"
+      fx:id="loginVBox">
 
     <children>
+        <ImageView>
+            <image>
+                <Image url="@images/title_banner.png" />
+            </image>
+        </ImageView>
         <Label text="Login screen!" />
-        <Label text="username"></Label>
-        <TextField fx:id="username"></TextField>
+        <Label text="Username"></Label>
+        <TextField fx:id="username" maxWidth="150"></TextField>
         <Label text="Password"></Label>
-        <PasswordField fx:id="password"></PasswordField>
+        <PasswordField fx:id="password" maxWidth="150"></PasswordField>
         <Region minHeight="5" disable="true"></Region>
 
         <Button fx:id="loginButton" text="Login" onAction="#loginButton"/>
+        <Text fx:id="usernameTaken"></Text>
         <Button fx:id="createProfile" text="Don't have a login yet? Create a Profile!" onAction="#createProfile"/>
     </children>
     <padding>
