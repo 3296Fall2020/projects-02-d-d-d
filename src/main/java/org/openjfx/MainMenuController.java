@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import dnd.characters.Character;
 import dnd.characters.CharacterFactory;
 import dnd.characters.UserNameSingleton;
+import dnd.integration.SessionManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -91,6 +92,7 @@ public class MainMenuController extends App implements Initializable {
     }
 
     public void logOut(ActionEvent actionEvent) throws IOException {
+        SessionManager.getInstance().reset();
         App.setRoot("login");
     }
 }
