@@ -2,6 +2,9 @@
 ### Aszliah Delicana, Ryan McGregor, Priya Nigam, Quentin Novinger -  3296 Section 02
 An educational twist on a text-based RPG.
  
+# To Run Project:
+In IDE terminal, do "mvn clean" and then "mvn". Project should compile and appear in new window. 
+ 
 # Vision Statement
 Dungeons & Dragons & Digits is a text-based, story-driven video game that incorporates math quizzes and lessons into the popular fantasy game Dungeons and Dragons, geared towards elementary school students, grades 1-5, who like video games and are in need of extra math education and practice. Unlike other video games and learning platforms, our product provides a fully immersive Dungeons and Dragons fantasy experience with math quizzes and lessons that teach students in a fun and interactive way.
 
