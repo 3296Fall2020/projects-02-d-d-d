@@ -43,7 +43,7 @@ public class Character {
     //In D&D, characters have hit points that define how tough they are in combat, and this is defined by hit die specific to their class.
     //Players start with hit points equal to highest roll of that dice, as indicated by class description.
     int hitPoints;
-    public static final int hitPointInitial = 15;
+    public static final int hitPointInitial = 50;
 
 
 
@@ -226,7 +226,7 @@ public class Character {
      * When a character is first generated, they are able to choose their name and are given
      * a randomly determined ability score and ability modifiers for strength, dexterity, constitution, intelligence,
      * wisdom, and charisma. Also, gives a random alignment by default and a random class by default.
-     * By default, they start at level 1 with 0 XP and 15 hit points. They are default a human.
+     * By default, they start at level 1 with 0 XP and 30 hit points. They are default a human.
      * Also, randomly generate healing die.
      */
     public Character(String name) {
