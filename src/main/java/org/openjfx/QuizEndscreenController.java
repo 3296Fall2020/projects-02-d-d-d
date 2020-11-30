@@ -1,12 +1,9 @@
 package org.openjfx;
 
-import dnd.combat.Combat;
 import dnd.dice.Dice;
 import dnd.events.QuizEvent;
-import dnd.events.RandomEventGenerator;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -18,6 +15,9 @@ public class QuizEndscreenController extends App implements Initializable {
     //variables for the fxml file
     @FXML
     public Text eventText; //the main text for the event screen
+
+    @FXML
+    Text characterStats;
 
     //a String with the current round's description
     public String description = "";
@@ -32,7 +32,17 @@ public class QuizEndscreenController extends App implements Initializable {
         this.description = setDescription();
         this.description += giveRewards();
 
+        showStats();
         eventText.setText(this.description);
+    }
+
+    //Show player stats
+    private void showStats(){
+        String stats = "Name: " + player.getName() +
+                "\nRace & Class: " + player.getRace() + " " + player.getClassMembership() +
+                "\nLevel: " + player.getLevel() + " (" + player.getXP() + " XP)" +
+                "\nHP: " + player.getHitPoints();
+        characterStats.setText(stats);
     }
 
     // Updates the event description Text field with the completed event description String.

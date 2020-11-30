@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import dnd.characters.Character;
 import dnd.characters.CharacterFactory;
 import dnd.characters.UserNameSingleton;
+import dnd.integration.SessionManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,8 +16,6 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
 public class MainMenuController extends App implements Initializable {
-
-    private final String title = "Dungeons & Dragons & Digits";
 
     public Text titleField;
     public Text characterDescriptionField;
@@ -78,8 +77,6 @@ public class MainMenuController extends App implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        titleField.setText(title);
-
         //Initialize the character list from the user's save
         initCharacterList();
 
@@ -95,6 +92,7 @@ public class MainMenuController extends App implements Initializable {
     }
 
     public void logOut(ActionEvent actionEvent) throws IOException {
+        SessionManager.getInstance().reset();
         App.setRoot("login");
     }
 }

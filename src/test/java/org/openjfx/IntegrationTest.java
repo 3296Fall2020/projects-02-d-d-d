@@ -20,7 +20,7 @@ public class IntegrationTest {
 
     @Before
     public void setUp() {
-        sessionManager = new SessionManager();
+        sessionManager = SessionManager.getInstance();
         sessionManager.createUser("bobthebuilder13243", "bobspass");
         sessionManager.authenticateSession("bobthebuilder13243", "bobspass");
 
