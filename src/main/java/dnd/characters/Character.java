@@ -43,7 +43,7 @@ public class Character {
     //In D&D, characters have hit points that define how tough they are in combat, and this is defined by hit die specific to their class.
     //Players start with hit points equal to highest roll of that dice, as indicated by class description.
     int hitPoints;
-    public static final int hitPointInitial = 50;
+    public static final int hitPointInitial = 30;
 
 
 
