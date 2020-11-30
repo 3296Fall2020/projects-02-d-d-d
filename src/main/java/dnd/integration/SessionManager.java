@@ -34,6 +34,8 @@ import java.util.List;
 */
 public class SessionManager {
 
+    private static SessionManager instance = null;
+
     private boolean authenticated = false;
     private LocalDateTime tokenTime;
     private List<String> credentialsCache = new ArrayList<>();
@@ -41,6 +43,15 @@ public class SessionManager {
     private CloseableHttpClient client;
     private CharacterService characterService = new CharacterService();
     private GameService gameService = new GameService();
+
+
+    public static SessionManager getInstance() {
+        if (instance == null) {
+            instance = new SessionManager();
+        }
+        return instance;
+    }
+
 
     // Authenticate the session with the given username and password, store the token in the
     // class http client for future use
@@ -190,5 +201,11 @@ public class SessionManager {
         return true;
     }
 
+    public void reset() {
+        authenticated = false;
+        tokenTime = null;
+        credentialsCache = new ArrayList<>();
+        client = null;
+    }
 
 }

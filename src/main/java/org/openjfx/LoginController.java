@@ -28,7 +28,7 @@ public class LoginController extends App {
     //if the user is created, they will be taken to the primary controller screen.
     @FXML
     private void createProfile() throws IOException {
-        sessionManager = new SessionManager();
+        sessionManager = SessionManager.getInstance();
         if (sessionManager.createUser(username.getText(), password.getText())) {
             // if you have not logged in at all, client needs to login at least once for cacheing
             UserNameSingleton.getInstance().setUserName(username); //gets username for character creation later using singleton
@@ -46,7 +46,7 @@ public class LoginController extends App {
     // If it is correct, the primary controller will be shown.
     @FXML
     private void loginButton() throws IOException {
-        sessionManager = new SessionManager();
+        sessionManager = SessionManager.getInstance();
         if (sessionManager.authenticateSession(username.getText(), password.getText())) {
             UserNameSingleton.getInstance().setUserName(username); //gets username for character creation later using singleton
             App.setRoot("mainmenu");
