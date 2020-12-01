@@ -32,7 +32,7 @@ public class LoginController extends App {
         if (sessionManager.createUser(username.getText(), password.getText())) {
             // if you have not logged in at all, client needs to login at least once for cacheing
             UserNameSingleton.getInstance().setUserName(username); //gets username for character creation later using singleton
-            sessionManager.ensureAuthentication();
+            sessionManager.authenticateSession(username.getText(), password.getText());
             App.setRoot("mainmenu");
         } else {
             createMessage.setFill(Color.RED);
