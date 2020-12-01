@@ -105,7 +105,7 @@ public class CharacterController extends App implements Initializable {
         }
         player.setName(nameField.getText());
         statsSetter();
-        characterList.add(0, player); //makes sure character saves in game for user
+        characterList.set(0, player); //makes sure character saves in game for user
         sessionManager.saveGame(gameName, characterList);
     }
 
